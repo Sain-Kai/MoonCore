@@ -1,4 +1,12 @@
 #include "MoonCore/CommandLine.hpp"
+#include "Shutdown.hpp"
+
+static MC::Callables::Callable<void(i32)> s_ShutdownRequestHandler = nullptr;
+
+void MC::Details::RequestShutdown(i32 exitCode) noexcept
+{
+    if (s_ShutdownRequestHandler) s_ShutdownRequestHandler(exitCode);
+}
 
 namespace MC
 {
@@ -21,7 +29,7 @@ namespace MC
         return s_ProgramPath;
     }
 
-    bool CommandLine::Initialize(i32 argumentCount, const char7** arguments) noexcept
+    bool CommandLine::Initialize(i32 argumentCount, char7** const arguments) noexcept
     {
         if (argumentCount <= 0) return false;
 
@@ -35,5 +43,10 @@ namespace MC
         }
 
         return true;
+    }
+
+    void CommandLine::SetShutdownRequestHandler(const Callables::Callable<void(i32 exitCode)>& handler) noexcept
+    {
+        s_ShutdownRequestHandler = handler;
     }
 }

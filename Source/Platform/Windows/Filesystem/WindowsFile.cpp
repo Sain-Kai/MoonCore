@@ -288,8 +288,7 @@ namespace MC::Windows::Filesystem
     }
 }
 
-MC::Memory::Scope<FileBase> FileBase::
-Create(const MC::StringView& path, FileReadMode readMode) noexcept
+MC::Memory::Scope<FileBase> FileBase::Create(const MC::StringView& path, FileReadMode readMode) noexcept
 {
     return Memory::MakeScope<Windows::Filesystem::WindowsFile>(path, readMode);
 }
