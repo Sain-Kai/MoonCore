@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Async/WaitStrategy.hpp"
+#include "Async/WaitStrategy.hpp"
 
 namespace MC::Async
 {

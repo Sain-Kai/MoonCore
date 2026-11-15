@@ -1,6 +1,6 @@
-#include "MoonCore/Filesystem/File.hpp"
-#include "MoonCore/Filesystem/Filesystem.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Filesystem/File.hpp"
+#include "Filesystem/Filesystem.hpp"
+#include "Logging/Logger.hpp"
 
 namespace MC::Filesystem
 {

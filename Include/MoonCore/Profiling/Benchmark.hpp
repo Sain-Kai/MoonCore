@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Clock/Time.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Clock/Time.hpp"
+#include "Logging/Logger.hpp"
 
 namespace MC::Profiling
 {

@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Memory/Pointers/Reference.hpp"
+#include "Core.hpp"
+#include "Memory/Pointers/Reference.hpp"
 
 namespace MC
 {

@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Utility/Iterator.hpp"
+#include "Utility/Debug.hpp"
+#include "Utility/Iterator.hpp"
 
 namespace MC
 {

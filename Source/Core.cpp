@@ -1,9 +1,9 @@
-#include "MoonCore/Core.hpp"
+#include "Core.hpp"
 
-#include "MoonCore/CommandLine.hpp"
-#include "MoonCore/Filesystem/Filesystem.hpp"
-#include "MoonCore/Logging/Logger.hpp"
-#include "MoonCore/Memory/MemoryTracker.hpp"
+#include "CommandLine.hpp"
+#include "Filesystem/Filesystem.hpp"
+#include "Logging/Logger.hpp"
+#include "Memory/MemoryTracker.hpp"
 #include <Shutdown.hpp>
 
 void SetupPlatform() noexcept;

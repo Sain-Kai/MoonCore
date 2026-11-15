@@ -2,7 +2,7 @@
 #include "String/String.hpp"
 #include "String/StringView.hpp"
 #include "String/StringUtils.hpp"
-#include "MoonCore/Memory/Hasher.hpp"
+#include "Memory/Hasher.hpp"
 
 namespace MC
 {

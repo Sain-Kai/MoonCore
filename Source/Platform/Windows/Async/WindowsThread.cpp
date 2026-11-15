@@ -1,8 +1,8 @@
 #include "WindowsThread.hpp"
 
-#include "MoonCore/Containers/String/String.hpp"
-#include "MoonCore/Logging/Logger.hpp"
-#include "MoonCore/Utility/Format.hpp"
+#include "Containers/String/String.hpp"
+#include "Logging/Logger.hpp"
+#include "Utility/Format.hpp"
 
 using namespace MC::Logging;
 

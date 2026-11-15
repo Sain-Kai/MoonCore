@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Containers/String/String.hpp"
-#include "MoonCore/Math/Rect.hpp"
+#include "Types.hpp"
+#include "Containers/String/String.hpp"
+#include "Math/Rect.hpp"
 
 namespace MC::Memory
 {

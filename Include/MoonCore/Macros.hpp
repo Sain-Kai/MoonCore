@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Platform/Base/PlatformMacros.hpp"
+#include "Platform/Base/PlatformMacros.hpp"
 
 // Bitwise operations
 #define BIT(x) static_cast<u64>(1 << (x))

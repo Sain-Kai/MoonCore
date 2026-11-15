@@ -1,11 +1,11 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/StackArray.hpp"
-#include "MoonCore/Containers/String.hpp"
+#include "Core.hpp"
+#include "Containers/StackArray.hpp"
+#include "Containers/String.hpp"
 #include "Pointers/Scope.hpp"
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Async/Mutex.hpp"
-#include "MoonCore/Containers/UnorderedMap.hpp"
+#include "Utility/Debug.hpp"
+#include "Async/Mutex.hpp"
+#include "Containers/UnorderedMap.hpp"
 
 namespace MC::Memory
 {

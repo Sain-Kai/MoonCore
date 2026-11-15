@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "Core.hpp"
+#include "Utility/Debug.hpp"
 #include "Atomic.hpp"
 
 namespace MC::Async

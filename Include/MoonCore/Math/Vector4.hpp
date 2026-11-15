@@ -1,7 +1,7 @@
 #pragma once 
-#include "MoonCore/Math/MathCore.hpp"
-#include "MoonCore/Math/Vector2.hpp"
-#include "MoonCore/Math/Vector3.hpp"
+#include "Math/MathCore.hpp"
+#include "Math/Vector2.hpp"
+#include "Math/Vector3.hpp"
 
 // TODO: 128-bit SIMD Vector4
 

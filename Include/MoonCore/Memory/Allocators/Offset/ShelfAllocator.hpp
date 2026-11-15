@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Memory/Allocators/AllocatorShared.hpp"
+#include "Types.hpp"
+#include "Containers/Array.hpp"
+#include "Memory/Allocators/AllocatorShared.hpp"
 
 namespace MC::Memory
 {

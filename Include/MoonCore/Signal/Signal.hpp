@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/String.hpp"
-#include "MoonCore/Callables/Callable.hpp"
-#include "MoonCore/Utility/TypeUtility.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Core.hpp"
+#include "Containers/String.hpp"
+#include "Callables/Callable.hpp"
+#include "Utility/TypeUtility.hpp"
+#include "Logging/Logger.hpp"
 
 #define MC_SIGNAL_CATEGORY(categories) \
     public: virtual ::MC::MCSignal::Category GetCategory() const noexcept override { return categories; }

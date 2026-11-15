@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/String.hpp"
+#include "Core.hpp"
+#include "Containers/String.hpp"
 
 namespace MC::Utility
 {

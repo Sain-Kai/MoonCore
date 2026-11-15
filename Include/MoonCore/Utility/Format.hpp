@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Utility/Details/FmtTraits.inl"
-#include "MoonCore/Containers/String.hpp"
-#include "MoonCore/Utility/Iterator.hpp"
+#include "Utility/Details/FmtTraits.inl"
+#include "Containers/String.hpp"
+#include "Utility/Iterator.hpp"
 
 namespace MC
 {

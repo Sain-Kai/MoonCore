@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Clock/Time.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "Core.hpp"
+#include "Clock/Time.hpp"
+#include "Utility/Debug.hpp"
 
 #include "WaitStrategy.hpp"
 #include "Atomic.hpp"

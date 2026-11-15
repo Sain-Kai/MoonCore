@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Async/Mutex.hpp"
+#include "Async/Mutex.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Async

@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Types.hpp"
+#include "Types.hpp"
 
 #include "Debug.hpp"
-#include "MoonCore/Memory/Memory.hpp"
+#include "Memory/Memory.hpp"
 
 namespace MC::Utility
 {

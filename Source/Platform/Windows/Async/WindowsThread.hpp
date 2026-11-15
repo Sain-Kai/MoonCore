@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Async/Thread.hpp"
+#include "Async/Thread.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Async

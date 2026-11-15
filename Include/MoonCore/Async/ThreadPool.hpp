@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Callables/Callable.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Containers/Queue.hpp"
+#include "Core.hpp"
+#include "Callables/Callable.hpp"
+#include "Containers/Array.hpp"
+#include "Containers/Queue.hpp"
 #include "Thread.hpp"
 #include "ConditionVariable.hpp"
 #include "Mutex.hpp"

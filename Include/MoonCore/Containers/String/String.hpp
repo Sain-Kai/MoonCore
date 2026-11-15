@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Memory/Memory.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Containers/Bitset.hpp"
+#include "Core.hpp"
+#include "Memory/Memory.hpp"
+#include "Utility/Algorithm.hpp"
+#include "Utility/Debug.hpp"
+#include "Containers/Bitset.hpp"
 #include "StringShared.hpp"
 
 namespace MC

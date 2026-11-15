@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Types.hpp"
+#include "Types.hpp"
 #include "Format.hpp"
 
 namespace MC

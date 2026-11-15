@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Containers/Queue.hpp"
-#include "MoonCore/Containers/UnorderedMap.hpp"
-#include "MoonCore/Memory/Allocators/AllocatorShared.hpp"
+#include "Core.hpp"
+#include "Containers/Array.hpp"
+#include "Containers/Queue.hpp"
+#include "Containers/UnorderedMap.hpp"
+#include "Memory/Allocators/AllocatorShared.hpp"
 
 namespace MC::Memory
 {

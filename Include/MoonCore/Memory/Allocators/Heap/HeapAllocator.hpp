@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Types.hpp"
+#include "Types.hpp"
 
 namespace MC::Memory
 {

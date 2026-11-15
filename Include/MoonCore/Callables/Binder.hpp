@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Utility/Tuple.hpp"
+#include "Types.hpp"
+#include "Utility/Tuple.hpp"
 
 namespace MC::Callables
 {

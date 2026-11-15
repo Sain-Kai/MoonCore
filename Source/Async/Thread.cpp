@@ -1,5 +1,5 @@
-#include "MoonCore/Async/Thread.hpp"
-#include "MoonCore/Async/ThreadPool.hpp"
+#include "Async/Thread.hpp"
+#include "Async/ThreadPool.hpp"
 
 namespace MC::Async
 {

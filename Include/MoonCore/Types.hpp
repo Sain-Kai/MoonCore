@@ -10,11 +10,11 @@
 
 // Platform types
 #if defined(PLATFORM_WINDOWS)
-	#	include "MoonCore/Platform/WindowsTypes.inl"
+	#	include "Platform/WindowsTypes.inl"
 #elif defined(PLATFORM_UNIX)
-	#	include "MoonCore/Platform/Unix/UnixTypes.hpp"
+	#	include "Platform/Unix/UnixTypes.hpp"
 #else
-#	include "MoonCore/Platform/Base/BaseTypes.hpp"
+#	include "Platform/Base/BaseTypes.hpp"
     typedef BaseTypes PlatformTypes;
 #endif 
 

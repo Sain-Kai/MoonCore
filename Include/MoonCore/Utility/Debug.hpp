@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Core.hpp"
+#include "Core.hpp"
 
 #define MC_UNREACHABLE()
 

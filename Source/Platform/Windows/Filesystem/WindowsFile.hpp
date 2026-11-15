@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Filesystem/File.hpp"
-#include "MoonCore/Containers/String.hpp"
+#include "Core.hpp"
+#include "Filesystem/File.hpp"
+#include "Containers/String.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Filesystem

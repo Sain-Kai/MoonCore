@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
+#include "Core.hpp"
 #include "Deleter.hpp"
-#include "MoonCore/Async/Atomic.hpp"
+#include "Async/Atomic.hpp"
 
 namespace MC::Memory
 {

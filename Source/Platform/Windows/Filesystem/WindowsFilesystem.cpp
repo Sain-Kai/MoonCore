@@ -1,5 +1,5 @@
 #include "WindowsFilesystem.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Logging/Logger.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 #include "Platform/Windows/WindowsMemory.hpp"
 

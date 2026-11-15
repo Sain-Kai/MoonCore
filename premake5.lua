@@ -50,6 +50,7 @@ project "Core"
     {
         "Dependencies/spdlog/include",
         "Dependencies/xxHash",
+        "Include/MoonCore",
         "Source",
     }
 

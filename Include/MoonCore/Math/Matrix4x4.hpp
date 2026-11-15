@@ -1,6 +1,6 @@
 #pragma once
 #include "MathCore.hpp"
-#include "MoonCore/Core.hpp"
+#include "Core.hpp"
 #include "Vector3.hpp"
 #include "Vector4.hpp"
 #include "Quaternion.hpp"

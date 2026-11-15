@@ -1,5 +1,5 @@
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Utility/Debug.hpp"
+#include "Logging/Logger.hpp"
 
 using namespace MC::Logging;
 

@@ -1,7 +1,7 @@
-#include "MoonCore/Logging/Logger.hpp"
-#include "MoonCore/Async/Mutex.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Clock/Time.hpp"
+#include "Logging/Logger.hpp"
+#include "Async/Mutex.hpp"
+#include "Containers/Array.hpp"
+#include "Clock/Time.hpp"
 
 #undef TEXT
 #include <spdlog/spdlog.h>

@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/TypeTraits.hpp"
-#include "MoonCore/Concept.hpp"
+#include "Core.hpp"
+#include "TypeTraits.hpp"
+#include "Concept.hpp"
 
 namespace MC::Concept
 {

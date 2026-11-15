@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Concept.hpp"
-#include "MoonCore/Containers/String/StringView.hpp"
-#include "MoonCore/Memory/Pointers/Scope.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "Core.hpp"
+#include "Concept.hpp"
+#include "Containers/String/StringView.hpp"
+#include "Memory/Pointers/Scope.hpp"
+#include "Utility/Debug.hpp"
 
 namespace MC::Clock
 {

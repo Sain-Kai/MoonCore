@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Memory/Pointers/Scope.hpp"
+#include "Core.hpp"
+#include "Memory/Pointers/Scope.hpp"
 
 namespace MC::Async
 {

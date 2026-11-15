@@ -1,10 +1,10 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
-#include "MoonCore/Memory/Memory.hpp"
-#include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
-#include "MoonCore/Callables/Functors.hpp"
-#include "MoonCore/Utility/Pair.hpp"
+#include "Core.hpp"
+#include "Utility/Algorithm.hpp"
+#include "Memory/Memory.hpp"
+#include "Memory/Allocators/Heap/HeapAllocator.hpp"
+#include "Callables/Functors.hpp"
+#include "Utility/Pair.hpp"
 
 namespace MC::Concept
 {

@@ -1,4 +1,4 @@
-#include "MoonCore/CommandLine.hpp"
+#include "CommandLine.hpp"
 #include "Shutdown.hpp"
 
 static MC::Callables::Callable<void(i32)> s_ShutdownRequestHandler = nullptr;

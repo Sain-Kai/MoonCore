@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Containers/String.hpp"
-#include "MoonCore/Containers/UnorderedMap.hpp"
-#include "MoonCore/Memory/Pointers/Scope.hpp"
+#include "Core.hpp"
+#include "Containers/Array.hpp"
+#include "Containers/String.hpp"
+#include "Containers/UnorderedMap.hpp"
+#include "Memory/Pointers/Scope.hpp"
 
 namespace MC::Filesystem
 {

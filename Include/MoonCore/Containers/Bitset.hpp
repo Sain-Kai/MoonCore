@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "Types.hpp"
+#include "Utility/Debug.hpp"
 #include "String/StringShared.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "Utility/Algorithm.hpp"
 
 namespace MC
 {

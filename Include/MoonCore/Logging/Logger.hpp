@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Async/Atomic.hpp"
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Utility/Format.hpp"
+#include "Core.hpp"
+#include "Async/Atomic.hpp"
+#include "Utility/Debug.hpp"
+#include "Utility/Format.hpp"
 
 namespace MC::Logging
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Async/ConditionVariable.hpp"
+#include "Async/ConditionVariable.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Async

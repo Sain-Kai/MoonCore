@@ -1,6 +1,6 @@
 #pragma once
 #include "Deleter.hpp"
-#include "MoonCore/Concept.hpp"
+#include "Concept.hpp"
 
 namespace MC::Memory
 {

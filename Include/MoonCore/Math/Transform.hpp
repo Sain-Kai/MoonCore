@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Math/Math.hpp"
+#include "Math/Math.hpp"
 
 namespace MC::Math
 {

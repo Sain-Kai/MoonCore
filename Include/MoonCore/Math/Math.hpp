@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Math/Vector4.hpp"
+#include "Math/Vector4.hpp"
 #include "Matrix4x4.hpp"
 
 namespace MC::Math

@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Memory/Hasher.hpp"
-#include "MoonCore/Containers/String.hpp"
-#include "MoonCore/Utility/Debug.hpp"
-#include "MoonCore/Async/Atomic.hpp"
+#include "Memory/Hasher.hpp"
+#include "Containers/String.hpp"
+#include "Utility/Debug.hpp"
+#include "Async/Atomic.hpp"
 
 namespace MC::Utility
 {

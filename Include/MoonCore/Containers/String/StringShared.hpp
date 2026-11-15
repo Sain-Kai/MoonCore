@@ -1,10 +1,10 @@
 #pragma once
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Memory/Memory.hpp"
-#include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
+#include "Types.hpp"
+#include "Memory/Memory.hpp"
+#include "Memory/Allocators/Heap/HeapAllocator.hpp"
 #include "StringIterators.hpp"
-#include "MoonCore/TypeTraits.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "TypeTraits.hpp"
+#include "Utility/Debug.hpp"
 #include <cstring>
 
 namespace MC::Concept

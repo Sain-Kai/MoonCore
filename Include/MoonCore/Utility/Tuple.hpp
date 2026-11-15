@@ -1,6 +1,6 @@
 #pragma once
 #include "Sequences.hpp"
-#include "MoonCore/Types.hpp"
+#include "Types.hpp"
 
 namespace MC::Utility
 {

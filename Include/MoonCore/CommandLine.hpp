@@ -1,8 +1,8 @@
 #pragma once
 #include "Callables/Callable.hpp"
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Containers/String.hpp"
+#include "Core.hpp"
+#include "Containers/Array.hpp"
+#include "Containers/String.hpp"
 
 namespace MC
 {

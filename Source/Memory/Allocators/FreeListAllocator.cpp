@@ -1,6 +1,6 @@
-#include "MoonCore/Memory/Allocators/Index/FreeListAllocator.hpp"
+#include "Memory/Allocators/Index/FreeListAllocator.hpp"
 
-#include "MoonCore/Logging/Logger.hpp"
+#include "Logging/Logger.hpp"
 
 namespace MC::Memory
 {

@@ -1,6 +1,6 @@
-#include "MoonCore/Memory/MemoryTracker.hpp"
+#include "Memory/MemoryTracker.hpp"
 
-#include "MoonCore/Logging/Logger.hpp"
+#include "Logging/Logger.hpp"
 
 namespace MC::Memory
 {

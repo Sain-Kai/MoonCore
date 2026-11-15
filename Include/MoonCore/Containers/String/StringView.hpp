@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Containers/String/StringShared.hpp"
-#include "MoonCore/Containers/Bitset.hpp"
+#include "Containers/String/StringShared.hpp"
+#include "Containers/Bitset.hpp"
 
 namespace MC
 {

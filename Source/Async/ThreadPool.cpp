@@ -1,6 +1,6 @@
-#include "MoonCore/Async/ThreadPool.hpp"
-#include "MoonCore/Containers/String/String.hpp"
-#include "MoonCore/Utility/Format.hpp"
+#include "Async/ThreadPool.hpp"
+#include "Containers/String/String.hpp"
+#include "Utility/Format.hpp"
 
 namespace MC::Async
 {

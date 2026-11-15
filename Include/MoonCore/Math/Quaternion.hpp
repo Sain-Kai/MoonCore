@@ -1,6 +1,6 @@
 #pragma once
 #include "MathCore.hpp"
-#include "MoonCore/Utility/Format.hpp"
+#include "Utility/Format.hpp"
 
 namespace MC::Math
 {

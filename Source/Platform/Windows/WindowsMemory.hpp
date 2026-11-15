@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Memory/Pointers/Scope.hpp"
-#include "MoonCore/Memory/Pointers/Reference.hpp"
+#include "Memory/Pointers/Scope.hpp"
+#include "Memory/Pointers/Reference.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Concept

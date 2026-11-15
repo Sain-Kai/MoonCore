@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Callables/Callable.hpp"
-#include "MoonCore/Clock/Time.hpp"
-#include "MoonCore/Memory/Pointers/Reference.hpp"
-#include "MoonCore/Containers/String/StringView.hpp"
+#include "Core.hpp"
+#include "Callables/Callable.hpp"
+#include "Clock/Time.hpp"
+#include "Memory/Pointers/Reference.hpp"
+#include "Containers/String/StringView.hpp"
 #include "Atomic.hpp"
 
 namespace MC::Async

@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Core.hpp"
+#include "Core.hpp"
 #include "String.hpp"
 #include "StringView.hpp"
-#include "MoonCore/Utility/Pair.hpp"
+#include "Utility/Pair.hpp"
 
 namespace MC::Utility
 {

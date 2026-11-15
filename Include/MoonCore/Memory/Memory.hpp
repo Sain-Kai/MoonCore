@@ -1,7 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Types.hpp"
-#include "MoonCore/Utility/Debug.hpp"
+#include "Core.hpp"
+#include "Types.hpp"
+#include "Utility/Debug.hpp"
 
 namespace MC::Concept
 {    

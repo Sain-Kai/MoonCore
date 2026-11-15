@@ -1,6 +1,6 @@
 #pragma once 
-#include "MoonCore/Math/MathCore.hpp"
-#include "MoonCore/Math/Vector2.hpp"
+#include "Math/MathCore.hpp"
+#include "Math/Vector2.hpp"
 
 namespace MC::Math
 {

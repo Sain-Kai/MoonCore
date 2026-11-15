@@ -1,5 +1,5 @@
-#include "MoonCore/Filesystem/Filesystem.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Filesystem/Filesystem.hpp"
+#include "Logging/Logger.hpp"
 
 using namespace MC::Logging;
 

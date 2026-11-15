@@ -1,8 +1,8 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Callables/Functors.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "Core.hpp"
+#include "Callables/Functors.hpp"
+#include "Containers/Array.hpp"
+#include "Utility/Algorithm.hpp"
 #include "Details/HeapShared.hpp"
 
 namespace MC::Concept

@@ -1,6 +1,6 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Clock/Time.hpp"
+#include "Core.hpp"
+#include "Clock/Time.hpp"
 
 namespace MC::Clock
 {

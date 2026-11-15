@@ -1,7 +1,7 @@
-#include "MoonCore/Memory/Memory.hpp"
+#include "Memory/Memory.hpp"
 
-#include "MoonCore/Memory/MemoryTracker.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "Memory/MemoryTracker.hpp"
+#include "Utility/Algorithm.hpp"
 
 namespace MC::Memory
 {

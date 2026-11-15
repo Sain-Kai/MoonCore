@@ -1,4 +1,4 @@
-#include "MoonCore/Clock/Time.hpp"
+#include "Clock/Time.hpp"
 
 namespace MC::Clock
 {
