@@ -1,8 +1,8 @@
 #pragma once
-#include "String/String.hpp"
-#include "String/StringView.hpp"
-#include "String/StringUtils.hpp"
-#include "Memory/Hasher.hpp"
+#include "MoonCore/Containers/String/String.hpp"
+#include "MoonCore/Containers/String/StringView.hpp"
+#include "MoonCore/Containers/String/StringUtils.hpp"
+#include "MoonCore/Memory/Hasher.hpp"
 
 namespace MC
 {
