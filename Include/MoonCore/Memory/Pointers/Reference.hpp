@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.hpp"
-#include "Deleter.hpp"
-#include "Async/Atomic.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Memory/Pointers/Deleter.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Memory
 {
@@ -297,37 +297,37 @@ namespace MC::Memory
     public:
         template <typename Y, ReferenceMode YMode = Mode, Concept::Deleter<Y> DY = ExtractRebind<D, Y>>
             requires Concept::ConvertibleTo<Y*, T*>
-        MC_NODISCARD Reference<Y, YMode, DY> As() const noexcept
+        MOON_NODISCARD Reference<Y, YMode, DY> As() const noexcept
         {
             return Reference<Y, YMode, DY>(*this, static_cast<Y*>(m_Ptr));
         }
 
         template <typename Y>
             requires Concept::ConvertibleTo<Y*, T*>
-        MC_NODISCARD Y* GetAs() const noexcept
+        MOON_NODISCARD Y* GetAs() const noexcept
         {
             return static_cast<Y*>(m_Ptr);
         }
 
-        MC_NODISCARD Pointer Get() const noexcept { return m_Ptr; }
-        MC_NODISCARD Pointer operator->() const noexcept { return m_Ptr; }
-        MC_NODISCARD ValueReference operator*()  const noexcept { return *m_Ptr; }
+        MOON_NODISCARD Pointer Get() const noexcept { return m_Ptr; }
+        MOON_NODISCARD Pointer operator->() const noexcept { return m_Ptr; }
+        MOON_NODISCARD ValueReference operator*()  const noexcept { return *m_Ptr; }
 
-        MC_NODISCARD u64 GetReferenceCount() const noexcept
+        MOON_NODISCARD u64 GetReferenceCount() const noexcept
         {
             if (m_Control) return m_Control->GetReferenceCount();
             return 0;
         }
 
-        MC_NODISCARD bool IsValid() const noexcept { return m_Ptr != nullptr; }
-        MC_NODISCARD operator bool() const noexcept { return IsValid(); }
+        MOON_NODISCARD bool IsValid() const noexcept { return m_Ptr != nullptr; }
+        MOON_NODISCARD operator bool() const noexcept { return IsValid(); }
 
-        MC_NODISCARD bool operator==(const Reference& other) const noexcept
+        MOON_NODISCARD bool operator==(const Reference& other) const noexcept
         {
             return m_Ptr == other.m_Ptr;
         }
 
-        MC_NODISCARD bool operator==(NullptrT) const noexcept
+        MOON_NODISCARD bool operator==(NullptrT) const noexcept
         {
             return m_Ptr == nullptr;
         }
@@ -454,7 +454,7 @@ namespace MC::Memory
             Release();
         }
 
-        MC_NODISCARD bool Expired() const noexcept
+        MOON_NODISCARD bool Expired() const noexcept
         {
             return m_Control == nullptr || m_Control->GetReferenceCount() == 0;
         }

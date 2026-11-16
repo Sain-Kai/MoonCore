@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.hpp"
-#include "TypeTraits.hpp"
-#include "Concept.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/TypeTraits.hpp"
+#include "MoonCore/Concept.hpp"
 
 namespace MC::Concept
 {
@@ -124,7 +124,7 @@ namespace MC::Iterator
             return *this;
         }
 
-        MC_NODISCARD BackInsertIterator& operator*() noexcept { return *this; }
+        MOON_NODISCARD BackInsertIterator& operator*() noexcept { return *this; }
         constexpr BackInsertIterator& operator++() noexcept { return *this; }
         constexpr BackInsertIterator operator++(int) noexcept { return *this; }
 

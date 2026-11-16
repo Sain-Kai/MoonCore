@@ -1,5 +1,5 @@
 #pragma once
-#include "TypeTraits.hpp"
+#include "MoonCore/TypeTraits.hpp"
 
 namespace MC::Utility
 {

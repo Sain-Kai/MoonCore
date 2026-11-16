@@ -1,7 +1,7 @@
 #pragma once
-#include "Utility/Details/FmtTraits.inl"
-#include "Containers/String.hpp"
-#include "Utility/Iterator.hpp"
+#include "MoonCore/Utility/Details/FmtTraits.inl"
+#include "MoonCore/Containers/String.hpp"
+#include "MoonCore/Utility/Iterator.hpp"
 
 namespace MC
 {
@@ -71,8 +71,8 @@ namespace MC
     }
 }
 
-MC_FMT_FORMATTER_UTF7(MC::StringView, "{}", MC::AsChar7(MC_FMT_FORMATTER_VALUE()));
-MC_FMT_FORMATTER_UTF8(MC::StringView, "{}", MC_FMT_FORMATTER_METHOD(String));
+MOON_FMT_FORMATTER_UTF7(MC::StringView, "{}", MC::AsChar7(MOON_FMT_FORMATTER_VALUE()));
+MOON_FMT_FORMATTER_UTF8(MC::StringView, "{}", MOON_FMT_FORMATTER_METHOD(String));
 
-MC_FMT_FORMATTER_UTF7(MC::String, "{}", MC::AsChar7(MC_FMT_FORMATTER_VALUE()));
-MC_FMT_FORMATTER_UTF8(MC::String, "{}", MC_FMT_FORMATTER_METHOD(String));
+MOON_FMT_FORMATTER_UTF7(MC::String, "{}", MC::AsChar7(MOON_FMT_FORMATTER_VALUE()));
+MOON_FMT_FORMATTER_UTF8(MC::String, "{}", MOON_FMT_FORMATTER_METHOD(String));

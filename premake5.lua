@@ -108,7 +108,7 @@ project "Core"
         defines { "FMT_HEADER_ONLY" }
         filter "options:link=static"
             defines { "MOON_CORE_STATIC_LIB" }
-    filter {}
+        filter {}
     
     group "Dependencies"
         include "Dependencies/xxHash"

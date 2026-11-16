@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.hpp"
+#include "MoonCore/Core.hpp"
 
 namespace MC::Concept
 {
@@ -35,7 +35,7 @@ namespace MC::Memory
 
 	public:
 		template<bool TableSizeIsUsed = true>
-		MC_NODISCARD static usize Hash(const ValueType* data, usize size, usize tableSize, u64 seed = 0) noexcept
+		MOON_NODISCARD static usize Hash(const ValueType* data, usize size, usize tableSize, u64 seed = 0) noexcept
 		{
 			if constexpr (TableSizeIsUsed)
 			{
@@ -74,7 +74,7 @@ namespace MC::Memory
 
 	public:
 		template<bool TableSizeIsUsed = true>
-		MC_NODISCARD static usize Hash(ValueType data, usize size, usize tableSize, u64 seed = 0) noexcept
+		MOON_NODISCARD static usize Hash(ValueType data, usize size, usize tableSize, u64 seed = 0) noexcept
 		{
 			if constexpr (TableSizeIsUsed)
 			{
@@ -113,7 +113,7 @@ namespace MC::Memory
 
 	public:
 		template<bool TableSizeIsUsed = true>
-		MC_NODISCARD static usize Hash(const ValueType* data, usize size, usize tableSize, u64 seed = 0) noexcept
+		MOON_NODISCARD static usize Hash(const ValueType* data, usize size, usize tableSize, u64 seed = 0) noexcept
 		{
 			if constexpr (TableSizeIsUsed)
 			{
@@ -158,7 +158,7 @@ namespace MC::Memory
 	template<>
 	struct ConstexprHasher<const char8*>
 	{
-		MC_NODISCARD constexpr static usize Hash(const char8* data, usize length, usize tableSize) noexcept
+		MOON_NODISCARD constexpr static usize Hash(const char8* data, usize length, usize tableSize) noexcept
 		{
 			usize hash = Helper::FNV_OFFSET_BASIS;
 			for (usize i = 0; i < length; ++i)
@@ -173,7 +173,7 @@ namespace MC::Memory
 	template<>
 	struct ConstexprHasher<const wchar*>
 	{
-		MC_NODISCARD constexpr static usize Hash(const wchar* const data, usize length, usize tableSize) noexcept
+		MOON_NODISCARD constexpr static usize Hash(const wchar* const data, usize length, usize tableSize) noexcept
 		{
 			usize hash = Helper::FNV_OFFSET_BASIS;
 			for (usize i = 0; i < length; ++i)

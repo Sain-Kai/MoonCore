@@ -1,6 +1,6 @@
 #pragma once
-#include "Deleter.hpp"
-#include "Concept.hpp"
+#include "MoonCore/Concept.hpp"
+#include "MoonCore/Memory/Pointers/Deleter.hpp"
 
 namespace MC::Memory
 {
@@ -51,7 +51,7 @@ namespace MC::Memory
         }
 
     public:
-        MC_NODISCARD_MSG("Possible dangling pointer, released pointer must be assigned and deleted properly.") 
+        MOON_NODISCARD_MSG("Possible dangling pointer, released pointer must be assigned and deleted properly.") 
         constexpr Pointer Release() noexcept
         {
             Pointer temp = m_Ptr;
@@ -75,31 +75,31 @@ namespace MC::Memory
     public:
         template <typename Y>
             requires Concept::ConvertibleTo<Y*, T*>
-        MC_NODISCARD constexpr Y* GetAs() const noexcept
+        MOON_NODISCARD constexpr Y* GetAs() const noexcept
         {
             return static_cast<Y*>(m_Ptr);
         }
 
-        MC_NODISCARD constexpr void GetBase() const noexcept
+        MOON_NODISCARD constexpr void GetBase() const noexcept
         {
             return static_cast<Base>(m_Ptr);
         }
 
-        MC_NODISCARD constexpr Pointer Get() const noexcept { return m_Ptr; }
-        MC_NODISCARD constexpr const Pointer& GetDirect() const noexcept { return m_Ptr; }
-        MC_NODISCARD constexpr Pointer& GetDirect() noexcept { return m_Ptr; }
-        MC_NODISCARD constexpr Pointer operator->() const noexcept { return m_Ptr; }
-        MC_NODISCARD constexpr Reference operator*() const noexcept { return *m_Ptr; }
+        MOON_NODISCARD constexpr Pointer Get() const noexcept { return m_Ptr; }
+        MOON_NODISCARD constexpr const Pointer& GetDirect() const noexcept { return m_Ptr; }
+        MOON_NODISCARD constexpr Pointer& GetDirect() noexcept { return m_Ptr; }
+        MOON_NODISCARD constexpr Pointer operator->() const noexcept { return m_Ptr; }
+        MOON_NODISCARD constexpr Reference operator*() const noexcept { return *m_Ptr; }
 
-        MC_NODISCARD constexpr bool IsValid() const noexcept { return m_Ptr != nullptr; }
-        MC_NODISCARD constexpr operator bool() const noexcept { return m_Ptr != nullptr; }
+        MOON_NODISCARD constexpr bool IsValid() const noexcept { return m_Ptr != nullptr; }
+        MOON_NODISCARD constexpr operator bool() const noexcept { return m_Ptr != nullptr; }
 
-        MC_NODISCARD constexpr bool operator==(const Scope& other) const noexcept
+        MOON_NODISCARD constexpr bool operator==(const Scope& other) const noexcept
         {
             return m_Ptr == other.m_Ptr;
         }
 
-        MC_NODISCARD constexpr bool operator==(NullptrT) const noexcept
+        MOON_NODISCARD constexpr bool operator==(NullptrT) const noexcept
         {
             return m_Ptr == nullptr;
         }

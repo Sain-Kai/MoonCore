@@ -4,7 +4,7 @@
 
 namespace MC::Windows::Async
 {
-    class WindowsConditionVariable final: public MC::Async::ConditionVariableBase
+    class WindowsConditionVariable final: public MC::Async::Details::ConditionVariableBase
     {
     public:
         WindowsConditionVariable() noexcept;

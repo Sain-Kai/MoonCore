@@ -1,13 +1,13 @@
 #pragma once
-#include "Core.hpp"
-#include "Containers/String.hpp"
-#include "Callables/Callable.hpp"
-#include "Utility/TypeUtility.hpp"
-#include "Logging/Logger.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Containers/String.hpp"
+#include "MoonCore/Callables/Callable.hpp"
+#include "MoonCore/Utility/TypeUtility.hpp"
+#include "MoonCore/Logging/Logger.hpp"
 
-#define MC_SIGNAL_CATEGORY(categories) \
+#define MOON_SIGNAL_CATEGORY(categories) \
     public: virtual ::MC::Signal::Category GetCategory() const noexcept override { return categories; }
-#define MC_SIGNAL_TYPE(type)                                                             \
+#define MOON_SIGNAL_TYPE(type)                                                             \
     public:                                                                               \
         static ::MC::Signal::Type GetStaticType() noexcept                \
         {                                                                                 \
@@ -19,10 +19,10 @@
             return type::GetStaticType();                                                 \
         }                                                                                 \
         virtual MC::StringView GetName() const noexcept override { return TEXT(#type); }
-#define MC_SIGNAL_INHERIT() public MC::Signal
+#define MOON_SIGNAL_INHERIT() public MC::Signal
 
-#define MC_FMT_SIGNAL(signal, str, ...) MC_FMT_FORMATTER((signal)&, "Signal %s fired! Data: " ## str, MC_FMT_FORMATTER_METHOD(GetName), __VA_ARGS__)
-#define MC_FMT_DEFAULT_SIGNAL(signal) MC_FMT_FORMATTER((signal)&, "Signal %s fired!", MC_FMT_FORMATTER_METHOD(GetName))
+#define MOON_FMT_SIGNAL(signal, str, ...) MOON_FMT_FORMATTER((signal)&, "Signal %s fired! Data: " ## str, MOON_FMT_FORMATTER_METHOD(GetName), __VA_ARGS__)
+#define MOON_FMT_DEFAULT_SIGNAL(signal) MOON_FMT_FORMATTER((signal)&, "Signal %s fired!", MOON_FMT_FORMATTER_METHOD(GetName))
 
 namespace MC
 {
@@ -51,11 +51,11 @@ namespace MC
         template<typename T> static constexpr Category GenerateCategory() noexcept { return CategoryGenerator::ID<T>(); }
 
     public:
-        virtual ~Signal() = default;
+        COREAPI virtual ~Signal() = default;
 
-        virtual Category GetCategory() const noexcept = 0;
-        virtual Type GetType() const noexcept = 0;
-        virtual MC::StringView GetName() const noexcept = 0;
+        COREAPI virtual Category GetCategory() const noexcept = 0;
+        COREAPI virtual Type GetType() const noexcept = 0;
+        COREAPI virtual MC::StringView GetName() const noexcept = 0;
 
     public:
         bool IsHandled() const noexcept { return m_IsHandled; }
@@ -87,4 +87,4 @@ namespace MC
     };
 }
 
-MC_FMT_FORMATTER(MC::Signal&, "Signal %s fired!", MC_FMT_FORMATTER_METHOD(GetName))
+MOON_FMT_FORMATTER(MC::Signal&, "Signal %s fired!", MOON_FMT_FORMATTER_METHOD(GetName))

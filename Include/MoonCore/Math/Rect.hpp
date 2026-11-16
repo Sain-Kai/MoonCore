@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "MathCore.hpp"
+#include "MoonCore/Math/MathCore.hpp"
 
 namespace MC::Math
 {
@@ -53,6 +53,6 @@ namespace MC::Math
 	};
 }
 
-MC_FMT_FORMATTER_TEMPLATE(<MC::Concept::Number T>, MC::Math::Resolution2D<T>, "%f, %f", MC_FMT_FORMATTER_MEMBER(x), MC_FMT_FORMATTER_MEMBER(y));
-MC_FMT_FORMATTER_TEMPLATE(<MC::Concept::Number T>, MC::Math::Resolution3D<T>, "%f, %f, %f", MC_FMT_FORMATTER_MEMBER(x), MC_FMT_FORMATTER_MEMBER(y), MC_FMT_FORMATTER_MEMBER(z));
-MC_FMT_FORMATTER(MC::Math::Rect2D, "Offset: %f; Extent: %f", MC_FMT_FORMATTER_MEMBER(Offset), MC_FMT_FORMATTER_MEMBER(Extent));
+MOON_FMT_FORMATTER_TEMPLATE(<MC::Concept::Number T>, MC::Math::Resolution2D<T>, "%f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));
+MOON_FMT_FORMATTER_TEMPLATE(<MC::Concept::Number T>, MC::Math::Resolution3D<T>, "%f, %f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y), MOON_FMT_FORMATTER_MEMBER(z));
+MOON_FMT_FORMATTER(MC::Math::Rect2D, "Offset: %f; Extent: %f", MOON_FMT_FORMATTER_MEMBER(Offset), MOON_FMT_FORMATTER_MEMBER(Extent));

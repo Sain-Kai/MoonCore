@@ -35,7 +35,7 @@ namespace MC::Clock
 	
 	void Time::InitializeImpl() noexcept
 	{
-		m_Source = TimeSource::Create();
+		m_Source = Details::TimeSource::Create();
 		m_Frame.LastFrame = Now();
 		m_Frame.DeltaTime = Timestep(0);
 		m_Logic.LastFrame = Now();

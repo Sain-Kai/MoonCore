@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.hpp"
-#include "Memory/Pointers/Reference.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Memory/Pointers/Reference.hpp"
 
 namespace MC
 {
@@ -9,21 +9,21 @@ namespace MC
     {
 	public:
 		template<typename T>
-		MC_NODISCARD constexpr T* As() const noexcept
+		MOON_NODISCARD constexpr T* As() const noexcept
 		{
 			static_assert(!IsSame<T, BaseClass> && IsBaseOf<BaseClass, T>,
 				"T must be derived from RenderObject, but not the BaseClass itself!");
 			return static_cast<T*>(this);
 		}
 		template<typename T>
-		MC_NODISCARD MC::Memory::Reference<T> AsReference() const noexcept
+		MOON_NODISCARD MC::Memory::Reference<T> AsReference() const noexcept
 		{
 			static_assert(!IsSame<T, BaseClass> && IsBaseOf<BaseClass, T>,
 				"T must be derived from BaseClass, but not the BaseClass itself!");
 			return MC::Memory::StaticPointerCast<T>(this->ReferenceFromThis());
 		}
 		template<typename T>
-		MC_NODISCARD MC::Memory::WeakReference<T> AsWeak() const noexcept
+		MOON_NODISCARD MC::Memory::WeakReference<T> AsWeak() const noexcept
 		{
 			static_assert(!IsSame<T, BaseClass> && IsBaseOf<BaseClass, T>,
 				"T must be derived from BaseClass, but not the BaseClass itself!");

@@ -13,7 +13,7 @@ namespace MC::Callables
         public:
             virtual ~Invokable() = default;
             virtual ReturnType Invoke(ArgTypes&&... arguments) const = 0;
-            MC_NODISCARD virtual Invokable* Clone() const noexcept = 0;
+            MOON_NODISCARD virtual Invokable* Clone() const noexcept = 0;
         };
 
         template<typename Signature, typename ReturnType, typename... ArgTypes>
@@ -30,7 +30,7 @@ namespace MC::Callables
                 return MC::Invoke(m_Function, Forward<ArgTypes>(arguments)...);
             }
 
-            MC_NODISCARD Base* Clone() const noexcept override
+            MOON_NODISCARD Base* Clone() const noexcept override
             {
                 return new(std::nothrow) InvokableImpl(m_Function);
             }
@@ -142,7 +142,7 @@ namespace MC::Callables
     public:
         ReturnType operator()(ArgTypes... arguments) const 
         {
-            MC_CHECK(m_Ptr, "Can't call a function that is a nullptr");
+            MOON_CHECK(m_Ptr, "Can't call a function that is a nullptr");
             return m_Ptr->Invoke(Forward<ArgTypes>(arguments)...);
         }
 
@@ -204,7 +204,7 @@ namespace MC::Callables
 
         ReturnType operator()(ArgTypes... arguments) const
         {
-            MC_CHECK(m_Ptr, "Can't call a function that is a nullptr");
+            MOON_CHECK(m_Ptr, "Can't call a function that is a nullptr");
             return m_Ptr(Forward<ArgTypes>(arguments)...);
         }
 

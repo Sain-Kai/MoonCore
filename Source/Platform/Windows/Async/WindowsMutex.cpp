@@ -132,12 +132,12 @@ namespace MC::Windows::Async
     }
 }
 
-MC::Memory::Scope<MC::Async::MutexBase> MC::Async::MutexBase::Create()
+MC::Memory::Scope<MC::Async::Details::MutexBase> MC::Async::Details::MutexBase::Create()
 {
     return Memory::MakeScope<MC::Windows::Async::WindowsMutex>();
 }
 
-MC::Memory::Scope<MC::Async::SharedMutexBase> MC::Async::SharedMutexBase::Create()
+MC::Memory::Scope<MC::Async::Details::SharedMutexBase> MC::Async::Details::SharedMutexBase::Create()
 {
     return Memory::MakeScope<MC::Windows::Async::WindowsSharedMutex>();
 }

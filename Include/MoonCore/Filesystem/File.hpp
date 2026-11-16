@@ -5,26 +5,26 @@
 
 namespace MC::Filesystem
 {
-    enum class FileOperationError : u8
-	{
-		Success = 0,
-		FileNotOpened, FileIsReadOnly,
-		ReadFileFailed, WriteFileFailed, SeekFailed, FlushFailed, LockFailed,
-        EndOfFile, PartialRead,
-        Unknown, UnknownReadMode
-	};
-
-    enum class FileReadMode : u8
+    namespace Enums
     {
-        Read = 0,
-        Write,
-        ReadAndWrite,
-        Unknown
-    };
+        enum class OperationError : u8
+        {
+            Success = 0,
+            FileNotOpened, FileIsReadOnly,
+            ReadFileFailed, WriteFileFailed, SeekFailed, FlushFailed, LockFailed,
+            EndOfFile, PartialRead,
+            Unknown, UnknownReadMode
+        };
 
-    namespace Input
-    {
-        enum class ReadMode
+        enum class ReadMode : u8
+        {
+            Read = 0,
+            Write,
+            ReadAndWrite,
+            Unknown
+        };
+
+        enum class WordReadMode : u8
         {
             Word = 0,
             Line,
@@ -41,40 +41,43 @@ namespace MC::Filesystem
 		MC::Clock::Timepoint LastWriteTime = Clock::Timepoint();
 	};
 
-    class FileBase
+    namespace Details
     {
-    public:
-        virtual ~FileBase() noexcept = default;
-        
-        virtual bool Read(MC::String& output, Input::ReadMode readMode, const StringView& symbols = TEXT("")) noexcept = 0;
-        virtual bool Read(void* data, usize size) noexcept = 0;
+        class FileBase
+        {
+        public:
+            virtual ~FileBase() noexcept = default;
 
-        virtual bool Write(char8 character) noexcept = 0;
-        virtual bool Write(const MC::StringView& str) noexcept = 0;
-        virtual bool Write(const void* input, usize size) noexcept = 0;
+            virtual bool Read(MC::String& output, Enums::WordReadMode readMode, const StringView& symbols = TEXT("")) noexcept = 0;
+            virtual bool Read(void* data, usize size) noexcept = 0;
 
-        virtual usize Tell() const noexcept = 0;
-        virtual bool Seek(usize position) noexcept = 0;
-        virtual bool SeekToLine(usize line) noexcept = 0;
+            virtual bool Write(char8 character) noexcept = 0;
+            virtual bool Write(const MC::StringView& str) noexcept = 0;
+            virtual bool Write(const void* input, usize size) noexcept = 0;
 
-        virtual bool IsEOF() const noexcept = 0;
-        virtual bool IsReadOnly() const noexcept = 0;
-	
-        virtual bool Flush() noexcept = 0;
+            virtual usize Tell() const noexcept = 0;
+            virtual bool Seek(usize position) noexcept = 0;
+            virtual bool SeekToLine(usize line) noexcept = 0;
 
-        virtual const FileInfo& GetFileInfo() const noexcept = 0;
-        virtual FileOperationError GetFileLastError() const noexcept = 0;
+            virtual bool IsEOF() const noexcept = 0;
+            virtual bool IsReadOnly() const noexcept = 0;
 
-    public:
-        static Memory::Scope<FileBase> Create(const MC::StringView& path, FileReadMode readMode) noexcept;
-    };
+            virtual bool Flush() noexcept = 0;
 
-    class File
+            virtual const FileInfo& GetFileInfo() const noexcept = 0;
+            virtual Enums::OperationError GetFileLastError() const noexcept = 0;
+
+        public:
+            static Memory::Scope<FileBase> Create(const MC::StringView& path, Enums::ReadMode readMode) noexcept;
+        };
+    }
+
+    class COREAPI File
     {
     public:
         File() noexcept;
         explicit File(const MC::StringView& path, 
-            FileReadMode readMode = FileReadMode::ReadAndWrite) noexcept;
+            Enums::ReadMode readMode = Enums::ReadMode::ReadAndWrite) noexcept;
         File(const File&) = delete;
         ~File() noexcept = default;
 
@@ -83,15 +86,15 @@ namespace MC::Filesystem
 
     public:
         bool Open(const MC::StringView& path, 
-            FileReadMode readMode = FileReadMode::ReadAndWrite) noexcept;
+            Enums::ReadMode readMode = Enums::ReadMode::ReadAndWrite) noexcept;
         bool OpenTemporary(const MC::StringView& fileName,
-            FileReadMode readMode = FileReadMode::ReadAndWrite) noexcept;
+            Enums::ReadMode readMode = Enums::ReadMode::ReadAndWrite) noexcept;
 
         void Close() noexcept;
 
     public:
         bool Read(MC::String& output, 
-            Input::ReadMode readMode = Input::ReadMode::Word, 
+            Enums::WordReadMode readMode = Enums::WordReadMode::Word,
             const StringView& symbols = "\n") const noexcept;
         
         bool Write(char8 character) const noexcept;
@@ -110,9 +113,9 @@ namespace MC::Filesystem
 
         usize GetFileSize() const noexcept;
         const FileInfo& GetFileInfo() const noexcept;
-        FileOperationError GetFileLastError() const noexcept;
+        Enums::OperationError GetFileLastError() const noexcept;
 
     private:
-        Memory::Scope<FileBase> m_File;
+        Memory::Scope<Details::FileBase> m_File;
     };
 }

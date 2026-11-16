@@ -17,7 +17,7 @@ namespace MC::Filesystem
         WorkingDir
     };
 
-    class Filesystem
+    class COREAPI Filesystem
     {
     public:
         static Filesystem* Get()
@@ -68,11 +68,11 @@ namespace MC::Filesystem
         static Memory::Scope<Filesystem> s_Instance;
     };
 
-    class DirectoryStorage
+    class COREAPI DirectoryStorage final
     {
     public:
-        static void StoreDirectory(const StringView& name, const StringView& path);
-        static MC::StringView GetDirectory(const MC::StringView& directoryName);
+        static void StoreDirectory(const StringView& name, const StringView& path) noexcept;
+        static MC::StringView GetDirectory(const MC::StringView& directoryName) noexcept;
     
     private:
         static UnorderedMap<String, String> s_Directories;

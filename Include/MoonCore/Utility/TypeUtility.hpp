@@ -1,8 +1,8 @@
 #pragma once
-#include "Memory/Hasher.hpp"
-#include "Containers/String.hpp"
-#include "Utility/Debug.hpp"
-#include "Async/Atomic.hpp"
+#include "MoonCore/Memory/Hasher.hpp"
+#include "MoonCore/Containers/String.hpp"
+#include "MoonCore/Utility/Debug.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Utility
 {
@@ -18,7 +18,7 @@ namespace MC::Utility
     private:
         constexpr static MC::StringView GetType() noexcept
         {
-            return MC_FUNCTION;
+            return Debugging::SourceData().Function;
         }
     };
 

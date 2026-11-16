@@ -1,11 +1,11 @@
 #pragma once
-#include "FormatIncludes.inl"
+#include "MoonCore/Utility/Details/FormatIncludes.inl"
 
-#define MC_FMT_FORMATTER_VALUE() object
-#define MC_FMT_FORMATTER_MEMBER(member) object.member
-#define MC_FMT_FORMATTER_METHOD(method) object.method()
+#define MOON_FMT_FORMATTER_VALUE() object
+#define MOON_FMT_FORMATTER_MEMBER(member) object.member
+#define MOON_FMT_FORMATTER_METHOD(method) object.method()
 
-#define MC_FMT_FORMATTER_STRUCT_TEMPLATE(chType, templateParameters, type, str, ...)          \
+#define MOON_FMT_FORMATTER_STRUCT_TEMPLATE(chType, templateParameters, type, str, ...)          \
 	template templateParameters														          \
     struct MC::External::fmt::formatter<type, chType>								          \
 	{																				          \
@@ -16,12 +16,12 @@
 	        return format_to(ctx.out(), str, __VA_ARGS__);							          \
 	    }																			          \
 	};																					
-#define MC_FMT_FORMATTER(type, str, ...)									   \
-    MC_FMT_FORMATTER_STRUCT_TEMPLATE(char7, <>, type, str, __VA_ARGS__);	   \
-    MC_FMT_FORMATTER_STRUCT_TEMPLATE(char8, <>, type, TEXT(str), __VA_ARGS__);		
-#define MC_FMT_FORMATTER_TEMPLATE(templateParameters, type, str, ...)						   \
-    MC_FMT_FORMATTER_STRUCT_TEMPLATE(char7, templateParameters, type, str, __VA_ARGS__);	   \
-    MC_FMT_FORMATTER_STRUCT_TEMPLATE(char8, templateParameters, type, TEXT(str), __VA_ARGS__);	
+#define MOON_FMT_FORMATTER(type, str, ...)									   \
+    MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char7, <>, type, str, __VA_ARGS__);	   \
+    MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char8, <>, type, TEXT(str), __VA_ARGS__);		
+#define MOON_FMT_FORMATTER_TEMPLATE(templateParameters, type, str, ...)						   \
+    MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char7, templateParameters, type, str, __VA_ARGS__);	   \
+    MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char8, templateParameters, type, TEXT(str), __VA_ARGS__);	
 
-#define MC_FMT_FORMATTER_UTF7(type, str, ...) MC_FMT_FORMATTER_STRUCT_TEMPLATE(char7, <>, type, str, __VA_ARGS__);
-#define MC_FMT_FORMATTER_UTF8(type, str, ...) MC_FMT_FORMATTER_STRUCT_TEMPLATE(char8, <>, type, TEXT(str), __VA_ARGS__);
+#define MOON_FMT_FORMATTER_UTF7(type, str, ...) MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char7, <>, type, str, __VA_ARGS__);
+#define MOON_FMT_FORMATTER_UTF8(type, str, ...) MOON_FMT_FORMATTER_STRUCT_TEMPLATE(char8, <>, type, TEXT(str), __VA_ARGS__);

@@ -1,5 +1,5 @@
 #pragma once
-#include "Atomic.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Async
 {

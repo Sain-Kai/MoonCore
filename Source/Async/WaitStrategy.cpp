@@ -1,7 +1,7 @@
 #pragma once
-#include "Async/WaitStrategy.hpp"
+#include "Async/Details/WaitStrategy.inl"
 
-namespace MC::Async
+namespace MC::Async::Details
 {
     MC::Memory::Scope<WaitStrategy> WaitStrategy::s_WaitStrategy = nullptr;
 }

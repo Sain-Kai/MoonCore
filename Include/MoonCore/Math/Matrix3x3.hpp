@@ -1,8 +1,6 @@
 #pragma once
-#include "MathCore.hpp"
-#include "Core.hpp"
-#include "Vector3.hpp"
-#include "Utility/Format.hpp"
+#include "MoonCore/Math/MathCore.hpp"
+#include "MoonCore/Math/Vector3.hpp"
 
 namespace MC::Math
 {
@@ -251,10 +249,10 @@ constexpr MC::Math::Vector3<f32> operator*(const MC::Math::Vector3<f32>& vector,
 	};
 }
 
-MC_FMT_FORMATTER(MC::Math::Matrix3x3, "Row 0: %f, %f, %f\n"
+MOON_FMT_FORMATTER(MC::Math::Matrix3x3, "Row 0: %f, %f, %f\n"
                                                  "Row 1: %f, %f, %f\n"
                                                  "Row 2: %f, %f, %f\n",
-	MC_FMT_FORMATTER_VALUE(a11), MC_FMT_FORMATTER_VALUE(a12), MC_FMT_FORMATTER_VALUE(a13),
-	MC_FMT_FORMATTER_VALUE(a21), MC_FMT_FORMATTER_VALUE(a22), MC_FMT_FORMATTER_VALUE(a23),
-	MC_FMT_FORMATTER_VALUE(a31), MC_FMT_FORMATTER_VALUE(a32), MC_FMT_FORMATTER_VALUE(a33)
+	MOON_FMT_FORMATTER_VALUE(a11), MOON_FMT_FORMATTER_VALUE(a12), MOON_FMT_FORMATTER_VALUE(a13),
+	MOON_FMT_FORMATTER_VALUE(a21), MOON_FMT_FORMATTER_VALUE(a22), MOON_FMT_FORMATTER_VALUE(a23),
+	MOON_FMT_FORMATTER_VALUE(a31), MOON_FMT_FORMATTER_VALUE(a32), MOON_FMT_FORMATTER_VALUE(a33)
 );

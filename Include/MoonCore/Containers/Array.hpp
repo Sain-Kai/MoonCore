@@ -175,13 +175,13 @@ namespace MC
 
 		RefType operator[](const usize index) noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		ConstRefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 

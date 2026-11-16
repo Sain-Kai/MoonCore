@@ -1,7 +1,9 @@
 #include "WindowsWaitStrategy.hpp"
+
+#include "Memory/Pointers/Reference.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
-namespace MC::Async
+namespace MC::Windows::Async
 {
     bool WindowsWaitStrategy::WaitImpl(volatile void* waitable, void* comparable, usize size, u32 timeout) noexcept
     {
@@ -17,9 +19,12 @@ namespace MC::Async
     {
         WakeByAddressAll(waitable);
     }
+}
 
+namespace MC::Async::Details
+{
     void WaitStrategy::Initialize() noexcept
     {
-        s_WaitStrategy.Reset(new(std::nothrow) WindowsWaitStrategy());
+        s_WaitStrategy = Memory::MakeScope<Windows::Async::WindowsWaitStrategy>();
     }
 }

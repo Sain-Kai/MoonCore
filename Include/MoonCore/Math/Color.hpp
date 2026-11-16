@@ -1,8 +1,7 @@
 #pragma once
-#include "MathCore.hpp"
-#include "Containers/String.hpp"
-#include "Utility/Tuple.hpp"
-#include "MathCore.hpp"
+#include "MoonCore/Math/MathCore.hpp"
+#include "MoonCore/Containers/String.hpp"
+#include "MoonCore/Utility/Tuple.hpp"
 
 namespace MC::Math
 {

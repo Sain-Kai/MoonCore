@@ -1,11 +1,11 @@
 #pragma once
-#include "Containers/Map.hpp"
-#include "Containers/Multimap.hpp"
-#include "Memory/Allocators/AllocatorShared.hpp"
+#include "MoonCore/Containers/Map.hpp"
+#include "MoonCore/Containers/Multimap.hpp"
+#include "MoonCore/Memory/Allocators/AllocatorShared.hpp"
 
 namespace MC::Memory
 {
-    class FreeListAllocator
+    class COREAPI FreeListAllocator
     {
     public:
         using SizeType = usize;

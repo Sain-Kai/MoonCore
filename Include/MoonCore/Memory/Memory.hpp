@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.hpp"
-#include "Types.hpp"
-#include "Utility/Debug.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Utility/Debug.hpp"
 
 namespace MC::Concept
 {    
@@ -24,8 +24,7 @@ namespace MC::Concept
 		{ allocator.Deallocate(ptr, count) } noexcept -> ConvertibleTo<void>;
 	};
 
-	template <class T>
-	concept OffsetAllocatorType = true;
+	template <class T> concept OffsetAllocatorType = true;
 }
 
 namespace MC::Memory
@@ -69,13 +68,13 @@ namespace MC::Memory
 		u8 Padding[3];
 	};
 
-	DataHeader* GetHeader(void* ptr) noexcept;
-	void SetMemoryState(void* ptr, MemoryState state) noexcept;
-	usize GetAlignment(void* ptr) noexcept;
-	usize GetSize(void* ptr) noexcept;
-	void* Allocate(usize size, usize alignment = DefaultAlignment) noexcept;
-	void Free(void* ptr) noexcept;
-	void* Reallocate(void* ptr, usize newSize, usize alignment = 0) noexcept;
+	COREAPI DataHeader* GetHeader(void* ptr) noexcept;
+	COREAPI void SetMemoryState(void* ptr, MemoryState state) noexcept;
+	COREAPI usize GetAlignment(void* ptr) noexcept;
+	COREAPI usize GetSize(void* ptr) noexcept;
+	COREAPI void* Allocate(usize size, usize alignment = DefaultAlignment) noexcept;
+	COREAPI void Free(void* ptr) noexcept;
+	COREAPI void* Reallocate(void* ptr, usize newSize, usize alignment = 0) noexcept;
 }
 
 #pragma warning(push)

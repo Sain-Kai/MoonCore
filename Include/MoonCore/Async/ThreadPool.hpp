@@ -1,13 +1,13 @@
 #pragma once
-#include "Core.hpp"
-#include "Callables/Callable.hpp"
-#include "Containers/Array.hpp"
-#include "Containers/Queue.hpp"
-#include "Thread.hpp"
-#include "ConditionVariable.hpp"
-#include "Mutex.hpp"
-#include "Barrier.hpp"
-#include "Future.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Callables/Callable.hpp"
+#include "MoonCore/Containers/Array.hpp"
+#include "MoonCore/Containers/Queue.hpp"
+#include "MoonCore/Async/Thread.hpp"
+#include "MoonCore/Async/ConditionVariable.hpp"
+#include "MoonCore/Async/Mutex.hpp"
+#include "MoonCore/Async/Barrier.hpp"
+#include "MoonCore/Async/Future.hpp"
 namespace MC::Async
 {
     enum class TaskPriority : u8
@@ -57,11 +57,11 @@ namespace MC::Async
     class ThreadPool
     {
     public:
-        ThreadPool(u64 workerCount) noexcept;
+        COREAPI ThreadPool(u64 workerCount) noexcept;
         ThreadPool(const ThreadPool&) = delete;
         ThreadPool(ThreadPool&&) noexcept = default;
 
-        ~ThreadPool() noexcept;
+        COREAPI ~ThreadPool() noexcept;
 
     public:
         ThreadPool& operator=(const ThreadPool&) = delete;
@@ -83,14 +83,14 @@ namespace MC::Async
             noexcept(IsNothrowInvocable<FunctionType, IndexType>);
 
     public:
-        u64 GetQueuedTaskCount() noexcept;
+        COREAPI u64 GetQueuedTaskCount() noexcept;
         u64 GetThreadCount() const noexcept { return m_Threads.Size(); }
 
     public:
         static u32 CurrentThreadIndex() noexcept { return t_ThreadIndex; }
 
     private:
-        void Worker(u32 index) noexcept;
+        COREAPI void Worker(u32 index) noexcept;
 
     private:
         Array<Thread> m_Threads;

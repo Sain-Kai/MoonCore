@@ -1,13 +1,11 @@
 #pragma once
-#include "Core.hpp"
-#include "Containers/Array.hpp"
-#include "Containers/Queue.hpp"
-#include "Containers/UnorderedMap.hpp"
-#include "Memory/Allocators/AllocatorShared.hpp"
+#include "MoonCore/Containers/Array.hpp"
+#include "MoonCore/Containers/UnorderedMap.hpp"
+#include "MoonCore/Memory/Allocators/AllocatorShared.hpp"
 
 namespace MC::Memory
 {
-    class BuddyAllocator
+    class COREAPI BuddyAllocator
     {
         struct BuddyAllocation
         {
@@ -60,8 +58,8 @@ namespace MC::Memory
     {
         if (specification.MinBlockSize == 0) return false;
         if (specification.TotalSize <= specification.MinBlockSize) return false;
-        if (!IS_POWER_OF_2(specification.MinBlockSize)) return false;
-        if (!IS_POWER_OF_2(specification.TotalSize)) return false;
+        if (!MOON_IS_POWER_OF_2(specification.MinBlockSize)) return false;
+        if (!MOON_IS_POWER_OF_2(specification.TotalSize)) return false;
         return true;
     }
 

@@ -1,7 +1,5 @@
 #pragma once
-#include "Types.hpp"
-
-// I must use it, that is a C++ support header
+#include "MoonCore/Types.hpp"
 #include <initializer_list>
 
 namespace MC::Utility

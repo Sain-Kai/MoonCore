@@ -1,6 +1,6 @@
 #pragma once
-#include "Math/MathCore.hpp"
-#include "Math/Rect.hpp"
+#include "MoonCore/Math/MathCore.hpp"
+#include "MoonCore/Math/Rect.hpp"
 
 namespace MC::Math
 {
@@ -168,7 +168,7 @@ namespace MC::Math
 			}
 			return *this;
 		}
-		MC_NODISCARD Vector2 Normalized() const noexcept
+		MOON_NODISCARD Vector2 Normalized() const noexcept
 		{
 			T length = LengthSquared();
 			if (length > Epsilon<T>)
@@ -179,44 +179,44 @@ namespace MC::Math
 			return *this;
 		}
 
-		MC_NODISCARD constexpr Vector2 Lerp(const Vector2& vec, f32 t) const noexcept
+		MOON_NODISCARD constexpr Vector2 Lerp(const Vector2& vec, f32 t) const noexcept
         {
 			return LERP(*this, vec, t);
 		}
 
-		MC_NODISCARD f64 GetAngleBetweenVectors(const Vector2& other) const noexcept
+		MOON_NODISCARD f64 GetAngleBetweenVectors(const Vector2& other) const noexcept
 		{
 			T length = LengthSquared() * other.LengthSquared();
 			if (length <= Epsilon<T>) return 0;
 			return acosf(static_cast<f64>(Dot(other)) / static_cast<f64>(sqrtf(length)));
 		}
 
-		MC_NODISCARD constexpr T Dot(const Vector2& other) const noexcept
+		MOON_NODISCARD constexpr T Dot(const Vector2& other) const noexcept
 		{
 			return x * other.x + y * other.y;
 		}
-		MC_NODISCARD constexpr T Cross(const Vector2& other) const noexcept
+		MOON_NODISCARD constexpr T Cross(const Vector2& other) const noexcept
         {
 			return x * other.y - y * other.x;
 		}
 
-		MC_NODISCARD T Length() const noexcept
+		MOON_NODISCARD T Length() const noexcept
 		{
 			return static_cast<T>(sqrtf(SQUARE_SUM_2(x, y)));
 		}
-		MC_NODISCARD constexpr T LengthSquared() const noexcept
+		MOON_NODISCARD constexpr T LengthSquared() const noexcept
 		{
 			return SQUARE_SUM_2(x, y);
 		}
 
-		MC_NODISCARD constexpr Vector2 Project(const Vector2& other) const noexcept
+		MOON_NODISCARD constexpr Vector2 Project(const Vector2& other) const noexcept
 		{
 			T dot = Dot(other);
 			T lenSquared = other.LengthSquared();
 			if (lenSquared <= Epsilon<T>) return ZeroVector;
 			return other * (dot / lenSquared);
 		}
-		MC_NODISCARD constexpr Vector2 Reflect(const Vector2& normal) const noexcept
+		MOON_NODISCARD constexpr Vector2 Reflect(const Vector2& normal) const noexcept
 		{
 			return *this - normal * (2 * Dot(normal));
 		}
@@ -227,7 +227,7 @@ namespace MC::Math
 			y = fabsf(y);
 			return *this;
 		}
-		MC_NODISCARD Vector2 AsAbs() const noexcept
+		MOON_NODISCARD Vector2 AsAbs() const noexcept
 		{
 			return { fabsf(x), fabsf(y) };
 		}
@@ -255,5 +255,5 @@ constexpr ::MC::Math::Vector2<T> operator*(U scalar, const ::MC::Math::Vector2<T
 	return vec * scalar;
 }
 
-MC_FMT_FORMATTER(MC::Math::Vector2D32, "%f, %f", MC_FMT_FORMATTER_MEMBER(x), MC_FMT_FORMATTER_MEMBER(y));
-MC_FMT_FORMATTER(MC::Math::Vector2D64, "%f, %f", MC_FMT_FORMATTER_MEMBER(x), MC_FMT_FORMATTER_MEMBER(y));
+MOON_FMT_FORMATTER(MC::Math::Vector2D32, "%f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));
+MOON_FMT_FORMATTER(MC::Math::Vector2D64, "%f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));

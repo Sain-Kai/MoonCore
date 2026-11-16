@@ -1,10 +1,11 @@
 #pragma once
-#include "Types.hpp"
-#include "MathMacros.hpp"
-#include "Utility/Algorithm.hpp"
-#include "Concept.hpp"
-#include "TypeTraits.hpp"
-#include "Logging/Logger.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Concept.hpp"
+#include "MoonCore/TypeTraits.hpp"
+#include "MoonCore/Math/MathMacros.hpp"
+#include "MoonCore/Utility/Algorithm.hpp"
+#include "MoonCore/Logging/Logger.hpp"
+#include "MoonCore/Utility/Format.hpp"
 #include <math.h>
 
 namespace MC::Concept

@@ -4,7 +4,7 @@
 
 namespace MC::Clock
 {
-	class WindowsTimeSource final : public TimeSource
+	class WindowsTimeSource final : public Details::TimeSource
 	{
 	public:
 		WindowsTimeSource() noexcept = default;

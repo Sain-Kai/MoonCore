@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.hpp"
+#include "MoonCore/Core.hpp"
 
 namespace MC::Utility
 {
@@ -38,7 +38,7 @@ namespace MC::Utility
 		}
 
 	public:
-		MC_NODISCARD constexpr bool operator==(const Pair& other) noexcept
+		MOON_NODISCARD constexpr bool operator==(const Pair& other) noexcept
 		{
 		    return Key == other.Key && Value == other.Value;
 		}

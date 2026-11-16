@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "Platform/Base/BaseTypes.hpp"
-#include "Platform/Base/PlatformMacros.hpp"
+#include "MoonCore/Platform/Base/BaseTypes.hpp"
+#include "MoonCore/Platform/Base/PlatformMacros.hpp"
 
 // Windows platform types redefinition
 

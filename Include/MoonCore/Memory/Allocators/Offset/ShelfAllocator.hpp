@@ -1,11 +1,11 @@
 #pragma once
-#include "Types.hpp"
-#include "Containers/Array.hpp"
-#include "Memory/Allocators/AllocatorShared.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Containers/Array.hpp"
+#include "MoonCore/Memory/Allocators/AllocatorShared.hpp"
 
 namespace MC::Memory
 {
-    class ShelfAllocator
+    class COREAPI ShelfAllocator
     {
         struct Region
         {

@@ -1,7 +1,7 @@
 #pragma once
 #include <intrin.h>
-#include "Types.hpp"
-#include "Macros.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Macros.hpp"
 
 namespace MC
 {
@@ -326,7 +326,7 @@ namespace MC
 		template<typename T> struct UnderlyingTypeH<T, false> {};
     }
 
-    MC_NODISCARD constexpr bool IsConstantEvaluated() noexcept
+    MOON_NODISCARD constexpr bool IsConstantEvaluated() noexcept
     {
         return __builtin_is_constant_evaluated();
     }
@@ -344,7 +344,7 @@ namespace MC
     template <typename T> using RemoveAllExtents  = typename Details::RemoveAllExtentsH<T>::Type;
 
 	template<typename To, typename From>
-	MC_NODISCARD constexpr To BitCast(const From& value) noexcept
+	MOON_NODISCARD constexpr To BitCast(const From& value) noexcept
 	{
 		return __builtin_bit_cast(To, value);
 	}
@@ -424,20 +424,20 @@ namespace MC
 	template<typename Base, typename Derived> constexpr bool IsPointerInterconvertibleBaseOf = __is_pointer_interconvertible_base_of(Base, Derived);
 
 	template <typename T>
-	MC_NODISCARD constexpr T&& Forward(RemoveReference<T>& arg) noexcept
+	MOON_NODISCARD constexpr T&& Forward(RemoveReference<T>& arg) noexcept
 	{
 		return static_cast<T&&>(arg);
 	}
 
 	template <typename T>
-	MC_NODISCARD constexpr T&& Forward(RemoveReference<T>&& arg) noexcept
+	MOON_NODISCARD constexpr T&& Forward(RemoveReference<T>&& arg) noexcept
 	{
 		static_assert(!IsLValueReference<T>, "Bad Forward call");
 		return static_cast<T&&>(arg);
 	}
 
 	template <typename T>
-	MC_NODISCARD constexpr RemoveReference<T>&& Move(T&& arg) noexcept
+	MOON_NODISCARD constexpr RemoveReference<T>&& Move(T&& arg) noexcept
 	{
 		return static_cast<RemoveReference<T>&&>(arg);
 	}
@@ -554,7 +554,7 @@ namespace MC
 	constexpr UnderlyingType<Enum> ToUnderlying(Enum enumerator) noexcept { return static_cast<UnderlyingType<Enum>>(enumerator); }
 
 	template <typename T>
-	MC_NODISCARD constexpr T* AddressOf(T& value) noexcept
+	MOON_NODISCARD constexpr T* AddressOf(T& value) noexcept
 	{
 		return __builtin_addressof(value);
 	}
@@ -724,6 +724,6 @@ namespace MC
     {
 		using value_type = T;
 
-		MC_NODISCARD static constexpr usize size() noexcept { return sizeof...(Values); }
+		MOON_NODISCARD static constexpr usize size() noexcept { return sizeof...(Values); }
 	};
 }

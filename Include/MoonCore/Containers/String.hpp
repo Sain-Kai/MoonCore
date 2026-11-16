@@ -70,7 +70,7 @@ namespace MC
 			using ValueType = StringViewImpl<CharacterType>;
 
 		public:
-			MC_NODISCARD static usize Hash(const ValueType* const str, usize, usize tableSize = 0, u64 seed = 0) noexcept
+			MOON_NODISCARD static usize Hash(const ValueType* const str, usize, usize tableSize = 0, u64 seed = 0) noexcept
 			{
 				return tableSize == 0 ? Hash64(str->String(), str->Size() * sizeof(ValueType::ValueType), seed) :
 					Hash64(str->String(), str->Size() * sizeof(ValueType::ValueType), seed) % tableSize;
@@ -83,7 +83,7 @@ namespace MC
 			using ValueType = StringImpl<CharacterType, AllocatorType>;
 
 		public:
-			MC_NODISCARD static usize Hash(const ValueType* const str, usize, usize tableSize = 0, u64 seed = 0) noexcept
+			MOON_NODISCARD static usize Hash(const ValueType* const str, usize, usize tableSize = 0, u64 seed = 0) noexcept
 			{
 				return tableSize == 0 ? Hash64(str->String(), str->Size() * sizeof(ValueType::ValueType), seed) :
 					Hash64(str->String(), str->Size() * sizeof(ValueType::ValueType), seed) % tableSize;

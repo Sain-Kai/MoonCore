@@ -1,9 +1,9 @@
 #pragma once
-#include "Core.hpp"
-#include "Concept.hpp"
-#include "Containers/String/StringView.hpp"
-#include "Memory/Pointers/Scope.hpp"
-#include "Utility/Debug.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Concept.hpp"
+#include "MoonCore/Containers/String/StringView.hpp"
+#include "MoonCore/Memory/Pointers/Scope.hpp"
+#include "MoonCore/Utility/Debug.hpp"
 
 namespace MC::Clock
 {
@@ -40,18 +40,21 @@ namespace MC::Clock
 		u16 Milliseconds;
 	};
 
-	class TimeSource
+	namespace Details
 	{
-	public:
-		virtual ~TimeSource() noexcept = default;
-		virtual u64 GetTick() const noexcept = 0;
-		virtual u64 GetFrequency() const noexcept = 0;
-		virtual Date ConvertTickToDate(u64 tick) const noexcept = 0;
-		virtual Date GetDate() const noexcept = 0;
+		class TimeSource
+		{
+		public:
+			virtual ~TimeSource() noexcept = default;
+			virtual u64 GetTick() const noexcept = 0;
+			virtual u64 GetFrequency() const noexcept = 0;
+			virtual Date ConvertTickToDate(u64 tick) const noexcept = 0;
+			virtual Date GetDate() const noexcept = 0;
 
-	public:
-		static Memory::Scope<TimeSource> Create() noexcept;
-	};
+		public:
+			static Memory::Scope<TimeSource> Create() noexcept;
+		};
+	}
 
 	class Timestep
 	{
@@ -85,7 +88,7 @@ namespace MC::Clock
 		constexpr Timestep operator+(const Timestep& other) const noexcept { return m_Ticks + other.m_Ticks; }
 		constexpr Timestep operator-(const Timestep& other) const noexcept
 		{
-			MC_CHECK(m_Ticks >= other.m_Ticks, "Timestep subtraction result is less than 0");
+			MOON_CHECK(m_Ticks >= other.m_Ticks, "Timestep subtraction result is less than 0");
 			return m_Ticks - other.m_Ticks;
 		}
 		constexpr Timestep& operator+=(const Timestep& other) noexcept
@@ -95,20 +98,20 @@ namespace MC::Clock
 		}
 		constexpr Timestep& operator-=(const Timestep& other) noexcept
 		{
-			MC_CHECK(m_Ticks >= other.m_Ticks, "Timestep subtraction result is less than 0");
+			MOON_CHECK(m_Ticks >= other.m_Ticks, "Timestep subtraction result is less than 0");
 			m_Ticks -= other.m_Ticks;
 			return *this;
 		}
 
-		MC_NODISCARD constexpr u64 Ticks() const noexcept { return m_Ticks; }
+		MOON_NODISCARD constexpr u64 Ticks() const noexcept { return m_Ticks; }
 
 	public:
-		f64 AsNanoseconds() const noexcept;
-		f64 AsMicroseconds() const noexcept;
-		f64 AsMilliseconds() const noexcept;
-		f64 AsSeconds() const noexcept;
+		COREAPI f64 AsNanoseconds() const noexcept;
+		COREAPI f64 AsMicroseconds() const noexcept;
+		COREAPI f64 AsMilliseconds() const noexcept;
+		COREAPI f64 AsSeconds() const noexcept;
 
-		Date Time() const noexcept;
+		COREAPI Date Time() const noexcept;
 
     private:
 		u64 m_Ticks;
@@ -121,7 +124,7 @@ namespace MC::Clock
 		constexpr Timepoint(u64 ticks) noexcept 
 			: m_Tick(ticks)
 		{
-			MC_CHECK(m_Tick < Constants::Max, "Tick limit exceed");
+			MOON_CHECK(m_Tick < Constants::Max, "Tick limit exceed");
 		}
 
 		constexpr Timepoint(const Timepoint&) noexcept = default;
@@ -144,7 +147,7 @@ namespace MC::Clock
 
 		constexpr Timestep operator-(const Timepoint& other) const noexcept
 		{
-			MC_CHECK(m_Tick >= other.m_Tick, "Timepoint subtraction result is less than 0");
+			MOON_CHECK(m_Tick >= other.m_Tick, "Timepoint subtraction result is less than 0");
 			return m_Tick - other.m_Tick;
 		}
 		constexpr Timepoint operator+(const Timestep& other) const noexcept
@@ -157,12 +160,12 @@ namespace MC::Clock
 		}
 		constexpr Timepoint operator-(const Timestep& other) const noexcept
 		{
-			MC_CHECK(m_Tick >= other.Ticks(), "Timepoint subtraction result is less than 0");
+			MOON_CHECK(m_Tick >= other.Ticks(), "Timepoint subtraction result is less than 0");
 			return m_Tick - other.Ticks();
 		}
 		constexpr Timepoint operator-(u64 other) const noexcept
 		{
-			MC_CHECK(m_Tick < other, "Timepoint subtraction result is less than 0");
+			MOON_CHECK(m_Tick < other, "Timepoint subtraction result is less than 0");
 			return m_Tick - other;
 		}
 		constexpr Timepoint& operator+=(const Timestep& other) noexcept
@@ -177,20 +180,20 @@ namespace MC::Clock
 		}
 		constexpr Timepoint& operator-=(const Timestep& other) noexcept
 		{
-			MC_CHECK(m_Tick >= other.Ticks(), "Timepoint subtraction result is less than 0");
+			MOON_CHECK(m_Tick >= other.Ticks(), "Timepoint subtraction result is less than 0");
 			m_Tick -= other.Ticks();
 			return *this;
 		}
 		constexpr Timepoint& operator-=(u64 other) noexcept
 		{
-			MC_CHECK(m_Tick < other, "Timepoint subtraction result is less than 0");
+			MOON_CHECK(m_Tick < other, "Timepoint subtraction result is less than 0");
 			m_Tick -= other;
 			return *this;
 		}
 
 	public:
-		MC_NODISCARD Date Time() const noexcept;
-		MC_NODISCARD constexpr u64 Tick() const noexcept { return m_Tick; }
+		MOON_NODISCARD COREAPI Date Time() const noexcept;
+		MOON_NODISCARD constexpr u64 Tick() const noexcept { return m_Tick; }
 
 	private:
 		u64 m_Tick;
@@ -202,7 +205,7 @@ namespace MC::Clock
 		Timestep DeltaTime;
 	};
 
-	class Time
+	class COREAPI Time
 	{
 	public:
 		inline static Time& Get() noexcept
@@ -245,7 +248,7 @@ namespace MC::Clock
 
 
 	private:
-		Memory::Scope<TimeSource> m_Source;
+		Memory::Scope<Details::TimeSource> m_Source;
 
 	private:
 		FrameTime m_Frame;
@@ -284,7 +287,7 @@ namespace MC::Clock
 
 	constexpr Timestep::Timestep(const Timepoint& start, const Timepoint& end) noexcept
 	{
-		MC_CHECK(end.Tick() >= start.Tick(), "End must be >= start");
+		MOON_CHECK(end.Tick() >= start.Tick(), "End must be >= start");
 		m_Ticks = end.Tick() - start.Tick();
 	}
 }

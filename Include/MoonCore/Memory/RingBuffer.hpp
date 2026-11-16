@@ -1,7 +1,7 @@
 #pragma once
-#include "Types.hpp"
-#include "Containers/Array.hpp"
-#include "Containers/StackArray.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Containers/Array.hpp"
+#include "MoonCore/Containers/StackArray.hpp"
 
 namespace MC::Memory
 {
@@ -15,7 +15,7 @@ namespace MC::Memory
         constexpr RingBuffer() noexcept : m_CurrentBuffer(0) {}
         constexpr RingBuffer(MC::StackArray<T, Count>&& buffers) noexcept : m_CurrentBuffer(0), m_Buffers(Move(buffers))
         {
-            MC_VALIDATE(m_Buffers.Size() > 0, "Passed empty buffer array");
+            MOON_VALIDATE(m_Buffers.Size() > 0, "Passed empty buffer array");
         }
         virtual ~RingBuffer() = default;
 
@@ -52,7 +52,7 @@ namespace MC::Memory
         RingBuffer() noexcept : m_CurrentBuffer(0), m_Buffers(1) {}
         RingBuffer(MC::Array<T>&& buffers) noexcept : m_CurrentBuffer(0), m_Buffers(Move(buffers))
         {
-            MC_VALIDATE(m_Buffers.Size() > 0, "Passed empty buffer array");
+            MOON_VALIDATE(m_Buffers.Size() > 0, "Passed empty buffer array");
         }   
 
         virtual ~RingBuffer() = default;

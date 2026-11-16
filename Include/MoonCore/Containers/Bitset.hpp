@@ -51,7 +51,7 @@ namespace MC
 
             for (usize i = 0; i < size; ++i)
             {
-                MC_CHECK(str[i] == zero || str[i] == one, "Character != zero nor one");
+                MOON_CHECK(str[i] == zero || str[i] == one, "Character != zero nor one");
                 if (str[i] == zero) continue;
                 Set(BitCount - size + i, true);
             }
@@ -63,13 +63,13 @@ namespace MC
     public:
         constexpr Reference operator[](usize bitIndex) noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             return Reference{ m_Words[GetWord(bitIndex)], static_cast<u32>(bitIndex % BitsPerWord) };
         }
 
         constexpr bool operator[](usize bitIndex) const noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             return Get(GetWord(bitIndex), static_cast<u32>(bitIndex % BitsPerWord));
         }
 
@@ -154,7 +154,7 @@ namespace MC
     public:
         constexpr bool Test(usize bitIndex) const noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             return Get(GetWord(bitIndex), static_cast<u32>(bitIndex % BitsPerWord));
         }
 
@@ -210,7 +210,7 @@ namespace MC
 
         constexpr Bitset& Set(usize bitIndex, bool state = true) noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             Set(GetWord(bitIndex), bitIndex % BitsPerWord, state);
             return *this;
         }
@@ -223,7 +223,7 @@ namespace MC
 
         constexpr Bitset& Reset(usize bitIndex) noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             Set(GetWord(bitIndex), bitIndex % BitsPerWord, false);
             return *this;
         }
@@ -238,7 +238,7 @@ namespace MC
 
         constexpr Bitset& Flip(usize bitIndex) noexcept
         {
-            MC_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
+            MOON_CHECK(bitIndex < BitCount, "bitIndex >= BitCount");
             Set(GetWord(bitIndex), bitIndex % BitsPerWord, !Test(bitIndex));
             return *this;
         }

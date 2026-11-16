@@ -332,7 +332,7 @@ namespace MC
         {
             static_assert(!AllowDuplicates && !IsSet, "At() is only accessible in Map!");
             BranchType* node = FindBranch(key);
-            MC_VALIDATE(node, "Key doesn't exits in map");
+            MOON_VALIDATE(node, "Key doesn't exits in map");
             return node->Value.Value;
         }
 
@@ -342,7 +342,7 @@ namespace MC
         {
             static_assert(!AllowDuplicates && !IsSet, "At() is only accessible in Map!");
             const BranchType* node = FindBranch(key);
-            MC_VALIDATE(node, "Key doesn't exits in map");
+            MOON_VALIDATE(node, "Key doesn't exits in map");
             return node->Value.Value;
         }
 

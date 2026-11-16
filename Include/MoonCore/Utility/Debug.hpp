@@ -1,21 +1,21 @@
 #pragma once
-#include "Core.hpp"
+#include "MoonCore/Core.hpp"
 
-#define MC_UNREACHABLE()
+#define MOON_UNREACHABLE()
 
 #ifdef COMPILER_MSVC
-#   undef MC_UNREACHABLE
-#   define MC_UNREACHABLE() __assume(false)
+#   undef MOON_UNREACHABLE
+#   define MOON_UNREACHABLE() __assume(false)
 #elif defined(COMPILER_CLANG) || defined(COMPILER_GNUC)
-#   undef MC_UNREACHABLE
-#   define MC_UNREACHABLE() __builtin_unreachable()
+#   undef MOON_UNREACHABLE
+#   define MOON_UNREACHABLE() __builtin_unreachable()
 #endif
 
 namespace MC
 {
     constexpr bool PartialDebuggerEnabled() noexcept
     {
-#ifdef MC_DIST
+#ifdef MOON_DIST
         return false;
 #else
         return true;
@@ -60,31 +60,31 @@ namespace MC::Utility::Debugging
     void COREAPI SetTerminationHandler(const TerminationHandler& handler) noexcept;
     TerminationHandler COREAPI GetTerminationHandler() noexcept;
 
-    namespace Details 
+    namespace Details
     {
-        MC_NORETURN COREAPI void TerminateRuntime(const char7* message, const SourceData& source) noexcept;
+        MOON_NORETURN COREAPI void TerminateRuntime(const char7* message, const SourceData& source) noexcept;
     }
 #pragma warning(push)
 #pragma warning(disable : 4645)
-    MC_NORETURN constexpr static void Terminate(const char7* message = nullptr, const SourceData& source = SourceData()) noexcept
+    MOON_NORETURN constexpr static void Terminate(const char7* message = nullptr, const SourceData& source = SourceData()) noexcept
     {
         if consteval
         {
-            MC_UNREACHABLE();
+            MOON_UNREACHABLE();
         }
         Details::TerminateRuntime(message, source);
     }
 #pragma warning(pop)
 }
 
-#define MC_TERMINATE_IF_NOT(expression)                  \
+#define MOON_TERMINATE_IF_NOT(expression)                  \
     do {                                                 \
         if (!(expression)) [[unlikely]] {                \
             ::MC::Utility::Debugging::Terminate(); \
         }                                                \
     } while(0)
 
-#define MC_TERMINATE_IF_NOT_MSG(expression, message)            \
+#define MOON_TERMINATE_IF_NOT_MSG(expression, message)            \
     do {                                                        \
         if (!(expression)) [[unlikely]] {                       \
             ::MC::Utility::Debugging::Terminate(message); \
@@ -96,17 +96,17 @@ namespace MC::Utility::Debugging
 // 1: On runtime - MC::Utility::Debugging::Terminate() is called 
 // 2: On constant evaluated - Invokes undefined behavior
 // ATTENTION: Use this macro only with comparing expressions, in Distribute this macro can't invoke anything in expression
-#define MC_CHECK(expression, message)
+#define MOON_CHECK(expression, message)
 // Validates expression
 // When expression is false, result depends on the context
 // 1: On runtime - MC::Utility::Debugging::Terminate() is called 
 // 2: On constant evaluated - Invokes undefined behavior
-#define MC_VALIDATE(expression, message)
+#define MOON_VALIDATE(expression, message)
 // Validates expression and formats log message on failure
 // When expression is false, result depends on the context
 // 1: On runtime - MC::Utility::Debugging::Terminate() is called 
 // 2: On constant evaluated - Invokes undefined behavior
-#define MC_RUNTIME_VALIDATE(expression, formatExpression, ...)
+#define MOON_RUNTIME_VALIDATE(expression, formatExpression, ...)
 
 #if defined(MC_DEBUG)
 
@@ -114,27 +114,27 @@ namespace MC::Utility::Debugging
 #endif
 
 #if defined(MC_DEBUG) || defined(MC_RELEASE)
-#   undef MC_ASSERT
-#   undef MC_CHECK
-#   undef MC_VALIDATE
-#   undef MC_RUNTIME_VALIDATE
-#   define MC_ASSERT(expression, ...)	                   \
+#   undef MOON_ASSERT
+#   undef MOON_CHECK
+#   undef MOON_VALIDATE
+#   undef MOON_RUNTIME_VALIDATE
+#   define MOON_ASSERT(expression, ...)	                   \
 		do {								               \
 			if (!(expression)) [[unlikely]] {              \
 				::MC::Logging::Logger::Fatal(__VA_ARGS__); \
 				__debugbreak();				               \
 			}								               \
 		} while (0)
-#   define MC_CHECK(expression, message) MC_TERMINATE_IF_NOT_MSG(expression, message)  
-#   define MC_VALIDATE(expression, message) MC_TERMINATE_IF_NOT_MSG(expression, message)
-#   define MC_RUNTIME_VALIDATE(expression, formatExpression, ...) MC_TERMINATE_IF_NOT_MSG(expression, formatExpression)
+#   define MOON_CHECK(expression, message) MOON_TERMINATE_IF_NOT_MSG(expression, message)  
+#   define MOON_VALIDATE(expression, message) MOON_TERMINATE_IF_NOT_MSG(expression, message)
+#   define MOON_RUNTIME_VALIDATE(expression, formatExpression, ...) MOON_TERMINATE_IF_NOT_MSG(expression, formatExpression)
 #else
-#   undef MC_ASSERT
-#   undef MC_CHECK
-#   undef MC_VALIDATE
-#   undef MC_RUNTIME_VALIDATE
-#   define MC_ASSERT(expression, type, ...)
-#   define MC_CHECK(expression, message)             
-#   define MC_VALIDATE(expression, message)                       MC_TERMINATE_IF_NOT(expression)  
-#   define MC_RUNTIME_VALIDATE(expression, formatExpression, ...) MC_TERMINATE_IF_NOT(expression)
+#   undef MOON_ASSERT
+#   undef MOON_CHECK
+#   undef MOON_VALIDATE
+#   undef MOON_RUNTIME_VALIDATE
+#   define MOON_ASSERT(expression, type, ...)
+#   define MOON_CHECK(expression, message)             
+#   define MOON_VALIDATE(expression, message)                       MOON_TERMINATE_IF_NOT(expression)  
+#   define MOON_RUNTIME_VALIDATE(expression, formatExpression, ...) MOON_TERMINATE_IF_NOT(expression)
 #endif

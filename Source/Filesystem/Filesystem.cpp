@@ -8,13 +8,13 @@ namespace MC::Filesystem
     Memory::Scope<Filesystem> Filesystem::s_Instance = nullptr;
     UnorderedMap<String, String> DirectoryStorage::s_Directories;
 
-    void DirectoryStorage::StoreDirectory(const StringView& name, const StringView& path)
+    void DirectoryStorage::StoreDirectory(const StringView& name, const StringView& path) noexcept
     {
         if (!Filesystem::Exits(path)) Filesystem::CreateDirectory(path);
         s_Directories.Insert(name.ToString(), path.ToString());
     }
 
-    MC::StringView DirectoryStorage::GetDirectory(const MC::StringView& directoryName)
+    MC::StringView DirectoryStorage::GetDirectory(const MC::StringView& directoryName) noexcept
     {
         if (s_Directories.Contains(directoryName))
             return s_Directories.At(directoryName).Value;
@@ -59,7 +59,7 @@ namespace MC::Filesystem
 
     MC::StringView Filesystem::GetCurrentDirectory() noexcept
     {
-        MC_ASSERT(s_Instance, Logging::Logger::Module::Core, "Filesystem can't be accessed!");
+        MOON_ASSERT(s_Instance, Logging::Logger::Module::Core, "Filesystem can't be accessed!");
         return s_Instance->GetCurrentDirectoryImpl();
     }
 
@@ -77,7 +77,7 @@ namespace MC::Filesystem
 
     MC::String Filesystem::GetKnownFolder(KnownFolder folder) noexcept
     {
-        MC_ASSERT(s_Instance, Logging::Logger::Module::Core, "Filesystem can't be accessed!");
+        MOON_ASSERT(s_Instance, Logging::Logger::Module::Core, "Filesystem can't be accessed!");
         return s_Instance->GetKnownFolderImpl(folder);
     }
 

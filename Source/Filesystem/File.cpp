@@ -8,24 +8,24 @@ namespace MC::Filesystem
 
     File::File() noexcept : m_File(nullptr) {}
 
-    File::File(const MC::StringView& path, FileReadMode readMode) noexcept
-        : m_File(FileBase::Create(path, readMode))
+    File::File(const MC::StringView& path, Enums::ReadMode readMode) noexcept
+        : m_File(Details::FileBase::Create(path, readMode))
     {
         if (!m_File) return;
-        if (m_File->GetFileLastError() == FileOperationError::Success) return;
+        if (m_File->GetFileLastError() == Enums::OperationError::Success) return;
         m_File.Reset();
     }
 
-    bool File::Open(const MC::StringView& path, FileReadMode readMode) noexcept
+    bool File::Open(const MC::StringView& path, Enums::ReadMode readMode) noexcept
     {
-        m_File = FileBase::Create(path, readMode);
+        m_File = Details::FileBase::Create(path, readMode);
         if (m_File) return true;
         return false;
     }
 
-    bool File::OpenTemporary(const MC::StringView& fileName, FileReadMode readMode) noexcept
+    bool File::OpenTemporary(const MC::StringView& fileName, Enums::ReadMode readMode) noexcept
     {
-        m_File = FileBase::Create(DirectoryStorage::GetDirectory("Temp").ToString() + fileName, readMode);
+        m_File = Details::FileBase::Create(DirectoryStorage::GetDirectory("Temp").ToString() + fileName, readMode);
         if (m_File) return true;
         return false;
     }
@@ -35,7 +35,7 @@ namespace MC::Filesystem
         m_File.Reset();
     }
 
-    bool File::Read(MC::String& output, Input::ReadMode readMode, const StringView& symbols) const noexcept
+    bool File::Read(MC::String& output, Enums::WordReadMode readMode, const StringView& symbols) const noexcept
     {
         if (!m_File) return false;
         return m_File->Read(output, readMode, symbols);
@@ -107,9 +107,9 @@ namespace MC::Filesystem
         return m_File->GetFileInfo();
     }
 
-    FileOperationError File::GetFileLastError() const noexcept
+    Enums::OperationError File::GetFileLastError() const noexcept
     {
-        if (!m_File) return FileOperationError::FileNotOpened;
+        if (!m_File) return Enums::OperationError::FileNotOpened;
         return m_File->GetFileLastError();
     }
 

@@ -11,11 +11,17 @@ namespace MC::Windows::Async
         u64 ThreadId;
     };
 
-    class WindowsThread final : public MC::Async::ThreadBase
+    class WindowsThread final : public MC::Async::Details::ThreadBase
     {
     public:
         WindowsThread(const MC::Async::ThreadSpecification& specification, Callables::Callable<void()>&& function) noexcept;
+        WindowsThread(const WindowsThread&) = delete;
+        WindowsThread(WindowsThread&&) noexcept = default;
         ~WindowsThread() noexcept override;
+
+    public:
+        WindowsThread& operator=(const WindowsThread&) = delete;
+        WindowsThread& operator=(WindowsThread&&) noexcept = default;
 
     public:
         bool Joinable() const noexcept override;

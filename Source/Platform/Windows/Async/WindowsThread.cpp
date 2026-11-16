@@ -63,7 +63,7 @@ namespace MC::Windows::Async
 
         DWORD threadId;
         m_Thread = CreateThread(nullptr, specification.StackSize, ThreadProc, data, CREATE_SUSPENDED, &threadId);
-        MC_RUNTIME_VALIDATE(m_Thread, "Thread creation failed!");
+        MOON_RUNTIME_VALIDATE(m_Thread, "Thread creation failed!");
         data->ThreadId = static_cast<u64>(threadId);
 
         WideString threadName = StringToWideString(specification.ThreadName.String());
@@ -122,7 +122,7 @@ namespace MC::Async
         return static_cast<u64>(GetCurrentThreadId());
     }
 
-    Memory::Reference<MC::Async::ThreadBase, Memory::ReferenceMode::ThreadSafe> MC::Async::ThreadBase::Create(
+    Memory::Reference<Details::ThreadBase> MC::Async::Details::ThreadBase::Create(
         const MC::Async::ThreadSpecification& specification, Callables::Callable<void()>&& function) noexcept
     {
         return Memory::MakeReference<Windows::Async::WindowsThread>(specification, Forward<Callables::Callable<void()>>(function));

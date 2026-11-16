@@ -6,15 +6,15 @@
 
 namespace MC::Windows::Filesystem
 {
-    class WindowsFile final : public MC::Filesystem::FileBase
+    class WindowsFile final : public MC::Filesystem::Details::FileBase
     {
     public:
-        WindowsFile(const MC::StringView& path, MC::Filesystem::FileReadMode readMode) noexcept;
+        WindowsFile(const MC::StringView& path, MC::Filesystem::Enums::ReadMode readMode) noexcept;
         ~WindowsFile() noexcept override;
 
     public:
         bool Read(MC::String& output, 
-            MC::Filesystem::Input::ReadMode readMode,
+            MC::Filesystem::Enums::WordReadMode readMode,
             const StringView& symbols) noexcept override;
         bool Read(void* data, usize size) noexcept override;
         
@@ -27,35 +27,35 @@ namespace MC::Windows::Filesystem
         bool SeekToLine(usize line) noexcept override;
         
         bool IsEOF() const noexcept override { return m_EndOfFile; }
-        bool IsReadOnly() const noexcept override { return m_FileReadMode == MC::Filesystem::FileReadMode::Read; }
+        bool IsReadOnly() const noexcept override { return m_FileReadMode == MC::Filesystem::Enums::ReadMode::Read; }
         
         bool Flush() noexcept override;
         
         const MC::Filesystem::FileInfo& GetFileInfo() const noexcept override { return m_FileInfo; }
-        MC::Filesystem::FileOperationError GetFileLastError() const noexcept override { return m_LastError; }
+        MC::Filesystem::Enums::OperationError GetFileLastError() const noexcept override { return m_LastError; }
     
     private:
         void OpenFile(const MC::StringView& path) noexcept;
-        constexpr DWORD FileReadModeToDWORD() noexcept;
+        constexpr DWORD FileReadModeToDWORD() const noexcept;
 
     private:
         HANDLE m_File;
 
     private:
         MC::Filesystem::FileInfo m_FileInfo;
-        MC::Filesystem::FileReadMode m_FileReadMode;
-        MC::Filesystem::FileOperationError m_LastError;
+        MC::Filesystem::Enums::ReadMode m_FileReadMode;
+        MC::Filesystem::Enums::OperationError m_LastError;
         bool m_EndOfFile;
     };
 
-    constexpr DWORD WindowsFile::FileReadModeToDWORD() noexcept
+    constexpr DWORD WindowsFile::FileReadModeToDWORD() const noexcept
     {
         switch (m_FileReadMode)
         {
-            case MC::Filesystem::FileReadMode::Write:        return GENERIC_WRITE;
-            case MC::Filesystem::FileReadMode::Read:         return GENERIC_READ;
-            case MC::Filesystem::FileReadMode::ReadAndWrite: return GENERIC_READ | GENERIC_WRITE;
-            case MC::Filesystem::FileReadMode::Unknown:      return 0;
+            case MC::Filesystem::Enums::ReadMode::Write:        return GENERIC_WRITE;
+            case MC::Filesystem::Enums::ReadMode::Read:         return GENERIC_READ;
+            case MC::Filesystem::Enums::ReadMode::ReadAndWrite: return GENERIC_READ | GENERIC_WRITE;
+            case MC::Filesystem::Enums::ReadMode::Unknown:      return 0;
         }
         return 0;
     }

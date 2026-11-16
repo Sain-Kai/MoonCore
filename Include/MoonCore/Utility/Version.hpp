@@ -1,6 +1,6 @@
 #pragma once
-#include "Types.hpp"
-#include "Format.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Utility/Format.hpp"
 
 namespace MC
 {
@@ -12,4 +12,4 @@ namespace MC
     };
 }
 
-MC_FMT_FORMATTER(MC::Version, "%d.%d.%d", MC_FMT_FORMATTER_MEMBER(Major), MC_FMT_FORMATTER_MEMBER(Minor), MC_FMT_FORMATTER_MEMBER(Patch));
+MOON_FMT_FORMATTER(MC::Version, "%d.%d.%d", MOON_FMT_FORMATTER_MEMBER(Major), MOON_FMT_FORMATTER_MEMBER(Minor), MOON_FMT_FORMATTER_MEMBER(Patch));

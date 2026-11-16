@@ -26,7 +26,7 @@ namespace MC::Memory
         void* rawAddress = _mm_malloc(size + offset, newAlignment);
         if (!rawAddress)
         {
-            MC_VALIDATE(false, "Failed to allocate memory!");
+            MOON_VALIDATE(false, "Failed to allocate memory!");
             return nullptr;
         }
 

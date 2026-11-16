@@ -39,7 +39,7 @@ namespace MC::Memory
 
     void MemoryTracker::Initialize() noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (s_Instance) return;
         s_Instance = MakeScope<MemoryTracker>();
 #endif
@@ -47,7 +47,7 @@ namespace MC::Memory
 
     void MemoryTracker::Shutdown() noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         s_Instance->ShutdownImpl();
         s_Instance.Reset();
 #endif
@@ -56,7 +56,7 @@ namespace MC::Memory
     void MemoryTracker::TrackMemory(void* ptr, MemoryCategory category, MC::StringView name,
         const Utility::Debugging::SourceData& source) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->TrackMemoryImpl(ptr, category, name, source);
 #endif
@@ -64,7 +64,7 @@ namespace MC::Memory
 
     void MemoryTracker::OnInternalAllocation(usize size, MemoryCategory category) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->OnInternalAllocationImpl(size, category);
 #endif
@@ -72,7 +72,7 @@ namespace MC::Memory
 
     void MemoryTracker::OnInternalDeletion(usize size, MemoryCategory category) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->OnInternalDeletionImpl(size, category);
 #endif
@@ -80,7 +80,7 @@ namespace MC::Memory
 
     void MemoryTracker::OnMemoryAllocated(usize size) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->OnMemoryAllocatedImpl(size);
 #endif
@@ -88,7 +88,7 @@ namespace MC::Memory
 
     void MemoryTracker::OnMemoryFreed(usize size) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->OnMemoryFreedImpl(size);
 #endif
@@ -96,7 +96,7 @@ namespace MC::Memory
 
     void MemoryTracker::OnTrackedMemoryFreed(void* ptr) noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->OnTrackedMemoryFreedImpl(ptr);
 #endif
@@ -104,7 +104,7 @@ namespace MC::Memory
 
     void MemoryTracker::DumpMemoryUsage() noexcept
     {
-#ifndef MC_DIST
+#ifndef MOON_DIST
         if (!s_Instance) return;
         s_Instance->DumpMemoryUsageImpl();
 #endif

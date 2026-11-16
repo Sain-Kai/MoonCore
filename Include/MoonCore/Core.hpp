@@ -1,9 +1,9 @@
 #pragma once
 // TODO: Add Linux support
-#include "Types.hpp"
-#include "Macros.hpp"
-#include "TypeTraits.hpp"
-#include "Concept.hpp"
+#include "MoonCore/Types.hpp"
+#include "MoonCore/Macros.hpp"
+#include "MoonCore/TypeTraits.hpp"
+#include "MoonCore/Concept.hpp"
 #include <stdlib.h>
 #include <string.h>
 

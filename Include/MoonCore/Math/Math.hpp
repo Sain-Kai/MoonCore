@@ -1,6 +1,6 @@
 #pragma once
-#include "Math/Vector4.hpp"
-#include "Matrix4x4.hpp"
+#include "MoonCore/Math/Vector4.hpp"
+#include "MoonCore/Math/Matrix4x4.hpp"
 
 namespace MC::Math
 {

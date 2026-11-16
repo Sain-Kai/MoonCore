@@ -1,20 +1,20 @@
 #pragma once
-#include "Platform/Base/PlatformMacros.hpp"
+#include "MoonCore/Platform/Base/PlatformMacros.hpp"
 
 // Bitwise operations
-#define BIT(x) static_cast<u64>(1 << (x))
-#define IS_POWER_OF_2(x) x && !((x) & ((x) - 1))
+#define MOON_BIT(x) static_cast<u64>(1 << (x))
+#define MOON_IS_POWER_OF_2(x) x && !((x) & ((x) - 1))
 
 // Attributes
-#define MC_DEPRECATED [[deprecated]]
-#define MC_DEPRECATED_MSG(text) [[deprecated(text)]]
+#define MOON_DEPRECATED           [[deprecated]]
+#define MOON_DEPRECATED_MSG(text) [[deprecated(text)]]
 
-#define MC_NODISCARD [[nodiscard]]
-#define MC_NODISCARD_MSG(text) [[nodiscard(text)]]
+#define MOON_NODISCARD           [[nodiscard]]
+#define MOON_NODISCARD_MSG(text) [[nodiscard(text)]]
 
-#define MC_MAYBE_UNUSED [[maybe_unused]]
-#define MC_NORETURN [[noreturn]]
+#define MOON_MAYBE_UNUSED [[maybe_unused]]
+#define MOON_NORETURN     [[noreturn]]
 
-#define MC_GB(bytes) static_cast<usize>((bytes) * BIT(30))
-#define MC_MB(bytes) static_cast<usize>((bytes) * BIT(20))
-#define MC_KB(bytes) static_cast<usize>((bytes) * BIT(10))
+#define MOON_GB(bytes) static_cast<usize>((bytes) * MOON_BIT(30))
+#define MOON_MB(bytes) static_cast<usize>((bytes) * MOON_BIT(20))
+#define MOON_KB(bytes) static_cast<usize>((bytes) * MOON_BIT(10))
