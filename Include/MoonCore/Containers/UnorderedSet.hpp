@@ -5,8 +5,21 @@
 #include "Memory/Memory.hpp"
 #include "Memory/Allocators/Heap/HeapAllocator.hpp"
 
+/**
+ * @file UnorderedSet.hpp
+ * @brief High-performance hash table set container with bucket chaining.
+ * @ingroup unord_containers
+ */
+
 namespace MC
 {
+	/**
+	 * @class USetIterator
+	 * @brief Forward iterator for traversing elements in an `MC::UnorderedSet`.
+	 *
+	 * @tparam Container Owning unordered set container type.
+	 * @tparam IsConst Whether this iterator provides const access to values.
+	 */
 	template <typename Container, bool IsConst = false>
 	class USetIterator
 	{
@@ -133,6 +146,26 @@ namespace MC
 			Concept::HeapAllocatorType<typename Core::Helper::UnorderedSetTraits<Value, Hasher, Allocator>::BucketAllocator>;
 	}
 
+	/**
+	 * @class UnorderedSet
+	 * @brief Hash table container with unique keys and separate chaining.
+	 *
+	 * `UnorderedSet<Value, Hasher, Allocator>` organizes unique values into hash buckets.
+	 * Offers average constant-time O(1) search, insertion, and deletion.
+	 *
+	 * @tparam Value Stored key/value type.
+	 * @tparam Hasher Hash functor template. Defaults to `Memory::Hasher`.
+	 * @tparam Allocator Memory allocator template. Defaults to `Memory::HeapAllocator`.
+	 *
+	 * @code
+	 * MC::UnorderedSet<int> set;
+	 * set.Insert(10);
+	 * set.Insert(20);
+	 * if (set.Contains(10)) {
+	 *     // Found
+	 * }
+	 * @endcode
+	 */
 	template<typename Value,
 		template<typename> class Hasher = Memory::Hasher,
 		template<typename> class Allocator = Memory::HeapAllocator>
@@ -530,6 +563,14 @@ namespace MC
 		BucketAllocator m_BucketAllocator;
 	};
 
+	/**
+	 * @brief Specialization of `MC::UnorderedSet` optimized for `MC::String` elements.
+	 *
+	 * Uses direct character buffer hashing for optimal lookup performance.
+	 *
+	 * @tparam Hasher Hash functor template.
+	 * @tparam Allocator Allocator policy template.
+	 */
 	template< template<typename> class Hasher, template<typename> class Allocator>
 	class UnorderedSet<MC::String, Hasher, Allocator>
 	{
