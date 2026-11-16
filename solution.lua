@@ -4,3 +4,9 @@ workspace "MoonCore"
     startproject "MoonCore"
     
     require "premake5"
+
+    group "Dependencies"
+        include "Tests"
+    group "Tests"
+        include "Tests/DynamicBitset"
+    group ""
