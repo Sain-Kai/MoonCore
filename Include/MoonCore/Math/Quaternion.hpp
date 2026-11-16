@@ -352,6 +352,6 @@ constexpr MC::Math::Quaternion operator*(f32 number, const MC::Math::Quaternion&
     return other * number;
 }
 
-MOON_FMT_FORMATTER(MC::Math::Quaternion, "%f, %f, %f, %f",
+MOON_FMT_FORMATTER(MC::Math::Quaternion, "{:.3f}, {:.3f}, {:.3f}, {:.3f}",
 	MOON_FMT_FORMATTER_MEMBER(w), MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y),
 	MOON_FMT_FORMATTER_MEMBER(z));

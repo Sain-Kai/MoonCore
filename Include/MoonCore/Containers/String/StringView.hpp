@@ -585,6 +585,6 @@ namespace MC
 		}
 	};
 
-	typedef StringViewImpl<char8> StringView; // UTF-8
-	typedef StringViewImpl<wchar> WideStringView; // UTF-16
+	using StringView     = StringViewImpl<char8>; // UTF-8
+	using WideStringView = StringViewImpl<wchar>; // UTF-16
 }

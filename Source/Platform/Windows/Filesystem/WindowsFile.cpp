@@ -61,7 +61,7 @@ namespace MC::Windows::Filesystem
 			if (!ReadFile(m_File, &byte, 1, &bytesRead, nullptr))
 			{
                 Logging::Logger::Error(Logging::Logger::Module::Core,
-                    "Failed to read file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                    "Failed to read file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
 				m_LastError = Enums::OperationError::ReadFileFailed;
 				m_EndOfFile = true;
 				break;
@@ -105,7 +105,7 @@ namespace MC::Windows::Filesystem
         if (!ReadFile(m_File, data, static_cast<DWORD>(size), &bytesRead, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to read binary data from file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to read binary data from file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             m_LastError = Enums::OperationError::ReadFileFailed;
             return false;
         }
@@ -113,7 +113,7 @@ namespace MC::Windows::Filesystem
         if (bytesRead != size)
         {
             Logging::Logger::Warn(Logging::Logger::Module::Core,
-                "Partially read the file! Requested size: %u, got from file: %u", size, bytesRead);
+                "Partially read the file! Requested size: {:d}, got from file: {:d}", size, bytesRead);
             m_LastError = Enums::OperationError::PartialRead;
             m_EndOfFile = true;
             return false;
@@ -137,7 +137,7 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, &character, 1, &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
@@ -160,7 +160,7 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, str.String(), static_cast<DWORD>(str.Size()), &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
@@ -183,7 +183,7 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, input, static_cast<DWORD>(size), &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
@@ -199,7 +199,7 @@ namespace MC::Windows::Filesystem
         if (!SetFilePointerEx(m_File, li, &li, FILE_CURRENT))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to get file position! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to get file position! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             return 0xFFFFFFFFFFFFFFFF;
         }
         return static_cast<usize>(li.QuadPart);
@@ -212,7 +212,7 @@ namespace MC::Windows::Filesystem
         if (!SetFilePointerEx(m_File, li, nullptr, FILE_BEGIN))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to seek file! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to seek file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             m_LastError = Enums::OperationError::SeekFailed;
             return false;
         }
@@ -241,7 +241,7 @@ namespace MC::Windows::Filesystem
     {
         if (FlushFileBuffers(m_File)) return true;
         Logging::Logger::Error(Logging::Logger::Module::Core,
-            "File flush failed! Win32 error: %x", static_cast<u32>(GetLastError()));
+            "File flush failed! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
         m_LastError = Enums::OperationError::FlushFailed;
         return false;
     }
@@ -263,7 +263,7 @@ namespace MC::Windows::Filesystem
         if (m_File == INVALID_HANDLE_VALUE)
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "File can not be opened! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "File can not be opened! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             return;
         }
 
@@ -271,7 +271,7 @@ namespace MC::Windows::Filesystem
         if (!GetFileInformationByHandle(m_File, &info))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Could not gather file's [\"%s\"] information! Win32 error: %x",
+                "Could not gather file's [\"{}\"] information! Win32 error: {:#18x}",
                 path, static_cast<u32>(GetLastError()));
             CloseHandle(m_File);
             m_File = INVALID_HANDLE_VALUE;

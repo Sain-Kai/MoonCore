@@ -21,7 +21,7 @@ namespace MC::Windows::Filesystem
         if (lastError == ERROR_ALREADY_EXISTS) return true;
 
         Logger::Error(Logger::Module::Core,
-            "Failed to create directory! Win32 error: %llx", static_cast<i32>(lastError));
+            "Failed to create directory! Win32 error: {:#18x}", static_cast<i32>(lastError));
         return false;
     }
 
@@ -30,7 +30,7 @@ namespace MC::Windows::Filesystem
         BOOL result = RemoveDirectoryW(StringViewToWideString(directory).String());
         if (result != 0) return true;
         Logger::Error(Logger::Module::Core,
-            "Failed to remove directory! Win32 error: %llx", static_cast<i32>(GetLastError()));
+            "Failed to remove directory! Win32 error: {:#18x}", static_cast<i32>(GetLastError()));
         return false;
     }
 
@@ -39,7 +39,7 @@ namespace MC::Windows::Filesystem
         BOOL result = SetCurrentDirectoryW(StringViewToWideString(directory).String());
         if (result != 0) return true;
         Logger::Error(Logger::Module::Core,
-            "Failed to set current directory! Win32 error: %llx", static_cast<i32>(GetLastError()));
+            "Failed to set current directory! Win32 error: {:#18x}", static_cast<i32>(GetLastError()));
         return false;
     }
 
@@ -50,7 +50,7 @@ namespace MC::Windows::Filesystem
         if (size != 0) return WideStringViewToString(path);
 
         Logger::Error(Logger::Module::Core,
-            "Failed to get current directory! Win32 error: %llx", static_cast<i32>(GetLastError()));
+            "Failed to get current directory! Win32 error: {:#18x}", static_cast<i32>(GetLastError()));
         return { "", 0 };
     }
 
@@ -69,7 +69,7 @@ namespace MC::Windows::Filesystem
             StringViewToWideString(newLocation).String(), flags);
         if (result != 0) return true;
         Logger::Error(Logger::Module::Core,
-            "Failed to move file/directory! Win32 error: %llx", static_cast<i32>(GetLastError()));
+            "Failed to move file/directory! Win32 error: {:#18x}", static_cast<i32>(GetLastError()));
         return false;
     }
 

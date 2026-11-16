@@ -21,8 +21,8 @@
         virtual MC::StringView GetName() const noexcept override { return TEXT(#type); }
 #define MOON_SIGNAL_INHERIT() public MC::Signal
 
-#define MOON_FMT_SIGNAL(signal, str, ...) MOON_FMT_FORMATTER((signal)&, "Signal %s fired! Data: " ## str, MOON_FMT_FORMATTER_METHOD(GetName), __VA_ARGS__)
-#define MOON_FMT_DEFAULT_SIGNAL(signal) MOON_FMT_FORMATTER((signal)&, "Signal %s fired!", MOON_FMT_FORMATTER_METHOD(GetName))
+#define MOON_FMT_SIGNAL(signal, str, ...) MOON_FMT_FORMATTER((signal)&, "Signal {} fired! Data: " ## str, MOON_FMT_FORMATTER_METHOD(GetName), __VA_ARGS__)
+#define MOON_FMT_DEFAULT_SIGNAL(signal)   MOON_FMT_FORMATTER((signal)&, "Signal {} fired!", MOON_FMT_FORMATTER_METHOD(GetName))
 
 namespace MC
 {
@@ -87,4 +87,4 @@ namespace MC
     };
 }
 
-MOON_FMT_FORMATTER(MC::Signal&, "Signal %s fired!", MOON_FMT_FORMATTER_METHOD(GetName))
+MOON_FMT_FORMATTER(MC::Signal&, "Signal {} fired!", MOON_FMT_FORMATTER_METHOD(GetName))

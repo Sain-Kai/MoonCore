@@ -255,5 +255,5 @@ constexpr ::MC::Math::Vector2<T> operator*(U scalar, const ::MC::Math::Vector2<T
 	return vec * scalar;
 }
 
-MOON_FMT_FORMATTER(MC::Math::Vector2D32, "%f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));
-MOON_FMT_FORMATTER(MC::Math::Vector2D64, "%f, %f", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));
+MOON_FMT_FORMATTER(MC::Math::Vector2D32, "{:.3f}, {:.3f}", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));
+MOON_FMT_FORMATTER(MC::Math::Vector2D64, "{:.3f}, {:.3f}", MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y));

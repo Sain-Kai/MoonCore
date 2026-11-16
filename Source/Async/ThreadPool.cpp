@@ -7,7 +7,7 @@ namespace MC::Async
     ThreadPool::ThreadPool(u64 workerCount) noexcept
         : m_ActiveTasks(0), m_Works(true)
     {
-        constexpr char8 WorkerName[] = TEXT("Worker %d");
+        constexpr char8 WorkerName[] = TEXT("Worker {}");
 
         m_Threads.Reserve(workerCount);
 
@@ -39,9 +39,9 @@ namespace MC::Async
     void ThreadPool::Wait() noexcept
     {
         UniqueLock lock(m_QueueMutex);
-        m_QueueCondition.Wait(lock, [this]() noexcept {
+        m_QueueCondition.Wait(lock, [this] noexcept -> bool {
             return m_Tasks.Empty() && m_ActiveTasks == 0;
-            });
+        });
     }
 
     u64 ThreadPool::GetQueuedTaskCount() noexcept
@@ -59,9 +59,9 @@ namespace MC::Async
             {
                 UniqueLock lock(m_QueueMutex);
 
-                m_QueueCondition.Wait(lock, [this]() noexcept {
-                    return !m_Tasks.Empty() || !m_Works;
-                    });
+                m_QueueCondition.Wait(lock, [this] noexcept -> bool {
+                    return !m_Tasks.Empty() || !m_Works; 
+                });
 
                 if (!m_Works && m_Tasks.Empty())
                     return;
