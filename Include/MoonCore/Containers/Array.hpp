@@ -1,10 +1,10 @@
 #pragma once
-#include "Details/ArrayShared.hpp"
-#include "Utility/Algorithm.hpp"
-#include "Memory/Memory.hpp"
-#include "Memory/Allocators/Heap/HeapAllocator.hpp"
-#include "Utility/Debug.hpp"
-#include "Utility/InitializerList.hpp"
+#include "MoonCore/Containers/Details/ArrayShared.hpp"
+#include "MoonCore/Utility/Algorithm.hpp"
+#include "MoonCore/Memory/Memory.hpp"
+#include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
+#include "MoonCore/Utility/Debug.hpp"
+#include "MoonCore/Utility/InitializerList.hpp"
 
 namespace MC
 {

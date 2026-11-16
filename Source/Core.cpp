@@ -7,7 +7,7 @@
 
 void SetupPlatform() noexcept;
 
-extern "C" LIBRARY_EXPORT i32 InitializeCore(i32 argc, char7** argv)
+extern "C" COREAPI i32 InitializeCore(i32 argc, char7** argv)
 {
     MC::Details::SetCoreTerminationHandler([] noexcept-> void { ShutdownCore(); });
 
@@ -47,7 +47,7 @@ extern "C" LIBRARY_EXPORT i32 InitializeCore(i32 argc, char7** argv)
     return 0;
 }
 
-extern "C" LIBRARY_EXPORT i32 ShutdownCore()
+extern "C" COREAPI i32 ShutdownCore()
 {
     MC::Memory::MemoryTracker::Shutdown();
     MC::Logging::Logger::ShutdownLogger();
