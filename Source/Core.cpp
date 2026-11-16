@@ -1,15 +1,16 @@
 #include "Core.hpp"
-
 #include "CommandLine.hpp"
 #include "Filesystem/Filesystem.hpp"
 #include "Logging/Logger.hpp"
 #include "Memory/MemoryTracker.hpp"
-#include <Shutdown.hpp>
+#include "Shutdown.hpp"
 
 void SetupPlatform() noexcept;
 
 extern "C" LIBRARY_EXPORT i32 InitializeCore(i32 argc, char7** argv)
 {
+    MC::Details::SetCoreTerminationHandler([] noexcept-> void { ShutdownCore(); });
+
 	SetupPlatform();
 
     MC::Clock::Time::Initialize();

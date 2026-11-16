@@ -55,29 +55,24 @@ namespace MC::Utility::Debugging
 
     static constexpr SourceData EmptySource = SourceData("", "", ~0u, ~0u);
 
-    void Log(const char7* message) noexcept;
+    using TerminationHandler = void(*)();
 
+    void COREAPI SetTerminationHandler(const TerminationHandler& handler) noexcept;
+    TerminationHandler COREAPI GetTerminationHandler() noexcept;
+
+    namespace Details 
+    {
+        MC_NORETURN COREAPI void TerminateRuntime(const char7* message, const SourceData& source) noexcept;
+    }
 #pragma warning(push)
 #pragma warning(disable : 4645)
-    MC_NORETURN constexpr static void Terminate(const char7* message) noexcept
+    MC_NORETURN constexpr static void Terminate(const char7* message = nullptr, const SourceData& source = SourceData()) noexcept
     {
         if consteval
         {
             MC_UNREACHABLE();
         }
-
-        Log(message);
-        abort();
-    }
-
-    MC_NORETURN constexpr static void Terminate() noexcept
-    {
-        if consteval
-        {
-            MC_UNREACHABLE();
-        }
-
-        abort();
+        Details::TerminateRuntime(message, source);
     }
 #pragma warning(pop)
 }
