@@ -50,6 +50,7 @@ project "Core"
     {
         "Dependencies/spdlog/include",
         "Dependencies/xxHash",
+        "Include/MoonCore",
         "Source",
     }
 
@@ -89,11 +90,9 @@ project "Core"
 
     -- Build configurations
     filter "configurations:Debug"
-        defines "MC_DEBUG"
         symbols "on"
         runtime "Debug"
     filter "configurations:Release"
-        defines  "MC_RELEASE"
         optimize "on"
         runtime  "Release"
     filter {}
@@ -107,7 +106,11 @@ project "Core"
         defines { "FMT_HEADER_ONLY" }
         filter "options:link=static"
             defines { "MOON_CORE_STATIC_LIB" }
-    filter {}
-    
+        filter "configurations:Debug"
+            defines "MC_DEBUG"
+        filter "configurations:Release"
+            defines  "MC_RELEASE"
+        filter {}
+
     group "Dependencies"
         include "Dependencies/xxHash"

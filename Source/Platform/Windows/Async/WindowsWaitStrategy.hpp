@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Async/WaitStrategy.hpp"
+#include "Async/Details/WaitStrategy.inl"
 
-namespace MC::Async
+namespace MC::Windows::Async
 {
-    class WindowsWaitStrategy : public WaitStrategy
+    class WindowsWaitStrategy final : public MC::Async::Details::WaitStrategy
     {
     public:
         bool WaitImpl(volatile void* waitable, void* comparable, usize size, u32 timeout) noexcept  override;

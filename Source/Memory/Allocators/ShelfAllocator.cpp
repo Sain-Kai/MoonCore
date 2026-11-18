@@ -1,4 +1,4 @@
-#include "MoonCore/Memory/Allocators/Offset/ShelfAllocator.hpp"
+#include "Memory/Allocators/Offset/ShelfAllocator.hpp"
 
 namespace MC::Memory
 {

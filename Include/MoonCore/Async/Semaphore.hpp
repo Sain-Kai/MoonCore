@@ -2,9 +2,8 @@
 #include "MoonCore/Core.hpp"
 #include "MoonCore/Clock/Time.hpp"
 #include "MoonCore/Utility/Debug.hpp"
-
-#include "WaitStrategy.hpp"
-#include "Atomic.hpp"
+#include "MoonCore/Async/Details/WaitStrategy.inl"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Async
 {
@@ -34,16 +33,16 @@ namespace MC::Async
             u64 current = m_Counter.load(std::memory_order_relaxed);
             for (;;)
             {
-                MC_CHECK(update <= MaxValue - current, "Semaphore overflow");
+                MOON_CHECK(update <= MaxValue - current, "Semaphore overflow");
                 if (m_Counter.compare_exchange_weak(current, current + update,
                     std::memory_order_release,
                     std::memory_order_relaxed))
                     break;
             }
             if (update == 1)
-                WaitStrategy::Notify(&m_Counter);
+                Details::WaitStrategy::Notify(&m_Counter);
             else
-                WaitStrategy::NotifyAll(&m_Counter);
+                Details::WaitStrategy::NotifyAll(&m_Counter);
         }
 
         void Acquire() noexcept
@@ -58,7 +57,7 @@ namespace MC::Async
                     return;
 
                 u64 zero = 0;
-                WaitStrategy::Wait(&m_Counter, &zero, sizeof(u64), WAIT_INFINITE);
+                Details::WaitStrategy::Wait(&m_Counter, &zero, sizeof(u64), WAIT_INFINITE);
             }
         }
 
@@ -80,7 +79,7 @@ namespace MC::Async
                 Clock::Timestep remaining = deadline - Clock::Time::Now();
                 if (remaining <= 0) return false;
                 u64 zero = 0;
-                if (!WaitStrategy::Wait(&m_Counter, &zero, sizeof(u64), static_cast<u32>(remaining.AsMilliseconds())))
+                if (!Details::WaitStrategy::Wait(&m_Counter, &zero, sizeof(u64), static_cast<u32>(remaining.AsMilliseconds())))
                     return false;
             }
         }
@@ -103,7 +102,7 @@ namespace MC::Async
         constexpr explicit Semaphore(u64 desired) noexcept
             : m_Counter(static_cast<u8>(desired))
         {
-            MC_CHECK(desired <= 1, "Desired > 1");
+            MOON_CHECK(desired <= 1, "Desired > 1");
         }
 
         constexpr ~Semaphore() noexcept = default;
@@ -120,12 +119,12 @@ namespace MC::Async
         void Release(u64 update = 1) noexcept
         {
             if (update == 0) return;
-            MC_CHECK(update <= 1, "Semaphore overflow");
+            MOON_CHECK(update <= 1, "Semaphore overflow");
             u8 expected = 0;
-            MC_CHECK(m_Counter.compare_exchange_strong(expected, 1,
+            MOON_CHECK(m_Counter.compare_exchange_strong(expected, 1,
                 std::memory_order_release,
                 std::memory_order_relaxed), "Semaphore overflow");
-            WaitStrategy::Notify(&m_Counter);
+            Details::WaitStrategy::Notify(&m_Counter);
         }
 
         void Acquire() noexcept
@@ -135,7 +134,7 @@ namespace MC::Async
                 u8 previous = m_Counter.exchange(0);
                 if (previous == 1) break;
                 u8 zero = 0;
-                WaitStrategy::Wait(&m_Counter, &zero, sizeof(u8), WAIT_INFINITE);
+                Details::WaitStrategy::Wait(&m_Counter, &zero, sizeof(u8), Details::WAIT_INFINITE);
             }
         }
 
@@ -153,7 +152,7 @@ namespace MC::Async
                 Clock::Timestep remaining = deadline - Clock::Time::Now();
                 if (remaining <= 0) return false;
                 u8 zero = 0;
-                if (!WaitStrategy::Wait(&m_Counter, &zero, sizeof(u8), static_cast<u32>(remaining.AsMilliseconds())))
+                if (!Details::WaitStrategy::Wait(&m_Counter, &zero, sizeof(u8), static_cast<u32>(remaining.AsMilliseconds())))
                     return false;
             }
         }

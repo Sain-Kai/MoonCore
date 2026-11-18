@@ -1,8 +1,7 @@
 #pragma once
-#include "MoonCore/Core.hpp"
 #include "MoonCore/Memory/Pointers/Scope.hpp"
 
-namespace MC::Async
+namespace MC::Async::Details
 {
     inline constexpr u32 WAIT_INFINITE = 0xFFFFFFFF;
 

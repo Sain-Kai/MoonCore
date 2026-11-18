@@ -117,10 +117,10 @@ namespace MC
 			const auto e = CodepointEnd();
 			for (usize i = 0; i < codepointIndex; ++i)
 			{
-				MC_CHECK(it != e, "Codepoint index out of range");
+				MOON_CHECK(it != e, "Codepoint index out of range");
 				++it;
 			}
-			MC_CHECK(it != e, "Codepoint index out of range");
+			MOON_CHECK(it != e, "Codepoint index out of range");
 			return *it;
 		}
 
@@ -130,7 +130,7 @@ namespace MC
 			const auto e = CodepointEnd();
 			for (usize i = 0; i < codepointIndex; ++i)
 			{
-				MC_CHECK(it != e, "Codepoint index out of range");
+				MOON_CHECK(it != e, "Codepoint index out of range");
 				++it;
 			}
 			return static_cast<usize>(it.Ptr() - m_Data);
@@ -150,7 +150,7 @@ namespace MC
 	public:
 		constexpr RefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in string is out of range");
+			MOON_CHECK(index < m_Size, "Index in string is out of range");
 			return m_Data[index];
 		}
 
@@ -177,7 +177,7 @@ namespace MC
 
 		constexpr StringViewImpl Substring(usize start, usize length = NoPosition) const noexcept
 		{
-			MC_CHECK(start < m_Size, "Start index is out of range");
+			MOON_CHECK(start < m_Size, "Start index is out of range");
 			usize remaining = m_Size - start;
 			usize newSize = (length > remaining) ? remaining : length;
 			return StringViewImpl(m_Data + start, newSize);
@@ -585,6 +585,6 @@ namespace MC
 		}
 	};
 
-	typedef StringViewImpl<char8> StringView; // UTF-8
-	typedef StringViewImpl<wchar> WideStringView; // UTF-16
+	using StringView     = StringViewImpl<char8>; // UTF-8
+	using WideStringView = StringViewImpl<wchar>; // UTF-16
 }

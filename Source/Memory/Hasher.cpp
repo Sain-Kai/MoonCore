@@ -1,4 +1,4 @@
-#include "MoonCore/Memory/Hasher.hpp"
+#include "Memory/Hasher.hpp"
 
 #include <xxhash.h>
 

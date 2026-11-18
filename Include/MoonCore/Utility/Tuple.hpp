@@ -1,5 +1,5 @@
 #pragma once
-#include "Sequences.hpp"
+#include "MoonCore/Utility/Sequences.hpp"
 #include "MoonCore/Types.hpp"
 
 namespace MC::Utility
@@ -96,7 +96,7 @@ namespace MC::Utility
     };
 
     template <typename... ArgTypes>
-    MC_NODISCARD constexpr Tuple<ArgTypes&&...> ForwardAsTuple(ArgTypes&&... args) noexcept
+    MOON_NODISCARD constexpr Tuple<ArgTypes&&...> ForwardAsTuple(ArgTypes&&... args) noexcept
     {
         return Tuple<ArgTypes&&...>(Forward<ArgTypes>(args)...);
     }

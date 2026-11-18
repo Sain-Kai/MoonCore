@@ -1,27 +1,30 @@
 #pragma once
-#include "Mutex.hpp"
+#include "MoonCore/Async/Mutex.hpp"
 
 namespace MC::Async
 {
-    class ConditionVariableBase
+    namespace Details
+    {
+        class ConditionVariableBase
+        {
+        public:
+            virtual ~ConditionVariableBase() noexcept = default;
+
+            virtual void NotifyOne() noexcept = 0;
+            virtual void NotifyAll() noexcept = 0;
+
+            virtual void Wait(Mutex* mutex) noexcept = 0;
+            virtual bool Wait(Mutex* mutex, Clock::Timestep duration) noexcept = 0;
+
+        public:
+            static Memory::Scope<ConditionVariableBase> Create();
+        };
+    }
+
+    class COREAPI ConditionVariable
     {
     public:
-        virtual ~ConditionVariableBase() noexcept = default;
-
-        virtual void NotifyOne() noexcept = 0;
-        virtual void NotifyAll() noexcept = 0;
-
-        virtual void Wait(Mutex* mutex) noexcept = 0;
-        virtual bool Wait(Mutex* mutex, Clock::Timestep duration) noexcept = 0;
-
-    public:
-        static Memory::Scope<ConditionVariableBase> Create();
-    };
-    
-    class ConditionVariable
-    {
-    public:
-        ConditionVariable() noexcept : m_Mutex(Memory::MakeReference<Mutex>()), m_Variable(ConditionVariableBase::Create()) {}
+        ConditionVariable() noexcept : m_Mutex(Memory::MakeReference<Mutex>()), m_Variable(Details::ConditionVariableBase::Create()) {}
         ConditionVariable(const ConditionVariable&) = delete;
 
     public:
@@ -96,6 +99,6 @@ namespace MC::Async
 
     private:
         Memory::Reference<Mutex> m_Mutex;
-        Memory::Scope<ConditionVariableBase> m_Variable;
+        Memory::Scope<Details::ConditionVariableBase> m_Variable;
     };
 }

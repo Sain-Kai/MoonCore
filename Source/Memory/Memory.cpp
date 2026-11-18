@@ -1,7 +1,7 @@
-#include "MoonCore/Memory/Memory.hpp"
+#include "Memory/Memory.hpp"
 
-#include "MoonCore/Memory/MemoryTracker.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "Memory/MemoryTracker.hpp"
+#include "Utility/Algorithm.hpp"
 
 namespace MC::Memory
 {
@@ -26,7 +26,7 @@ namespace MC::Memory
         void* rawAddress = _mm_malloc(size + offset, newAlignment);
         if (!rawAddress)
         {
-            MC_VALIDATE(false, "Failed to allocate memory!");
+            MOON_VALIDATE(false, "Failed to allocate memory!");
             return nullptr;
         }
 

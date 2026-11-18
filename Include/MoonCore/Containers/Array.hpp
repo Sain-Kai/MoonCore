@@ -1,5 +1,5 @@
 #pragma once
-#include "Details/ArrayShared.hpp"
+#include "MoonCore/Containers/Details/ArrayShared.hpp"
 #include "MoonCore/Utility/Algorithm.hpp"
 #include "MoonCore/Memory/Memory.hpp"
 #include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
@@ -175,13 +175,13 @@ namespace MC
 
 		RefType operator[](const usize index) noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		ConstRefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 

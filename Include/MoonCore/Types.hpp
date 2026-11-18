@@ -1,18 +1,16 @@
 ﻿#pragma once
 #include <limits.h>
 #include <float.h>
-#include "Macros.hpp"
+#include "MoonCore/Macros.hpp"
 
 // Compiler defines
 #if defined(COMPILER_MSVC)
-#	include "Platform/MSVCDefines.inl"
+#	include "MoonCore/Platform/MSVCDefines.inl"
 #endif
 
 // Platform types
 #if defined(PLATFORM_WINDOWS)
 	#	include "MoonCore/Platform/WindowsTypes.inl"
-#elif defined(PLATFORM_UNIX)
-	#	include "MoonCore/Platform/Unix/UnixTypes.hpp"
 #else
 #	include "MoonCore/Platform/Base/BaseTypes.hpp"
     typedef BaseTypes PlatformTypes;

@@ -1,7 +1,7 @@
 #pragma once
 #include "MoonCore/Core.hpp"
 #include "MoonCore/Utility/Debug.hpp"
-#include "Atomic.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Async
 {
@@ -95,9 +95,9 @@ namespace MC::Async
     public:
         ArrivalToken Arrive(u64 n = 1) noexcept
         {
-            MC_CHECK(n > 0 && n <= Max(), "Barrier: n is expected to be > 0 and <= Max()");
+            MOON_CHECK(n > 0 && n <= Max(), "Barrier: n is expected to be > 0 and <= Max()");
             n <<= Token::BARRIER_VALUE_OFFSET;
-            MC_CHECK(n <= m_Data.Current.load(std::memory_order_relaxed), "Barrier corruption! n > current expected count");
+            MOON_CHECK(n <= m_Data.Current.load(std::memory_order_relaxed), "Barrier corruption! n > current expected count");
             u64 current = m_Data.Current.fetch_sub(n) - n;
 
             if ((current & Token::BARRIER_VALUE_MASK) == 0)
@@ -108,7 +108,7 @@ namespace MC::Async
 
         void Wait(ArrivalToken&& token) noexcept
         {
-            MC_CHECK(token.Address() == reinterpret_cast<u64>(this), "Barrier: used different barrier's token");
+            MOON_CHECK(token.Address() == reinterpret_cast<u64>(this), "Barrier: used different barrier's token");
             const u64 phase = token.Phase();
             token.m_Token = Token::BARRIER_INVALID_TOKEN;
 
@@ -123,9 +123,9 @@ namespace MC::Async
 
         void ArriveAndWait(u64 n = 1) noexcept
         {
-            MC_CHECK(n > 0 && n <= Max(), "Barrier: n is expected to be > 0 and <= Max()");
+            MOON_CHECK(n > 0 && n <= Max(), "Barrier: n is expected to be > 0 and <= Max()");
             n <<= Token::BARRIER_VALUE_OFFSET;
-            MC_CHECK(n <= m_Data.Current.load(std::memory_order_relaxed), "Barrier corruption! n > current expected count");
+            MOON_CHECK(n <= m_Data.Current.load(std::memory_order_relaxed), "Barrier corruption! n > current expected count");
             u64 current = m_Data.Current.fetch_sub(n) - n;
             const u64 phase = current & Token::BARRIER_PHASE_MASK;
 

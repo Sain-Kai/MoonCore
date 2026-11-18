@@ -1,9 +1,9 @@
 #pragma once
-#include "MoonCore/Filesystem/Filesystem.hpp"
+#include "Filesystem/Filesystem.hpp"
 
 namespace MC::Windows::Filesystem
 {
-    class WindowsFilesystem final : public MC::Filesystem::Filesystem
+    class COREAPI WindowsFilesystem final : public MC::Filesystem::Filesystem
     {
     protected:
         bool InitializeImpl() noexcept override;

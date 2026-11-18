@@ -17,8 +17,8 @@ namespace MC::Profiling
         ~Benchmark() noexcept
         {
             Clock::Timestep duration = Clock::Time::Now() - m_StartTime;
-            MC_LOG(Profiling, Logging::LogLevel::Info, TEXT("Benchmark '%s' ended lasting %.5f%s"), 
-                m_BenchmarkName, Unit::AsUnit(duration), Unit::UnitName);
+            Logging::Logger::Debug(Logging::Logger::Module::Profiling, Logging::Logger::Severity::Info, TEXT("Benchmark '{0}' ended lasting {1:.{2}f}{3}"), 
+                m_BenchmarkName, Unit::AsUnit(duration), OutputPrecision, Unit::UnitName);
         }
 
     private:

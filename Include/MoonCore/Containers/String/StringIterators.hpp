@@ -82,7 +82,7 @@ namespace MC
 		constexpr CodepointIterator& operator++()
 		{
 			u8 lead = static_cast<u8>(*m_Ptr);
-			MC_CHECK((lead & 0xC0) != 0x80, "Iterator points to a UTF-8 continuation byte");
+			MOON_CHECK((lead & 0xC0) != 0x80, "Iterator points to a UTF-8 continuation byte");
 			if (lead < 0x80) m_Ptr += 1;
 			else if (lead < 0xE0) m_Ptr += 2;
 			else if (lead < 0xF0) m_Ptr += 3;

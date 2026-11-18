@@ -210,7 +210,7 @@ namespace MC
         RefType At(usize index) noexcept { return const_cast<RefType>(static_cast<const Deque&>(*this).At(index)); }
         ConstRefType At(usize index) const noexcept
         {
-            MC_CHECK(index < m_ElementCount, "Index in deque is out of range!");
+            MOON_CHECK(index < m_ElementCount, "Index in deque is out of range!");
             const usize absoluteIndex = m_FrontElement + index;
             return m_Blocks[m_FrontBlock + absoluteIndex / ELEMCNT_IN_BLOCK_COUNT]->Elements[absoluteIndex % ELEMCNT_IN_BLOCK_COUNT];
         }
@@ -220,14 +220,14 @@ namespace MC
         RefType Front() noexcept { return const_cast<RefType>(static_cast<const Deque&>(*this).Front()); }
         ConstRefType Front() const noexcept
         {
-            MC_CHECK(!Empty(), "Front() on empty deque!");
+            MOON_CHECK(!Empty(), "Front() on empty deque!");
             return m_Blocks[m_FrontBlock]->Elements[m_FrontElement];
         }
 
         RefType Back() noexcept { return const_cast<RefType>(static_cast<const Deque&>(*this).Back()); }
         ConstRefType Back() const noexcept
         {
-            MC_CHECK(!Empty(), "Back() on empty deque!");
+            MOON_CHECK(!Empty(), "Back() on empty deque!");
             if (m_BackElement == 0)
                 return m_Blocks[m_BackBlock - 1]->Elements[ELEMCNT_IN_BLOCK_COUNT - 1];
             return m_Blocks[m_BackBlock]->Elements[m_BackElement - 1];
@@ -302,7 +302,7 @@ namespace MC
 
         void PopBack() noexcept
         {
-            MC_CHECK(!Empty(), "PopBack() on empty deque!");
+            MOON_CHECK(!Empty(), "PopBack() on empty deque!");
             if (m_BackElement == 0)
             {
                 --m_BackBlock;
@@ -317,7 +317,7 @@ namespace MC
 
         void PopFront() noexcept
         {
-            MC_CHECK(!Empty(), "PopFront() on empty deque!");
+            MOON_CHECK(!Empty(), "PopFront() on empty deque!");
             Memory::Destroy(&m_Blocks[m_FrontBlock]->Elements[m_FrontElement]);
             --m_ElementCount;
 
@@ -413,7 +413,7 @@ namespace MC
         BlockType** AllocateMap(usize blockCount) noexcept
         {
             BlockType** map = m_BlockPoolAllocator.Allocate(blockCount);
-            MC_CHECK(map, "Deque block map allocation failed!");
+            MOON_CHECK(map, "Deque block map allocation failed!");
             for (usize i = 0; i < blockCount; ++i) map[i] = nullptr;
             return map;
         }

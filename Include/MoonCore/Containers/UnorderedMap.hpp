@@ -308,7 +308,7 @@ namespace MC
 		{
 			usize index;
 			NodeType* node = FindImpl(key, index);
-			MC_CHECK(node, "Key not found in UnorderedMap");
+			MOON_CHECK(node, "Key not found in UnorderedMap");
 			return node->Pair;
 		}
 
@@ -316,7 +316,7 @@ namespace MC
 		{
 			usize index;
 			NodeType* node = FindImpl(key, index);
-			MC_CHECK(node, "Key not found in UnorderedMap");
+			MOON_CHECK(node, "Key not found in UnorderedMap");
 			return node->Pair;
 		}
 
@@ -728,7 +728,7 @@ namespace MC
 		{
 			usize index;
 			NodeType* node = FindImpl(key, index);
-			MC_CHECK(node, "Key not found in UnorderedMap");
+			MOON_CHECK(node, "Key not found in UnorderedMap");
 			return node->Pair;
 		}
 

@@ -49,12 +49,12 @@ namespace MC::Memory
         usize Index = 0xFFFFFFFFFFFFFFFF;
         usize IndexCount = 0x0000000000000000;
 
-        operator bool() const noexcept
+        constexpr operator bool() const noexcept
         {
             return Index != 0xFFFFFFFFFFFFFFFF && IndexCount != 0;
         }
 
-        bool operator==(nullptr_t) const noexcept
+        constexpr bool operator==(nullptr_t) const noexcept
         {
             return Index != 0xFFFFFFFFFFFFFFFF && IndexCount != 0;
         }
@@ -67,12 +67,12 @@ namespace MC::Memory
             : AllocationBase(Move(base)), Offset(offset) {}
         usize Offset = 0xFFFFFFFFFFFFFFFF;
 
-        operator bool() const noexcept
+        constexpr operator bool() const noexcept
         {
             return Offset != 0xFFFFFFFFFFFFFFFF;
         }
 
-        bool operator==(nullptr_t) const noexcept
+        constexpr bool operator==(nullptr_t) const noexcept
         {
             return Offset != 0xFFFFFFFFFFFFFFFF;
         }
@@ -85,17 +85,17 @@ namespace MC::Memory
             : AllocationBase(Move(base)), Rect(rect) {}
         Math::Rect2D Rect;
 
-        operator bool() const noexcept
+        constexpr operator bool() const noexcept
         {
             return Rect.Extent.x != 0xFFFFFFFF && Rect.Extent.y != 0xFFFFFFFF && Rect.Offset.x != 0xFFFFFFFF && Rect.Offset.y != 0xFFFFFFFF;
         }
 
-        bool operator==(nullptr_t) const noexcept
+        constexpr bool operator==(nullptr_t) const noexcept
         {
             return Rect.Extent.x == 0xFFFFFFFF || Rect.Extent.y == 0xFFFFFFFF || Rect.Offset.x == 0xFFFFFFFF || Rect.Offset.y == 0xFFFFFFFF;
         }
 
-        static OffsetAllocation2D Null() noexcept 
+        static OffsetAllocation2D Null() noexcept
         {
             return OffsetAllocation2D(AllocationBase(0xFFFFFFFFFFFFFFFF, 0, nullptr),
                 Math::Rect2D{ {0xFFFFFFFF, 0xFFFFFFFF}, {0xFFFFFFFF, 0xFFFFFFFF} });

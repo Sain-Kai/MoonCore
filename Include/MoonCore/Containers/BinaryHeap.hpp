@@ -3,7 +3,7 @@
 #include "MoonCore/Callables/Functors.hpp"
 #include "MoonCore/Containers/Array.hpp"
 #include "MoonCore/Utility/Algorithm.hpp"
-#include "Details/HeapShared.hpp"
+#include "MoonCore/Containers/Details/HeapShared.hpp"
 
 namespace MC::Concept
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "MoonCore/Types.hpp"
 
-#include "Debug.hpp"
+#include "MoonCore/Utility/Debug.hpp"
 #include "MoonCore/Memory/Memory.hpp"
 
 namespace MC::Utility
@@ -36,22 +36,22 @@ namespace MC::Utility
     public:
         constexpr T& Value() & noexcept
         {
-            MC_CHECK(m_Exist, "Trying to access null object");
+            MOON_CHECK(m_Exist, "Trying to access null object");
             return m_Value;
         }
         constexpr const T& Value() const& noexcept
         {
-            MC_CHECK(m_Exist, "Trying to access null object");
+            MOON_CHECK(m_Exist, "Trying to access null object");
             return m_Value;
         }
         constexpr T&& Value() && noexcept
         {
-            MC_CHECK(m_Exist, "Trying to access null object");
+            MOON_CHECK(m_Exist, "Trying to access null object");
             return Move(m_Value);
         }
         constexpr const T&& Value() const&& noexcept
         {
-            MC_CHECK(m_Exist, "Trying to access null object");
+            MOON_CHECK(m_Exist, "Trying to access null object");
             return Move(m_Value);
         }
 

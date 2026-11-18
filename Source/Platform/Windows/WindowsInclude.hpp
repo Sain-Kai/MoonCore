@@ -1,5 +1,5 @@
 #pragma once
-#include "MoonCore/Types.hpp"
+#include "Types.hpp"
 
 #define NOMINMAX
 #define WIN32_LEAN_AND_MCAN

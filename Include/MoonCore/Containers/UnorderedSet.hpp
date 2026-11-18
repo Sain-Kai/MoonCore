@@ -1,6 +1,7 @@
 #pragma once
 #include "MoonCore/Core.hpp"
 #include "MoonCore/Utility/Pair.hpp"
+#include "MoonCore/Utility/Iterator.hpp"
 #include "MoonCore/Memory/Hasher.hpp"
 #include "MoonCore/Memory/Memory.hpp"
 #include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
@@ -295,7 +296,7 @@ namespace MC
 		{
 			usize index;
 			NodeType* node = FindImpl(value, index);
-			MC_CHECK(node, "Key not found in UnorderedMap");
+			MOON_CHECK(node, "Key not found in UnorderedMap");
 			return node->Value;
 		}
 
@@ -688,7 +689,7 @@ namespace MC
 		{
 			usize index;
 			NodeType* node = FindImpl(value, index);
-			MC_CHECK(node, "Key not found in UnorderedSet");
+			MOON_CHECK(node, "Key not found in UnorderedSet");
 			return node->Value;
 		}
 

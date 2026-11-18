@@ -1,5 +1,5 @@
-#include "MoonCore/Utility/Parser.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Utility/Parser.hpp"
+#include "Logging/Logger.hpp"
 
 using namespace MC::Logging;
 
@@ -41,7 +41,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -76,7 +76,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -111,7 +111,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -146,7 +146,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -181,7 +181,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -216,7 +216,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -251,7 +251,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -286,7 +286,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -321,7 +321,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 
@@ -356,7 +356,7 @@ namespace MC::Utility
             return true;
         }
         Logger::Error(Logger::Module::Core,
-            Formatter::Format("Failed to parse value for an argument %s!", match));
+            Formatter::Format("Failed to parse value for an argument {}!", match));
         return false;
     }
 

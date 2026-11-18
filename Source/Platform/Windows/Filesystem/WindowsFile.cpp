@@ -1,5 +1,5 @@
 #include "WindowsFile.hpp"
-#include "MoonCore/Logging/Logger.hpp"
+#include "Logging/Logger.hpp"
 
 using namespace MC::Filesystem;
 using namespace MC::Logging;
@@ -14,9 +14,9 @@ constexpr MC::Clock::Timepoint WindowsFileTimeToTimepoint(FILETIME fileTime) noe
 
 namespace MC::Windows::Filesystem
 {
-    WindowsFile::WindowsFile(const StringView& path, FileReadMode readMode) noexcept
+    WindowsFile::WindowsFile(const StringView& path, Enums::ReadMode readMode) noexcept
         : m_File(nullptr), m_FileInfo({}), m_FileReadMode(readMode), 
-        m_LastError(FileOperationError::Unknown), m_EndOfFile(true)
+        m_LastError(Enums::OperationError::Unknown), m_EndOfFile(true)
     {
         OpenFile(path);
     }
@@ -29,7 +29,7 @@ namespace MC::Windows::Filesystem
         m_File = nullptr;
     }
 
-    bool WindowsFile::Read(String& output, Input::ReadMode readMode,
+    bool WindowsFile::Read(String& output, Enums::WordReadMode readMode,
         const StringView& symbols) noexcept
     {
         char8 byte = 0;
@@ -38,7 +38,7 @@ namespace MC::Windows::Filesystem
 
 		output.Clear();
 
-        if (readMode == Input::ReadMode::All)
+        if (readMode == Enums::WordReadMode::All)
         {
             u64 lastPos = Tell();
 		    Seek(0);
@@ -61,8 +61,8 @@ namespace MC::Windows::Filesystem
 			if (!ReadFile(m_File, &byte, 1, &bytesRead, nullptr))
 			{
                 Logging::Logger::Error(Logging::Logger::Module::Core,
-                    "Failed to read file! Win32 error: %x", static_cast<u32>(GetLastError()));
-				m_LastError = FileOperationError::ReadFileFailed;
+                    "Failed to read file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+				m_LastError = Enums::OperationError::ReadFileFailed;
 				m_EndOfFile = true;
 				break;
 			}
@@ -73,8 +73,8 @@ namespace MC::Windows::Filesystem
 				break;
 			}
 
-			if (readMode == Input::ReadMode::Line && byte == '\n') break;
-			if (readMode == Input::ReadMode::Word)
+			if (readMode == Enums::WordReadMode::Line && byte == '\n') break;
+			if (readMode == Enums::WordReadMode::Word)
 			{
 				if (byte == '\n' || byte == '\r' || byte == '\0' || byte == ' ')
 				{
@@ -83,7 +83,7 @@ namespace MC::Windows::Filesystem
 				}
 			    readingStarted = true;
 			}
-            if (readMode == Input::ReadMode::UntilSymbol)
+            if (readMode == Enums::WordReadMode::UntilSymbol)
             {
                 if (symbols.Find(byte) != StringView::NoPosition)
                 {
@@ -105,31 +105,31 @@ namespace MC::Windows::Filesystem
         if (!ReadFile(m_File, data, static_cast<DWORD>(size), &bytesRead, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to read binary data from file! Win32 error: %x", static_cast<u32>(GetLastError()));
-            m_LastError = FileOperationError::ReadFileFailed;
+                "Failed to read binary data from file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+            m_LastError = Enums::OperationError::ReadFileFailed;
             return false;
         }
 
         if (bytesRead != size)
         {
             Logging::Logger::Warn(Logging::Logger::Module::Core,
-                "Partially read the file! Requested size: %u, got from file: %u", size, bytesRead);
-            m_LastError = FileOperationError::PartialRead;
+                "Partially read the file! Requested size: {:d}, got from file: {:d}", size, bytesRead);
+            m_LastError = Enums::OperationError::PartialRead;
             m_EndOfFile = true;
             return false;
         }
 
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
         return true;
     }
 
     bool WindowsFile::Write(char8 character) noexcept
     {
-        if (m_FileReadMode == FileReadMode::Read)
+        if (m_FileReadMode == Enums::ReadMode::Read)
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
                 "Trying to write into read-only file!");
-            m_LastError = FileOperationError::FileIsReadOnly;
+            m_LastError = Enums::OperationError::FileIsReadOnly;
             return false;
         }
 
@@ -137,22 +137,22 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, &character, 1, &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
-            m_LastError = FileOperationError::WriteFileFailed;
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+            m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
 
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
         return true;
     }
 
     bool WindowsFile::Write(const StringView& str) noexcept
     {
-        if (m_FileReadMode == FileReadMode::Read)
+        if (m_FileReadMode == Enums::ReadMode::Read)
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
                 "Trying to write into read-only file!");
-            m_LastError = FileOperationError::FileIsReadOnly;
+            m_LastError = Enums::OperationError::FileIsReadOnly;
             return false;
         }
 
@@ -160,22 +160,22 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, str.String(), static_cast<DWORD>(str.Size()), &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
-            m_LastError = FileOperationError::WriteFileFailed;
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+            m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
 
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
         return true;
     }
 
     bool WindowsFile::Write(const void* input, usize size) noexcept
     {
-        if (m_FileReadMode == FileReadMode::Read)
+        if (m_FileReadMode == Enums::ReadMode::Read)
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
                 "Trying to write into read-only file!");
-            m_LastError = FileOperationError::FileIsReadOnly;
+            m_LastError = Enums::OperationError::FileIsReadOnly;
             return false;
         }
 
@@ -183,12 +183,12 @@ namespace MC::Windows::Filesystem
         if (!WriteFile(m_File, input, static_cast<DWORD>(size), &bytesWritten, nullptr))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to write in file! Win32 error: %x", static_cast<u32>(GetLastError()));
-            m_LastError = FileOperationError::WriteFileFailed;
+                "Failed to write in file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+            m_LastError = Enums::OperationError::WriteFileFailed;
             return false;
         }
 
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
         return true;
     }
 
@@ -199,7 +199,7 @@ namespace MC::Windows::Filesystem
         if (!SetFilePointerEx(m_File, li, &li, FILE_CURRENT))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to get file position! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "Failed to get file position! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             return 0xFFFFFFFFFFFFFFFF;
         }
         return static_cast<usize>(li.QuadPart);
@@ -212,13 +212,13 @@ namespace MC::Windows::Filesystem
         if (!SetFilePointerEx(m_File, li, nullptr, FILE_BEGIN))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Failed to seek file! Win32 error: %x", static_cast<u32>(GetLastError()));
-            m_LastError = FileOperationError::SeekFailed;
+                "Failed to seek file! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+            m_LastError = Enums::OperationError::SeekFailed;
             return false;
         }
 
         m_EndOfFile = position >= m_FileInfo.Size;
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
         return true;
     }
 
@@ -230,8 +230,8 @@ namespace MC::Windows::Filesystem
         u32 currentLine = 0;
         while (currentLine < line)
         {
-            if (Read(buf, Input::ReadMode::Line, "")) continue;
-            m_LastError = FileOperationError::EndOfFile;
+            if (Read(buf, Enums::WordReadMode::Line, "")) continue;
+            m_LastError = Enums::OperationError::EndOfFile;
             return false;
         }
         return true;
@@ -241,8 +241,8 @@ namespace MC::Windows::Filesystem
     {
         if (FlushFileBuffers(m_File)) return true;
         Logging::Logger::Error(Logging::Logger::Module::Core,
-            "File flush failed! Win32 error: %x", static_cast<u32>(GetLastError()));
-        m_LastError = FileOperationError::FlushFailed;
+            "File flush failed! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
+        m_LastError = Enums::OperationError::FlushFailed;
         return false;
     }
 
@@ -251,19 +251,19 @@ namespace MC::Windows::Filesystem
         DWORD readMode = FileReadModeToDWORD();
         if (readMode == 0)
         {
-            m_LastError = FileOperationError::UnknownReadMode;
+            m_LastError = Enums::OperationError::UnknownReadMode;
             return;
         }
         m_File = CreateFileA(AsChar7(path.String()), readMode,
             0, nullptr,
-            m_FileReadMode == FileReadMode::Read ? OPEN_EXISTING : OPEN_ALWAYS,
-            m_FileReadMode == FileReadMode::Read ? FILE_ATTRIBUTE_READONLY : FILE_ATTRIBUTE_NORMAL,
+            m_FileReadMode == Enums::ReadMode::Read ? OPEN_EXISTING : OPEN_ALWAYS,
+            m_FileReadMode == Enums::ReadMode::Read ? FILE_ATTRIBUTE_READONLY : FILE_ATTRIBUTE_NORMAL,
             nullptr);
 
         if (m_File == INVALID_HANDLE_VALUE)
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "File can not be opened! Win32 error: %x", static_cast<u32>(GetLastError()));
+                "File can not be opened! Win32 error: {:#18x}", static_cast<u32>(GetLastError()));
             return;
         }
 
@@ -271,7 +271,7 @@ namespace MC::Windows::Filesystem
         if (!GetFileInformationByHandle(m_File, &info))
         {
             Logging::Logger::Error(Logging::Logger::Module::Core,
-                "Could not gather file's [\"%s\"] information! Win32 error: %x",
+                "Could not gather file's [\"{}\"] information! Win32 error: {:#18x}",
                 path, static_cast<u32>(GetLastError()));
             CloseHandle(m_File);
             m_File = INVALID_HANDLE_VALUE;
@@ -284,12 +284,11 @@ namespace MC::Windows::Filesystem
         m_FileInfo.CreationTime = WindowsFileTimeToTimepoint(info.ftCreationTime);
         m_FileInfo.LastWriteTime = WindowsFileTimeToTimepoint(info.ftCreationTime);
 
-        m_LastError = FileOperationError::Success;
+        m_LastError = Enums::OperationError::Success;
     }
 }
 
-MC::Memory::Scope<FileBase> FileBase::
-Create(const MC::StringView& path, FileReadMode readMode) noexcept
+MC::Memory::Scope<Details::FileBase> Details::FileBase::Create(const MC::StringView& path, Enums::ReadMode readMode) noexcept
 {
     return Memory::MakeScope<Windows::Filesystem::WindowsFile>(path, readMode);
 }

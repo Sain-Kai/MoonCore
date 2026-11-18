@@ -1,10 +1,10 @@
 #pragma once
-#include "MoonCore/Async/Mutex.hpp"
+#include "Async/Mutex.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Async
 {
-    class WindowsMutex final : public MC::Async::MutexBase
+    class WindowsMutex final : public MC::Async::Details::MutexBase
     {
     public:
         WindowsMutex() noexcept;
@@ -32,7 +32,7 @@ namespace MC::Windows::Async
         mutable MC::Async::Atomic<DWORD> m_OwningThread;
     };
 
-    class WindowsSharedMutex final : public MC::Async::SharedMutexBase
+    class WindowsSharedMutex final : public MC::Async::Details::SharedMutexBase
     {
     public:
         WindowsSharedMutex() noexcept;

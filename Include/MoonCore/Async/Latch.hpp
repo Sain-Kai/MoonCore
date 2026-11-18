@@ -2,7 +2,7 @@
 
 #include "MoonCore/Core.hpp"
 #include "MoonCore/Utility/Debug.hpp"
-#include "Atomic.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Async
 {
@@ -21,7 +21,7 @@ namespace MC::Async
     public:
         void CountDown(u64 n = 1) noexcept
         {
-            MC_VALIDATE(n <= m_Counter.load(std::memory_order_acquire), "Latch: n > current counter!");
+            MOON_VALIDATE(n <= m_Counter.load(std::memory_order_acquire), "Latch: n > current counter!");
             u64 current = m_Counter.fetch_sub(n) - n;
         
             if (current == 0)

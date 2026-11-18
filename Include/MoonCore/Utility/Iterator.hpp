@@ -124,7 +124,7 @@ namespace MC::Iterator
             return *this;
         }
 
-        MC_NODISCARD BackInsertIterator& operator*() noexcept { return *this; }
+        MOON_NODISCARD BackInsertIterator& operator*() noexcept { return *this; }
         constexpr BackInsertIterator& operator++() noexcept { return *this; }
         constexpr BackInsertIterator operator++(int) noexcept { return *this; }
 

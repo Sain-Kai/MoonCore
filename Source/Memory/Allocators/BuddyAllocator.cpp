@@ -1,7 +1,7 @@
-#include "MoonCore/Memory/Allocators/Offset/BuddyAllocator.hpp"
+#include "Memory/Allocators/Offset/BuddyAllocator.hpp"
 
-#include "MoonCore/Logging/Logger.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "Logging/Logger.hpp"
+#include "Utility/Algorithm.hpp"
 
 using namespace MC::Logging;
 
@@ -10,7 +10,7 @@ namespace MC::Memory
     BuddyAllocator::BuddyAllocator(AllocatorSpecification specification) noexcept
         : m_Specification(Move(specification)), m_MaxLevel(0), m_CurrentAllocationId(0)
     {
-        MC_VALIDATE(Init() == AllocationError::Success, "Failed to construct buddy allocator!");
+        MOON_VALIDATE(Init() == AllocationError::Success, "Failed to construct buddy allocator!");
     }
 
     BuddyAllocator::BuddyAllocator(BuddyAllocator&& other) noexcept
@@ -145,7 +145,7 @@ namespace MC::Memory
     {
         if (size <= m_Specification.TotalSize) return true;
 
-        if (!IS_POWER_OF_2(size))
+        if (!MOON_IS_POWER_OF_2(size))
         {
             Logger::Error(Logger::Module::Memory, "BuddyAllocator [{0}]::Resize: Size must be a power of 2", m_Specification.DebugName);
             return false;
@@ -185,7 +185,7 @@ namespace MC::Memory
     usize BuddyAllocator::GetBuddyOffset(usize offset, u8 level) const noexcept
     {
         usize size = GetBlockSize(level);
-        MC_ASSERT((offset % size) == 0, Logger::Module::Memory, TEXT("Offset misaligned for buddy computation!"));
+        MOON_ASSERT((offset % size) == 0, Logger::Module::Memory, TEXT("Offset misaligned for buddy computation!"));
         return offset ^ size;
     }
 }

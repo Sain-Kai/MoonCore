@@ -1,5 +1,5 @@
 #pragma once
-#include "MathCore.hpp"
+#include "MoonCore/Math/MathCore.hpp"
 #include "MoonCore/Utility/Format.hpp"
 
 namespace MC::Math
@@ -352,6 +352,6 @@ constexpr MC::Math::Quaternion operator*(f32 number, const MC::Math::Quaternion&
     return other * number;
 }
 
-MC_FMT_FORMATTER(MC::Math::Quaternion, "%f, %f, %f, %f",
-	MC_FMT_FORMATTER_MEMBER(w), MC_FMT_FORMATTER_MEMBER(x), MC_FMT_FORMATTER_MEMBER(y),
-	MC_FMT_FORMATTER_MEMBER(z));
+MOON_FMT_FORMATTER(MC::Math::Quaternion, "{:.3f}, {:.3f}, {:.3f}, {:.3f}",
+	MOON_FMT_FORMATTER_MEMBER(w), MOON_FMT_FORMATTER_MEMBER(x), MOON_FMT_FORMATTER_MEMBER(y),
+	MOON_FMT_FORMATTER_MEMBER(z));

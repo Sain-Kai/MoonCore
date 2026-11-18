@@ -2,7 +2,7 @@
 #include "MoonCore/Core.hpp"
 #include "MoonCore/Containers/StackArray.hpp"
 #include "MoonCore/Containers/String.hpp"
-#include "Pointers/Scope.hpp"
+#include "MoonCore/Memory/Pointers/Scope.hpp"
 #include "MoonCore/Utility/Debug.hpp"
 #include "MoonCore/Async/Mutex.hpp"
 #include "MoonCore/Containers/UnorderedMap.hpp"
@@ -44,7 +44,7 @@ namespace MC::Memory
 
         static bool IsInitialized() noexcept
         {
-#ifdef MC_DIST
+#ifdef MOON_DIST
             return true;
 #endif
             return s_Instance;

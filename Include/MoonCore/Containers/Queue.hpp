@@ -1,6 +1,6 @@
 #pragma once
-#include "BinaryHeap.hpp"
-#include "Deque.hpp"
+#include "MoonCore/Containers/BinaryHeap.hpp"
+#include "MoonCore/Containers/Deque.hpp"
 #include "MoonCore/Callables/Functors.hpp"
 
 namespace MC::Concept

@@ -1,7 +1,7 @@
-#include "MoonCore/Logging/Logger.hpp"
-#include "MoonCore/Async/Mutex.hpp"
-#include "MoonCore/Containers/Array.hpp"
-#include "MoonCore/Clock/Time.hpp"
+#include "Logging/Logger.hpp"
+#include "Async/Mutex.hpp"
+#include "Containers/Array.hpp"
+#include "Clock/Time.hpp"
 
 #undef TEXT
 #include <spdlog/spdlog.h>
@@ -96,9 +96,9 @@ namespace MC::Logging
     {
         m_Alive.store(true);
 #ifndef MC_DEBUG
-        set_pattern("%^[%H:%M:%S:%e ThreadID: %t] %n: %$ %v");
+        set_pattern("%^[%H:%M:{}:%e ThreadID: %t] %n: %$ %v");
 #else
-        set_pattern("%^[%H:%M:%S:%e ThreadID: %t] [%@] %n: %$ %v");
+        set_pattern("%^[%H:%M:{}:%e ThreadID: %t] [%@] %n: %$ %v");
 #endif
 
         m_Data = new(std::nothrow) Data();
@@ -118,11 +118,11 @@ namespace MC::Logging
         m_Data->Memory = std::make_shared<async_logger>("HeapMemory", m_Data->FilterSink, m_Data->ThreadPool, async_overflow_policy::overrun_oldest);
         m_Data->Profiling = std::make_shared<async_logger>("Profiling", m_Data->FilterSink, m_Data->ThreadPool, async_overflow_policy::overrun_oldest);
 
-        m_Data->Graphics->set_pattern("%^[%H:%M:%S] %n: %$ %v");
+        m_Data->Graphics->set_pattern("%^[%H:%M:{}] %n: %$ %v");
 
         auto SafeErrorHandler = [](const std::string& msg)
             {
-                fmt::println(stderr, "[Logger Error] %s\n", msg.c_str());
+                fmt::println(stderr, "[Logger Error] {}\n", msg.c_str());
             };
 
         m_Data->Core->set_error_handler(SafeErrorHandler);

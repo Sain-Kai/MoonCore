@@ -1,10 +1,10 @@
 #pragma once
-#include "MoonCore/Async/ConditionVariable.hpp"
+#include "Async/ConditionVariable.hpp"
 #include "Platform/Windows/WindowsInclude.hpp"
 
 namespace MC::Windows::Async
 {
-    class WindowsConditionVariable final: public MC::Async::ConditionVariableBase
+    class WindowsConditionVariable final: public MC::Async::Details::ConditionVariableBase
     {
     public:
         WindowsConditionVariable() noexcept;

@@ -31,7 +31,7 @@ namespace MC::Windows::Async
     }
 }
 
-MC::Memory::Scope<MC::Async::ConditionVariableBase> MC::Async::ConditionVariableBase::Create()
+MC::Memory::Scope<MC::Async::Details::ConditionVariableBase> MC::Async::Details::ConditionVariableBase::Create()
 {
     return Memory::MakeScope<MC::Windows::Async::WindowsConditionVariable>();
 }

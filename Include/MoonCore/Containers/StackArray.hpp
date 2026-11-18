@@ -1,10 +1,10 @@
 #pragma once
-#include "Details/ArrayShared.hpp"
-#include "MoonCore/Utility/Algorithm.hpp"
+#include "MoonCore/Containers/Details/ArrayShared.hpp"
 #include "MoonCore/Memory/Memory.hpp"
 #include "MoonCore/Utility/Debug.hpp"
 #include "MoonCore/Utility/InitializerList.hpp"
 #include "MoonCore/Utility/Nullable.hpp"
+#include "MoonCore/Utility/Algorithm.hpp"
 
 namespace MC
 {
@@ -33,7 +33,7 @@ namespace MC
 		constexpr StackArrayImpl(usize size) noexcept
 			: m_Size(size)
 		{
-			MC_CHECK(size <= ArraySize, "Given size > than ArraySize");
+			MOON_CHECK(size <= ArraySize, "Given size > than ArraySize");
 			m_Size = size;
 			for (usize i = 0; i < m_Size; i++)
 				Memory::Construct(&m_Data[i]);
@@ -42,7 +42,7 @@ namespace MC
 		constexpr StackArrayImpl(const Utility::InitializerList<ValueType>& other) noexcept
 			: m_Size(other.size())
 		{
-			MC_CHECK(m_Size <= ArraySize, "initializer_list overflows StackArrayImpl");
+			MOON_CHECK(m_Size <= ArraySize, "initializer_list overflows StackArrayImpl");
 			for (usize i = 0; i < other.size(); i++)
 				Memory::Construct(&m_Data[i], other.begin()[i]);
 		}
@@ -131,27 +131,27 @@ namespace MC
 
 		constexpr RefType operator[](const usize index) noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		constexpr ConstRefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in array is out of range!");
+			MOON_CHECK(index < m_Size, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		template<Concept::ScopedEnum Enum>
 		constexpr RefType operator[](const Enum index) noexcept
 		{
-			MC_CHECK(static_cast<usize>(index) < m_Size, "Index in array is out of range!");
+			MOON_CHECK(static_cast<usize>(index) < m_Size, "Index in array is out of range!");
 			return m_Data[static_cast<usize>(index)];
 		}
 
 		template<Concept::ScopedEnum Enum>
 		constexpr ConstRefType operator[](const Enum index) const noexcept
 		{
-			MC_CHECK(static_cast<usize>(index) < m_Size, "Index in array is out of range!");
+			MOON_CHECK(static_cast<usize>(index) < m_Size, "Index in array is out of range!");
 			return m_Data[static_cast<usize>(index)];
 		}
 
@@ -174,7 +174,7 @@ namespace MC
 		constexpr void Resize(usize size, const ValueType& fill) noexcept
 		{
 			static_assert(IsCopyConstructible<ValueType>, "Resize requires T to be CopyInsertable!");
-			MC_CHECK(size <= ArraySize, "Size > ArraySize");
+			MOON_CHECK(size <= ArraySize, "Size > ArraySize");
 
 			if (size < m_Size && m_Size < ArraySize)
 			{
@@ -191,27 +191,27 @@ namespace MC
 	public:
 		constexpr Iterator Insert(ConstIterator position, const ValueType& value) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedEmplaceImpl(position, value);
 		}
 		constexpr Iterator Insert(ConstIterator position, ValueType&& value) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedEmplaceImpl(position, Move(value));
 		}
 		constexpr Iterator Insert(ConstIterator position, const usize count, const ValueType& value) noexcept
 		{
-			MC_CHECK(m_Size + count <= ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size + count <= ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedInsertImpl(position, count, value);
 		}
 		constexpr Iterator Insert(ConstIterator position, const Utility::InitializerList<ValueType>& list) noexcept
 		{
-			MC_CHECK(m_Size + list.size() <= ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size + list.size() <= ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedInsertImpl(position, list);
 		}
 		template<Concept::InputIteratorType InputIterator> constexpr Iterator Insert(ConstIterator position, InputIterator first, InputIterator last) noexcept
 		{
-			MC_CHECK(m_Size + last - first <= ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size + last - first <= ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedInsertImpl<InputIterator>(position, first, last);
 		}
 
@@ -264,7 +264,7 @@ namespace MC
 
 		template<typename... ArgTypes> constexpr Iterator Emplace(ConstIterator it, ArgTypes&&... args) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedEmplaceImpl(it, Forward<ArgTypes>(args)...);
 		}
 
@@ -281,12 +281,12 @@ namespace MC
 
 		constexpr void PushBack(const ValueType& value) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			UncheckedPushBackImpl(value);
 		}
 		constexpr void PushBack(ValueType&& value) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			UncheckedPushBackImpl(Move(value));
 		}
 
@@ -314,7 +314,7 @@ namespace MC
 
 		template<typename... ArgTypes> constexpr RefType EmplaceBack(ArgTypes&&... args) noexcept
 		{
-			MC_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
+			MOON_CHECK(m_Size < ArraySize, "StackArrayImpl overflow detected");
 			return UncheckedEmplaceBackImpl(Forward<ArgTypes>(args)...);
 		}
 

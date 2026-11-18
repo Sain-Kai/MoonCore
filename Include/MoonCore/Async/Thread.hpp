@@ -4,10 +4,15 @@
 #include "MoonCore/Clock/Time.hpp"
 #include "MoonCore/Memory/Pointers/Reference.hpp"
 #include "MoonCore/Containers/String/StringView.hpp"
-#include "Atomic.hpp"
+#include "MoonCore/Async/Atomic.hpp"
 
 namespace MC::Async
 {
+    namespace Details
+    {
+        class ThreadBase;
+    }
+
     enum class ThreadPriority : u8
     {
         Normal = 0,
@@ -17,7 +22,7 @@ namespace MC::Async
         Lowest,
     };
 
-    class CurrentThread
+    class CurrentThread final
     {
     public:
         struct ThreadData
@@ -27,10 +32,10 @@ namespace MC::Async
         };
 
     public:
-        static void Yield() noexcept;
-        static void Sleep(Clock::Timestep duration) noexcept;
-        static void SleepUntil(Clock::Timepoint timepoint) noexcept;
-        static u64 ID() noexcept;
+        COREAPI static void Yield() noexcept;
+        COREAPI static void Sleep(Clock::Timestep duration) noexcept;
+        COREAPI static void SleepUntil(Clock::Timepoint timepoint) noexcept;
+        COREAPI static u64 ID() noexcept;
         static bool StopRequested() noexcept { return t_Data.StopRequested.load(std::memory_order_relaxed); }
         static ThreadData& Data() noexcept { return t_Data; }
 
@@ -38,7 +43,7 @@ namespace MC::Async
         static thread_local ThreadData t_Data;
     
     private:
-        friend class ThreadBase;
+        friend class Details::ThreadBase;
     };
 
     struct ThreadSpecification
@@ -51,33 +56,36 @@ namespace MC::Async
         bool DisablePriorityBoost = true;
     };
 
-    class ThreadBase
+    namespace Details
     {
-    public:
-        static constexpr u64 INVALID_THREAD = ~0ull;
+        class ThreadBase
+        {
+        public:
+            static constexpr u64 INVALID_THREAD = ~0ull;
 
-    public:
-        virtual ~ThreadBase() noexcept = default;
+        public:
+            virtual ~ThreadBase() noexcept = default;
 
-        virtual bool Joinable() const noexcept = 0;
+            virtual bool Joinable() const noexcept = 0;
 
-        virtual void Join() noexcept = 0;
-        virtual void Detach() noexcept = 0;
-        virtual void Resume() const noexcept = 0;
-        virtual void Suspend() const noexcept = 0;
-    
-    public:
-        u64 ThreadId() const noexcept;
-        bool RequestStop() const noexcept;
+            virtual void Join() noexcept = 0;
+            virtual void Detach() noexcept = 0;
+            virtual void Resume() const noexcept = 0;
+            virtual void Suspend() const noexcept = 0;
 
-    public:
-        static Memory::Reference<ThreadBase, Memory::ReferenceMode::ThreadSafe> Create(const ThreadSpecification& specification, Callables::Callable<void()>&& function) noexcept;
+        public:
+            u64 ThreadId() const noexcept;
+            bool RequestStop() const noexcept;
 
-    protected:
-        mutable CurrentThread::ThreadData* m_ThreadData = nullptr;
-    };
+        public:
+            static Memory::Reference<ThreadBase> Create(const ThreadSpecification& specification, Callables::Callable<void()>&& function) noexcept;
 
-    class Thread final
+        protected:
+            mutable CurrentThread::ThreadData* m_ThreadData = nullptr;
+        };
+    }
+
+    class COREAPI Thread final
     {
     public:
         Thread() noexcept = default;
@@ -89,16 +97,16 @@ namespace MC::Async
             requires IsNothrowInvocable<F&&>
         explicit Thread(const ThreadSpecification& specification, F&& function) noexcept
         {
-            m_Thread = ThreadBase::Create(specification, Callables::Callable<void()>(Forward<F&&>(function)));
+            m_Thread = Details::ThreadBase::Create(specification, Callables::Callable<void()>(Forward<F&&>(function)));
         }
         template <typename F, typename... ArgTypes>
         explicit Thread(const ThreadSpecification& specification, F&& function, ArgTypes&&... args) noexcept
         {
-            m_Thread = ThreadBase::Create(specification, Callables::Bind(Forward<F>(function), Forward<ArgTypes>(args)...));
+            m_Thread = Details::ThreadBase::Create(specification, Callables::Bind(Forward<F>(function), Forward<ArgTypes>(args)...));
         }
         explicit Thread(const ThreadSpecification& specification, Callables::Callable<void()>&& function) noexcept
         {
-            m_Thread = ThreadBase::Create(specification, Forward<Callables::Callable<void()>>(function));
+            m_Thread = Details::ThreadBase::Create(specification, Forward<Callables::Callable<void()>>(function));
         }
 
         ~Thread() noexcept;
@@ -108,26 +116,26 @@ namespace MC::Async
         Thread& operator=(Thread&&) noexcept = default;
 
     public:
-        MC_NODISCARD bool Joinable() const noexcept
+        MOON_NODISCARD bool Joinable() const noexcept
         {
             if (m_Thread) return m_Thread->Joinable();
             return false;
         }
-        MC_NODISCARD u64 ThreadId() const noexcept
+        MOON_NODISCARD u64 ThreadId() const noexcept
         {
             if (m_Thread) return m_Thread->ThreadId();
-            return ThreadBase::INVALID_THREAD;
+            return Details::ThreadBase::INVALID_THREAD;
         }
 
         void Join() const noexcept
         {
             if (m_Thread) m_Thread->Join();
         }
-        void Detach() noexcept
+        void Detach() const noexcept
         {
             if (m_Thread) m_Thread->Detach();
         }
-        MC_NODISCARD bool RequestStop() const noexcept
+        MOON_NODISCARD bool RequestStop() const noexcept
         {
             if (m_Thread) return m_Thread->RequestStop();
             return false;
@@ -142,6 +150,6 @@ namespace MC::Async
         }
 
     private:
-        Memory::Reference<ThreadBase, Memory::ReferenceMode::ThreadSafe> m_Thread;
+        Memory::Reference<Details::ThreadBase, Memory::ReferenceMode::ThreadSafe> m_Thread;
     };
 }

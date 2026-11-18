@@ -5,7 +5,7 @@
 
 namespace MC::Memory
 {
-    class ShelfAllocator
+    class COREAPI ShelfAllocator
     {
         struct Region
         {

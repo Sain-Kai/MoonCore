@@ -5,7 +5,7 @@
 #include "MoonCore/Utility/Algorithm.hpp"
 #include "MoonCore/Utility/Debug.hpp"
 #include "MoonCore/Containers/Bitset.hpp"
-#include "StringShared.hpp"
+#include "MoonCore/Containers/String/StringShared.hpp"
 
 namespace MC
 {
@@ -80,7 +80,7 @@ namespace MC
 
 		StringImpl(char7 ch) noexcept
 		{
-			MC_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
+			MOON_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
 			m_Size = 1;
 			m_Capacity = 10;
 			m_Data = nullptr;
@@ -92,7 +92,7 @@ namespace MC
 
 		StringImpl(const char7* str) noexcept
 		{
-			MC_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
+			MOON_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
 			m_Size = GetStringSize(reinterpret_cast<const ValueType*>(str));
 			m_Capacity = m_Size + 1;
 			m_Data = nullptr;
@@ -104,7 +104,7 @@ namespace MC
 
 		StringImpl(const char7* str, usize size) noexcept
 		{
-			MC_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
+			MOON_CHECK(sizeof(ValueType) == 1, "This constructor is available for only UTF8 string!");
 			m_Size = size;
 			m_Capacity = m_Size + 1;
 			m_Data = nullptr;
@@ -321,13 +321,13 @@ namespace MC
 
 		RefType operator[](const usize index) noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in string is out of range");
+			MOON_CHECK(index < m_Size, "Index in string is out of range");
 			return m_Data[index];
 		}
 
 		ConstRefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < m_Size, "Index in string is out of range");
+			MOON_CHECK(index < m_Size, "Index in string is out of range");
 			return m_Data[index];
 		}
 
@@ -433,10 +433,10 @@ namespace MC
 			const auto e = CodepointEnd();
 			for (usize i = 0; i < codepointIndex; ++i)
 			{
-				MC_CHECK(it != e, "Codepoint index out of range");
+				MOON_CHECK(it != e, "Codepoint index out of range");
 				++it;
 			}
-			MC_CHECK(it != e, "Codepoint index out of range");
+			MOON_CHECK(it != e, "Codepoint index out of range");
 			return *it;
 		}
 
@@ -446,7 +446,7 @@ namespace MC
 			const auto e = CodepointEnd();
 			for (usize i = 0; i < codepointIndex; ++i)
 			{
-				MC_CHECK(it != e, "Codepoint index out of range");
+				MOON_CHECK(it != e, "Codepoint index out of range");
 				++it;
 			}
 			return static_cast<usize>(it.Ptr() - m_Data);
@@ -466,7 +466,7 @@ namespace MC
 	public:
 		StringImpl Substring(usize start, usize length = NoPosition) const noexcept
 		{
-			MC_CHECK(start < m_Size, "Start index is out of range");
+			MOON_CHECK(start < m_Size, "Start index is out of range");
 			usize remaining = m_Size - start;
 			usize newSize = (length == NoPosition || length > remaining) ? remaining : length;
 			return StringImpl(m_Data + start, newSize);
@@ -591,7 +591,7 @@ namespace MC
 
 		void Assign(const ValueType*& ptr, usize size) noexcept
 		{
-			MC_CHECK(ptr != nullptr, "Assigning nullptr to string");
+			MOON_CHECK(ptr != nullptr, "Assigning nullptr to string");
 			if (size + 1 > m_Capacity)
 				Allocate(size + 1);
 

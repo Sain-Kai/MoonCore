@@ -1,10 +1,10 @@
 #pragma once
-#include "MoonCore/Core.hpp"
-#include "MoonCore/Clock/Time.hpp"
+#include "Core.hpp"
+#include "Clock/Time.hpp"
 
 namespace MC::Clock
 {
-	class WindowsTimeSource final : public TimeSource
+	class WindowsTimeSource final : public Details::TimeSource
 	{
 	public:
 		WindowsTimeSource() noexcept = default;

@@ -1,6 +1,6 @@
 #pragma once
 #include "MoonCore/Core.hpp"
-#include "Thread.hpp"
+#include "MoonCore/Async/Thread.hpp"
 #include "MoonCore/Clock/Time.hpp"
 #include "MoonCore/Containers/String/StringView.hpp"
 #include "MoonCore/Memory/Pointers/Scope.hpp"
@@ -59,52 +59,56 @@ namespace MC::Async
         struct DeferredLock  { explicit DeferredLock() = default; };
     }
 
-    class MutexBase
+    namespace Details
     {
-    public:
-        virtual ~MutexBase() noexcept = default;
-        
-        virtual void Lock() const noexcept = 0;
-        virtual bool TryLock() const noexcept = 0;
-        virtual bool TryLockFor(Clock::Timestep duration) const noexcept = 0;
-        virtual bool TryLockUntil(Clock::Timepoint timepoint) const noexcept = 0;
-        virtual void Unlock() const noexcept = 0;
 
-        virtual bool ThreadOwnsExclusively() const noexcept = 0;
+        class MutexBase
+        {
+        public:
+            virtual ~MutexBase() noexcept = default;
 
-    public:
-        static Memory::Scope<MutexBase> Create();
-    };
+            virtual void Lock() const noexcept = 0;
+            virtual bool TryLock() const noexcept = 0;
+            virtual bool TryLockFor(Clock::Timestep duration) const noexcept = 0;
+            virtual bool TryLockUntil(Clock::Timepoint timepoint) const noexcept = 0;
+            virtual void Unlock() const noexcept = 0;
 
-    class SharedMutexBase : public MutexBase
-    {
-    public:
-        virtual void LockShared() const noexcept = 0;
-        virtual bool TryLockShared() const noexcept = 0;
-        virtual bool TryLockForShared(Clock::Timestep duration) const noexcept = 0;
-        virtual bool TryLockUntilShared(Clock::Timepoint timepoint) const noexcept = 0;
-        virtual void UnlockShared() const noexcept = 0;
+            virtual bool ThreadOwnsExclusively() const noexcept = 0;
 
-    public:
-        static Memory::Scope<SharedMutexBase> Create();
-    };
+        public:
+            static Memory::Scope<MutexBase> Create();
+        };
+
+        class SharedMutexBase : public MutexBase
+        {
+        public:
+            virtual void LockShared() const noexcept = 0;
+            virtual bool TryLockShared() const noexcept = 0;
+            virtual bool TryLockForShared(Clock::Timestep duration) const noexcept = 0;
+            virtual bool TryLockUntilShared(Clock::Timepoint timepoint) const noexcept = 0;
+            virtual void UnlockShared() const noexcept = 0;
+
+        public:
+            static Memory::Scope<SharedMutexBase> Create();
+        };
 
 #if !defined(PLATFORM_WINDOWS) && !defined(PLATFORM_LINUX) && !defined(PLATFORM_MACOS)
-    Memory::Scope<MutexBase> MutexBase::Create()
-    {
-        return nullptr;
-    }
+        Memory::Scope<MutexBase> MutexBase::Create()
+        {
+            return nullptr;
+        }
 
-    Memory::Scope<SharedMutexBase> SharedMutexBase::Create()
-    {
-        return nullptr;
-    }
+        Memory::Scope<SharedMutexBase> SharedMutexBase::Create()
+        {
+            return nullptr;
+        }
 #endif
+    }
 
     class Mutex
     {
     public:
-        Mutex() noexcept : m_Mutex(MutexBase::Create()) {}
+        Mutex() noexcept : m_Mutex(Details::MutexBase::Create()) {}
         Mutex(const Mutex&) = delete;
         Mutex(Mutex&&) noexcept = default;
         ~Mutex() noexcept = default;
@@ -120,16 +124,16 @@ namespace MC::Async
         bool TryLockUntil(Clock::Timepoint timepoint) const noexcept { return m_Mutex->TryLockUntil(timepoint); }
         void Unlock() const noexcept { m_Mutex->Unlock(); }
 
-        MutexBase* Handle() const noexcept { return m_Mutex.Get(); }
+        Details::MutexBase* Handle() const noexcept { return m_Mutex.Get(); }
 
     private:
-        Memory::Scope<MutexBase> m_Mutex;
+        Memory::Scope<Details::MutexBase> m_Mutex;
     };
 
     class SharedMutex
     {
     public:
-        SharedMutex() noexcept : m_Mutex(SharedMutexBase::Create()) {}
+        SharedMutex() noexcept : m_Mutex(Details::SharedMutexBase::Create()) {}
         SharedMutex(const SharedMutex&) = delete;
         SharedMutex(SharedMutex&&) noexcept = default;
         ~SharedMutex() noexcept = default;
@@ -149,16 +153,16 @@ namespace MC::Async
         bool TryLockShared() const noexcept { return m_Mutex->TryLockShared(); }
         void UnlockShared() const noexcept { m_Mutex->UnlockShared(); }
 
-        SharedMutexBase* Handle() const noexcept { return m_Mutex.Get(); }
+        Details::SharedMutexBase* Handle() const noexcept { return m_Mutex.Get(); }
 
     private:
-        Memory::Scope<SharedMutexBase> m_Mutex;
+        Memory::Scope<Details::SharedMutexBase> m_Mutex;
     };
 
     class RecursiveMutex
     {
     public:
-        RecursiveMutex() noexcept : m_Mutex(MutexBase::Create()), m_Depth(0) {}
+        RecursiveMutex() noexcept : m_Mutex(Details::MutexBase::Create()), m_Depth(0) {}
         RecursiveMutex(const RecursiveMutex&) = delete;
         RecursiveMutex(RecursiveMutex&&) noexcept = default;
         ~RecursiveMutex() noexcept = default;
@@ -222,20 +226,20 @@ namespace MC::Async
 
         void Unlock() const noexcept
         {
-            MC_CHECK(m_Mutex->ThreadOwnsExclusively(), "Unlock() from a thread that doesn't own the mutex");
+            MOON_CHECK(m_Mutex->ThreadOwnsExclusively(), "Unlock() from a thread that doesn't own the mutex");
             if (--m_Depth == 0)
                 m_Mutex->Unlock();
         }
 
     private:
-        Memory::Scope<MutexBase> m_Mutex;
+        Memory::Scope<Details::MutexBase> m_Mutex;
         mutable u32 m_Depth;
     };
 
     class RecursiveSharedMutex
     {
     public:
-        RecursiveSharedMutex() noexcept : m_Mutex(SharedMutexBase::Create()), m_Depth(0) {}
+        RecursiveSharedMutex() noexcept : m_Mutex(Details::SharedMutexBase::Create()), m_Depth(0) {}
         RecursiveSharedMutex(const RecursiveSharedMutex&) = delete;
         RecursiveSharedMutex(RecursiveSharedMutex&&) noexcept = default;
         ~RecursiveSharedMutex() noexcept = default;
@@ -299,7 +303,7 @@ namespace MC::Async
 
         void Unlock() const noexcept
         {
-            MC_CHECK(m_Mutex->ThreadOwnsExclusively(), "Unlock() from a thread that doesn't own the mutex");
+            MOON_CHECK(m_Mutex->ThreadOwnsExclusively(), "Unlock() from a thread that doesn't own the mutex");
             if (--m_Depth == 0)
                 m_Mutex->Unlock();
         }
@@ -309,7 +313,7 @@ namespace MC::Async
         void UnlockShared() const noexcept { m_Mutex->UnlockShared(); }
 
     private:
-        Memory::Scope<SharedMutexBase> m_Mutex;
+        Memory::Scope<Details::SharedMutexBase> m_Mutex;
         mutable u32 m_Depth;
     };
 
@@ -351,7 +355,7 @@ namespace MC::Async
     }
 
     template<Concept::MutexType Lockable1, Concept::MutexType Lockable2, Concept::MutexType... Lockables>
-    void Lock(Lockable1& lockable1, Lockable2& lockable2, MC_MAYBE_UNUSED Lockables&... lockables) noexcept
+    void Lock(Lockable1& lockable1, Lockable2& lockable2, MOON_MAYBE_UNUSED Lockables&... lockables) noexcept
     {
         if constexpr (sizeof... (Lockables) == 0)
         {

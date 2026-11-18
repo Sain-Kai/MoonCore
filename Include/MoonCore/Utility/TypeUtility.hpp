@@ -18,7 +18,7 @@ namespace MC::Utility
     private:
         constexpr static MC::StringView GetType() noexcept
         {
-            return MC_FUNCTION;
+            return Debugging::SourceData().Function;
         }
     };
 

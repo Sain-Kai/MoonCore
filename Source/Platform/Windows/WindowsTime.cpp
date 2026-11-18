@@ -20,7 +20,7 @@ namespace MC::Clock
     Date WindowsTimeSource::ConvertTickToDate(u64 tick) const noexcept
     {
 		FILETIME fileTime;
-		fileTime.dwLowDateTime = static_cast<DWORD>(tick & 0xFFFFFFFF);
+		fileTime.dwLowDateTime  = static_cast<DWORD>(tick & 0xFFFFFFFF);
 		fileTime.dwHighDateTime = static_cast<DWORD>(tick >> 32);
 
 		SYSTEMTIME systemTime;
@@ -28,13 +28,13 @@ namespace MC::Clock
 		if (FileTimeToSystemTime(&fileTime, &systemTime))
 		{
 			Date result;
-			result.Year = static_cast<u16>(systemTime.wYear);
-			result.Month = static_cast<u8>(systemTime.wMonth);
-			result.DayOfWeek = static_cast<u8>(systemTime.wDayOfWeek);
-			result.Day = static_cast<u8>(systemTime.wDay);
-			result.Hour = static_cast<u8>(systemTime.wHour);
-			result.Minute = static_cast<u8>(systemTime.wMinute);
-			result.Second = static_cast<u8>(systemTime.wSecond);
+			result.Year			= static_cast<u16>(systemTime.wYear);
+			result.Month		= static_cast<u8>(systemTime.wMonth);
+			result.DayOfWeek	= static_cast<u8>(systemTime.wDayOfWeek);
+			result.Day			= static_cast<u8>(systemTime.wDay);
+			result.Hour			= static_cast<u8>(systemTime.wHour);
+			result.Minute		= static_cast<u8>(systemTime.wMinute);
+			result.Second		= static_cast<u8>(systemTime.wSecond);
 			result.Milliseconds = static_cast<u16>(systemTime.wMilliseconds);
 
 			return result;
@@ -49,27 +49,25 @@ namespace MC::Clock
 		FILETIME localFileTime;
 		GetSystemTimePreciseAsFileTime(&fileTime);
 		
-		if (!FileTimeToLocalFileTime(&fileTime, &localFileTime))
-			return Date{};
+		if (!FileTimeToLocalFileTime(&fileTime, &localFileTime)) return Date{};
 
 		SYSTEMTIME systemTime;
-		if (!FileTimeToSystemTime(&localFileTime, &systemTime))
-			return Date{};
+		if (!FileTimeToSystemTime(&localFileTime, &systemTime)) return Date{};
 
 		Date result;
-		result.Year = static_cast<u16>(systemTime.wYear);
-		result.Month = static_cast<u8>(systemTime.wMonth);
-		result.DayOfWeek = static_cast<u8>(systemTime.wDayOfWeek);
-		result.Day = static_cast<u8>(systemTime.wDay);
-		result.Hour = static_cast<u8>(systemTime.wHour);
-		result.Minute = static_cast<u8>(systemTime.wMinute);
-		result.Second = static_cast<u8>(systemTime.wSecond);
+		result.Year			= static_cast<u16>(systemTime.wYear);
+		result.Month		= static_cast<u8>(systemTime.wMonth);
+		result.DayOfWeek	= static_cast<u8>(systemTime.wDayOfWeek);
+		result.Day			= static_cast<u8>(systemTime.wDay);
+		result.Hour			= static_cast<u8>(systemTime.wHour);
+		result.Minute		= static_cast<u8>(systemTime.wMinute);
+		result.Second		= static_cast<u8>(systemTime.wSecond);
 		result.Milliseconds = static_cast<u16>(systemTime.wMilliseconds);
 		return result;
     }
 
-    Memory::Scope<TimeSource> TimeSource::Create() noexcept
+    Memory::Scope<Details::TimeSource> Details::TimeSource::Create() noexcept
 	{
-		return Memory::Scope<TimeSource>(new(std::nothrow) WindowsTimeSource());
+		return Memory::MakeScope<WindowsTimeSource>();
 	}
 }

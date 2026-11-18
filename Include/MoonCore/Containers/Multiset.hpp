@@ -1,5 +1,5 @@
 #pragma once
-#include "Shared/TreeShared.hpp"
+#include "MoonCore/Containers/Details/TreeShared.hpp"
 
 namespace MC
 {

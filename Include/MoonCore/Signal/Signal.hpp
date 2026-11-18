@@ -5,24 +5,24 @@
 #include "MoonCore/Utility/TypeUtility.hpp"
 #include "MoonCore/Logging/Logger.hpp"
 
-#define MC_SIGNAL_CATEGORY(categories) \
-    public: virtual ::MC::MCSignal::Category GetCategory() const noexcept override { return categories; }
-#define MC_SIGNAL_TYPE(type)                                                             \
+#define MOON_SIGNAL_CATEGORY(categories) \
+    public: virtual ::MC::Signal::Category GetCategory() const noexcept override { return categories; }
+#define MOON_SIGNAL_TYPE(type)                                                             \
     public:                                                                               \
-        static ::MC::MCSignal::Type GetStaticType() noexcept                \
+        static ::MC::Signal::Type GetStaticType() noexcept                \
         {                                                                                 \
-            return ::MC::MCSignal::GenerateType<type>();                    \
+            return ::MC::Signal::GenerateType<type>();                    \
         }                                                                                 \
                                                                                           \
-        virtual ::MC::MCSignal::Type GetType() const noexcept override      \
+        virtual ::MC::Signal::Type GetType() const noexcept override      \
         {                                                                                 \
             return type::GetStaticType();                                                 \
         }                                                                                 \
         virtual MC::StringView GetName() const noexcept override { return TEXT(#type); }
-#define MC_SIGNAL_INHERIT() public MC::MCSignal
+#define MOON_SIGNAL_INHERIT() public MC::Signal
 
-#define MC_FMT_SIGNAL(signal, str, ...) MC_FMT_FORMATTER(signal&, "Signal %s fired! Data: " ## str, MC_FMT_FORMATTER_MCTHOD(GetName), __VA_ARGS__)
-#define MC_FMT_DEFAULT_SIGNAL(signal) MC_FMT_FORMATTER(signal&, "Signal %s fired!", MC_FMT_FORMATTER_MCTHOD(GetName))
+#define MOON_FMT_SIGNAL(signal, str, ...) MOON_FMT_FORMATTER((signal)&, "Signal {} fired! Data: " ## str, MOON_FMT_FORMATTER_METHOD(GetName), __VA_ARGS__)
+#define MOON_FMT_DEFAULT_SIGNAL(signal)   MOON_FMT_FORMATTER((signal)&, "Signal {} fired!", MOON_FMT_FORMATTER_METHOD(GetName))
 
 namespace MC
 {
@@ -33,10 +33,10 @@ namespace MC
         return Callables::Bind(Forward<Function>(function), object, Callables::Placeholder<1>);
     }
 
-    class MCSignal
+    class Signal
     {
     public:
-        using CallbackType = MC::Callables::Callable<void(MC::MCSignal&)>;
+        using CallbackType = MC::Callables::Callable<void(MC::Signal&)>;
         
     public:
         using Type = u32;
@@ -51,11 +51,11 @@ namespace MC
         template<typename T> static constexpr Category GenerateCategory() noexcept { return CategoryGenerator::ID<T>(); }
 
     public:
-        virtual ~MCSignal() = default;
+        COREAPI virtual ~Signal() = default;
 
-        virtual Category GetCategory() const noexcept = 0;
-        virtual Type GetType() const noexcept = 0;
-        virtual MC::StringView GetName() const noexcept = 0;
+        COREAPI virtual Category GetCategory() const noexcept = 0;
+        COREAPI virtual Type GetType() const noexcept = 0;
+        COREAPI virtual MC::StringView GetName() const noexcept = 0;
 
     public:
         bool IsHandled() const noexcept { return m_IsHandled; }
@@ -63,13 +63,13 @@ namespace MC
 
     private:
         bool m_IsHandled = false;
-        friend class MCSignalDispatcher;
+        friend class SignalDispatcher;
     };
     
-    class MCSignalDispatcher
+    class SignalDispatcher
     {
     public:
-        MCSignalDispatcher(MCSignal& signal) : m_Signal(signal) {}
+        SignalDispatcher(Signal& signal) : m_Signal(signal) {}
     
         template<typename T, typename F>
         bool Dispatch(F&& function) noexcept(IsNothrowInvocable<F, T&>)
@@ -83,8 +83,8 @@ namespace MC
         }
     
     private:
-        MCSignal& m_Signal;
+        Signal& m_Signal;
     };
 }
 
-MC_FMT_FORMATTER(MC::MCSignal&, "Signal %s fired!", MC_FMT_FORMATTER_MCTHOD(GetName))
+MOON_FMT_FORMATTER(MC::Signal&, "Signal {} fired!", MOON_FMT_FORMATTER_METHOD(GetName))

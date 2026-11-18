@@ -28,3 +28,6 @@ namespace MC
     template <typename ReturnType = u64>
     static constexpr ReturnType Bit(u8 bit) noexcept { return static_cast<ReturnType>(1ull << bit); }
 }
+
+extern "C" COREAPI i32 InitializeCore(i32, char7**);
+extern "C" COREAPI i32 ShutdownCore();

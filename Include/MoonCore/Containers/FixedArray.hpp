@@ -1,5 +1,5 @@
 #pragma once
-#include "Details/ArrayShared.hpp"
+#include "MoonCore/Containers/Details/ArrayShared.hpp"
 #include "MoonCore/Utility/Algorithm.hpp"
 #include "MoonCore/Memory/Memory.hpp"
 #include "MoonCore/Utility/Debug.hpp"
@@ -32,7 +32,7 @@ namespace MC
 
 		constexpr FixedArrayImpl(const Utility::InitializerList<ValueType>& other) noexcept
 		{
-			MC_CHECK(other.size() <= ArraySize, "initializer_list overflows FixedArrayImpl");
+			MOON_CHECK(other.size() <= ArraySize, "initializer_list overflows FixedArrayImpl");
 			for (usize i = 0; i < FixedSize; i++)
 				m_Data[i] = other.data()[i];
 		}
@@ -117,27 +117,27 @@ namespace MC
 
 		constexpr RefType operator[](const usize index) noexcept
 		{
-			MC_CHECK(index < FixedSize, "Index in array is out of range!");
+			MOON_CHECK(index < FixedSize, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		constexpr ConstRefType operator[](const usize index) const noexcept
 		{
-			MC_CHECK(index < FixedSize, "Index in array is out of range!");
+			MOON_CHECK(index < FixedSize, "Index in array is out of range!");
 			return m_Data[index];
 		}
 
 		template<Concept::ScopedEnum Enum>
 		constexpr RefType operator[](const Enum index) noexcept
 		{
-			MC_CHECK(static_cast<usize>(index) < FixedSize, "Index in array is out of range!");
+			MOON_CHECK(static_cast<usize>(index) < FixedSize, "Index in array is out of range!");
 			return m_Data[static_cast<usize>(index)];
 		}
 
 		template<Concept::ScopedEnum Enum>
 		constexpr ConstRefType operator[](const Enum index) const noexcept
 		{
-			MC_CHECK(static_cast<usize>(index) < FixedSize, "Index in array is out of range!");
+			MOON_CHECK(static_cast<usize>(index) < FixedSize, "Index in array is out of range!");
 			return m_Data[static_cast<usize>(index)];
 		}
 

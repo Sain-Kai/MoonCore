@@ -1,9 +1,8 @@
 #pragma once
-#include "MathCore.hpp"
-#include "MoonCore/Core.hpp"
-#include "Vector3.hpp"
-#include "Vector4.hpp"
-#include "Quaternion.hpp"
+#include "MoonCore/Math/MathCore.hpp"
+#include "MoonCore/Math/Vector3.hpp"
+#include "MoonCore/Math/Vector4.hpp"
+#include "MoonCore/Math/Quaternion.hpp"
 
 // TODO: 256-bit SIMD Matrix
 
@@ -539,11 +538,11 @@ constexpr MC::Math::Vector4<f32> operator*(const MC::Math::Vector4<f32>& vector,
 	};
 }
 
-MC_FMT_FORMATTER(MC::Math::Matrix4x4, "Row 0: %f, %f, %f, %f\n"
-												 "Row 1: %f, %f, %f, %f\n"
-												 "Row 2: %f, %f, %f, %f\n"
-												 "Row 3: %f, %f, %f, %f\n",
-	MC_FMT_FORMATTER_MEMBER(a11), MC_FMT_FORMATTER_MEMBER(a12), MC_FMT_FORMATTER_MEMBER(a13), MC_FMT_FORMATTER_MEMBER(a14),
-	MC_FMT_FORMATTER_MEMBER(a21), MC_FMT_FORMATTER_MEMBER(a22), MC_FMT_FORMATTER_MEMBER(a23), MC_FMT_FORMATTER_MEMBER(a24),
-	MC_FMT_FORMATTER_MEMBER(a31), MC_FMT_FORMATTER_MEMBER(a32), MC_FMT_FORMATTER_MEMBER(a33), MC_FMT_FORMATTER_MEMBER(a34),
-	MC_FMT_FORMATTER_MEMBER(a41), MC_FMT_FORMATTER_MEMBER(a42), MC_FMT_FORMATTER_MEMBER(a43), MC_FMT_FORMATTER_MEMBER(a44));
+MOON_FMT_FORMATTER(MC::Math::Matrix4x4, "Row 0: {:.3f}, {:.3f}, {:.3f}, {:.3f}\n"
+									    "Row 1: {:.3f}, {:.3f}, {:.3f}, {:.3f}\n"
+									    "Row 2: {:.3f}, {:.3f}, {:.3f}, {:.3f}\n"
+									    "Row 3: {:.3f}, {:.3f}, {:.3f}, {:.3f}\n",
+	MOON_FMT_FORMATTER_MEMBER(a11), MOON_FMT_FORMATTER_MEMBER(a12), MOON_FMT_FORMATTER_MEMBER(a13), MOON_FMT_FORMATTER_MEMBER(a14),
+	MOON_FMT_FORMATTER_MEMBER(a21), MOON_FMT_FORMATTER_MEMBER(a22), MOON_FMT_FORMATTER_MEMBER(a23), MOON_FMT_FORMATTER_MEMBER(a24),
+	MOON_FMT_FORMATTER_MEMBER(a31), MOON_FMT_FORMATTER_MEMBER(a32), MOON_FMT_FORMATTER_MEMBER(a33), MOON_FMT_FORMATTER_MEMBER(a34),
+	MOON_FMT_FORMATTER_MEMBER(a41), MOON_FMT_FORMATTER_MEMBER(a42), MOON_FMT_FORMATTER_MEMBER(a43), MOON_FMT_FORMATTER_MEMBER(a44));

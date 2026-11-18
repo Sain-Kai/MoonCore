@@ -1,5 +1,4 @@
 #pragma once
-#include "MoonCore/Core.hpp"
 #include "MoonCore/Async/Atomic.hpp"
 #include "MoonCore/Utility/Debug.hpp"
 #include "MoonCore/Utility/Format.hpp"
@@ -38,12 +37,12 @@ namespace MC::Logging
 		Logger() noexcept : m_Data(nullptr), m_Alive(false) {}
 
 	public:
-		void Initialize() noexcept;
-		void InitializeFileLogging(const MC::StringView& logDirectory) noexcept;
-		void Shutdown() noexcept;
+		COREAPI void Initialize() noexcept;
+		COREAPI void InitializeFileLogging(const MC::StringView& logDirectory) noexcept;
+		COREAPI void Shutdown() noexcept;
 
 	public:
-		static Logger& Get() noexcept
+		COREAPI static Logger& Get() noexcept
 		{
 			static Logger instance;
 			return instance;
@@ -94,13 +93,13 @@ namespace MC::Logging
 #		endif
 		}
 
-		static void InitializeLogger() noexcept;
-		static void InitializeFileLogger(const MC::StringView& logDirectory) noexcept;
-		static void ShutdownLogger() noexcept;
+		COREAPI static void InitializeLogger() noexcept;
+		COREAPI static void InitializeFileLogger(const MC::StringView& logDirectory) noexcept;
+		COREAPI static void ShutdownLogger() noexcept;
 
 	private:
-		static String FormatColor(Severity color, const MC::StringView& message) noexcept;
-		static void OutputFormatted(Module type, Severity severity, const MC::Utility::Debugging::SourceData& source, const MC::StringView& message) noexcept;
+		COREAPI static String FormatColor(Severity color, const MC::StringView& message) noexcept;
+		COREAPI static void OutputFormatted(Module type, Severity severity, const MC::Utility::Debugging::SourceData& source, const MC::StringView& message) noexcept;
 		template<typename... ArgTypes>
 		static String FormatMessage(const MC::StringView& fmt, ArgTypes&&... args) noexcept
 		{

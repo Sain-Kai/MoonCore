@@ -5,7 +5,7 @@
 
 namespace MC::Memory
 {
-    class FreeListAllocator
+    class COREAPI FreeListAllocator
     {
     public:
         using SizeType = usize;
