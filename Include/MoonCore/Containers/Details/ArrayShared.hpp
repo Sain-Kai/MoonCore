@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.hpp"
-#include "Utility/Iterator.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Utility/Iterator.hpp"
 
 /**
  * @file ArrayShared.hpp

@@ -1,7 +1,7 @@
 #pragma once
-#include "BinaryHeap.hpp"
-#include "Deque.hpp"
-#include "Callables/Functors.hpp"
+#include "MoonCore/Containers/BinaryHeap.hpp"
+#include "MoonCore/Containers/Deque.hpp"
+#include "MoonCore/Callables/Functors.hpp"
 
 /**
  * @file Queue.hpp

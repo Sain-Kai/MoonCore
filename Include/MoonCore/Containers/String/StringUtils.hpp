@@ -1,8 +1,8 @@
 #pragma once
-#include "Core.hpp"
-#include "String.hpp"
-#include "StringView.hpp"
-#include "Utility/Pair.hpp"
+#include "MoonCore/Core.hpp"
+#include "MoonCore/Containers/String/String.hpp"
+#include "MoonCore/Containers/String/StringView.hpp"
+#include "MoonCore/Utility/Pair.hpp"
 
 /**
  * @file StringUtils.hpp

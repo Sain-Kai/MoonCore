@@ -1,6 +1,6 @@
 #pragma once
-#include "Utility/Debug.hpp"
-#include "Utility/Iterator.hpp"
+#include "MoonCore/Utility/Debug.hpp"
+#include "MoonCore/Utility/Iterator.hpp"
 
 /**
  * @file StringIterators.hpp

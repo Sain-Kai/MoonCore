@@ -1,8 +1,8 @@
 #pragma once
-#include "Memory/Memory.hpp"
-#include "Memory/Allocators/Heap/HeapAllocator.hpp"
-#include "Utility/Debug.hpp"
-#include "Utility/Iterator.hpp"
+#include "MoonCore/Memory/Memory.hpp"
+#include "MoonCore/Memory/Allocators/Heap/HeapAllocator.hpp"
+#include "MoonCore/Utility/Debug.hpp"
+#include "MoonCore/Utility/Iterator.hpp"
 
 /**
  * @file Deque.hpp

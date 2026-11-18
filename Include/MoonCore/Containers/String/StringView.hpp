@@ -1,6 +1,6 @@
 #pragma once
-#include "Containers/String/StringShared.hpp"
-#include "Containers/Bitset.hpp"
+#include "MoonCore/Containers/String/StringShared.hpp"
+#include "MoonCore/Containers/Bitset.hpp"
 
 /**
  * @file StringView.hpp

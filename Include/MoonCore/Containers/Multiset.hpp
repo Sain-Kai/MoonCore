@@ -1,11 +1,5 @@
 #pragma once
-#include "Details/TreeShared.hpp"
-
-/**
- * @file Multiset.hpp
- * @brief Ordered associative container storing sorted keys, permitting duplicate keys.
- * @ingroup assoc_containers
- */
+#include "MoonCore/Containers/Details/TreeShared.hpp"
 
 namespace MC
 {
